@@ -1,0 +1,25 @@
+{
+	"name": "Bluegg/website-documentation",
+	"description": "Creates two links within admin for Styleguide and CMS Guide",
+	"version": "1.0.0",
+	"type": "craft-plugin",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Bluegg",
+			"homepage": "https://bluegg.co.uk"
+		}
+	],
+	"require": {
+		"craftcms/cms": "^3.1.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"bluegg\\documentation\\": "src/"
+		}
+	},
+	"extra": {
+		"name": "Website Documentation",
+		"handle": "documentation"
+	}
+}
