@@ -1,5 +1,5 @@
 {
-	"name": "Bluegg/website-documentation",
+	"name": "Bluegg/websitedocumentation",
 	"description": "Creates two links within admin for Styleguide and CMS Guide",
 	"version": "1.0.0",
 	"type": "craft-plugin",
