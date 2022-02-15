@@ -11,11 +11,6 @@ use craft\base\Widget;
 class DocumentationWidget extends Widget
 {
 
-	/**
-     * @var string The message to display
-     */
-    public $message = 'Hello, world.';
-
 	 /**
      * Returns the display name of this class.
      *
