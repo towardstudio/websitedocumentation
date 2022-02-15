@@ -1,6 +1,6 @@
 <?php
+namespace bluegg\websitedocumentation\variables;
 
-namespace bluegg\websitedocumentation;
 use bluegg\websitedocumentation\WebsiteDocumentation;
 
 class DocsVariables
