@@ -1,25 +1,31 @@
 {
-  "name": "bluegg/website-documentation",
-  "description": "Creates two links within admin for Styleguide and CMS Guide",
-  "version": "1.0.0",
-  "type": "craft-plugin",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Bluegg",
-      "homepage": "https://bluegg.co.uk"
+    "name": "bluegg/websitedocumentation",
+    "description": "Creates two links within admin for Styleguide and CMS Guide",
+    "type": "craft-plugin",
+    "version": "1.2.0",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bluegg",
+            "homepage": "https://bluegg.co.uk"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0",
+		"craftcms/redactor": "^2.9.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "bluegg\\websitedocumentation\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Website Documentation",
+        "handle": "websitedocumentation",
+        "developer": "Bluegg",
+        "developerUrl": "https://bluegg.co.uk",
+        "documentationUrl": "https://github.com/websitedocumentation/websitedocumentation/blob/master/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/websitedocumentation/websitedocumentation/master/CHANGELOG.md",
+        "class": "bluegg\\websitedocumentation\\WebsiteDocumentation"
     }
-  ],
-  "require": {
-    "craftcms/cms": "^3.1.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "bluegg\\documentation\\": "src/"
-    }
-  },
-  "extra": {
-    "name": "Website Documentation",
-    "handle": "documentation"
-  }
 }

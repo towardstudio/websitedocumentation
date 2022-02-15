@@ -1,34 +1,40 @@
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/Bluegg/craft-template">
-    <img src="https://bluegg.co.uk/images/logo.svg" alt="The Project's Logo" width="160" style="background: white; padding: 1rem; border-radius: 1rem;">
-  </a>
+# Website Documentation plugin for Craft CMS 3.x
 
-  <h3 align="center">Website Documentation Plugin</h3>
-  <br />
-</div>
+Creates two links within admin for Styleguide and CMS Guide
 
-<!-- GETTING STARTED -->
-
-## What does this plugin do?
-
-This plugin will add links to the CMS Guide & Styleguide into the Admin Control Panel
+![Screenshot](resources/img/plugin-logo.png)
 
 ## Requirements
 
-### To Install
+This plugin requires Craft CMS 3.0.0-beta.23 or later.
 
-```sh
-composer require Bluegg/websitedocumentation
+## Installation
+
+To install the plugin, follow these instructions.
+
+1. Open your terminal and go to your Craft project:
+
+```
+cd /path/to/project/craft
+```
+2. Then tell Composer to load the plugin:
+
+```
+composer require bluegg/website-documentation
 ```
 
-<!-- BLUEGG LOGO -->
+3. You need to tell composer to look in Github
 
-<br />
+```
+"repositories": [
+	{
+		"type": "vcs",
+		"url": "https://github.com/Bluegg/website-documentation"
+	}
+]
+```
 
-<p align="center">
-  <a href="https://bluegg.co.uk" target="_blank">
-    <img src="https://bluegg.co.uk/apple-touch-icon.png" alt="Logo" width="40" height="40" style="border-radius: 0.5rem;">
-  </a>
-</p>
+4. In the Control Panel, go to Settings → Plugins and click the “Install” button for Website Documentation.
+
+
+Brought to you by [Bluegg](https://bluegg.co.uk)
