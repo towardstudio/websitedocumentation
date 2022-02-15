@@ -24,4 +24,6 @@ composer require bluegg/website-documentation
 3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Website Documentation.
 
 
+[Bluegg Disclaimer](https://github.com/Bluegg/bluegg-open-source-disclaimer)
+
 Brought to you by [Bluegg](https://bluegg.co.uk)
