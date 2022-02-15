@@ -4,7 +4,7 @@
 
 <p>There are also various other actions that you can use in the Assets section. If you check the box next to a specific asset and then click the ‘cog’ menu above the list, you will see a list of actions you can apply to that asset (see below).</p>
 
-{% set assetsDropdown = craft.assets().filename('assets-dropdown.png').one() | default() %}
+{% set assetsDropdown = craft.assets().filename('assets-dropdown.jpg').one() | default() %}
 {% if assetsDropdown is not empty %}
 	<img src="{{ assetsDropdown.url }}" alt="Assets Dropdown" />
 {% endif %}
