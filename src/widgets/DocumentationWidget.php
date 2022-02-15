@@ -11,6 +11,11 @@ use craft\base\Widget;
 class DocumentationWidget extends Widget
 {
 
+	/**
+     * @var string The message to display
+     */
+    public $message = 'Hello, world.';
+
 	 /**
      * Returns the display name of this class.
      *
@@ -48,32 +53,6 @@ class DocumentationWidget extends Widget
     public static function maxColspan()
     {
         return null;
-    }
-
-	// Public Methods
-    // =========================================================================
-
-    /**
-     * Returns the validation rules for attributes.
-     *
-     * Validation rules are used by [[validate()]] to check if attribute values are valid.
-     * Child classes may override this method to declare different validation rules.
-     *
-     * More info: http://www.yiiframework.com/doc-2.0/guide-input-validation.html
-     *
-     * @return array
-     */
-    public function rules()
-    {
-        $rules = parent::rules();
-        $rules = array_merge(
-            $rules,
-            [
-                ['message', 'string'],
-                ['message', 'default', 'value' => 'Hello, world.'],
-            ]
-        );
-        return $rules;
     }
 
 	public function getBodyHtml()
