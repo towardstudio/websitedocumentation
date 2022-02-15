@@ -9,28 +9,36 @@
 		name="action"
 		value="websitedocumentation/settings/save-structure-settings" />
 
-	{% namespace 'settings' %}
-	{{
-		forms.textField({
-			label: 'Structure name',
-			instructions: 'This will be the name of the structure you want to create to house the CMS Guide pages',
-			id: 'structure',
-			name: 'structure',
-			value: settings.structure ?? null
-		})
-	}}
-	{% endnamespace %}
+	{# Check if Document Plugin is installed #}
+	{% set redactor =
+		craft.app.plugins.getPlugin('redactor', false)
+	%}
+	{% if redactor is not empty %}
+		{% namespace 'settings' %}
+		{{
+			forms.textField({
+				label: 'Structure name',
+				instructions: 'This will be the name of the structure you want to create to house the CMS Guide pages',
+				id: 'structure',
+				name: 'structure',
+				value: settings.structure ?? null
+			})
+		}}
+		{% endnamespace %}
 
-	{% if settings.structure %}
-		<p>
-			<strong>Default Entries</strong><br />
-			Now your structure has been created, you can choose whether or not to add some
-			default entries.
-		</p>
+		{% if settings.structure %}
+			<p>
+				<strong>Default Entries</strong><br />
+				Now your structure has been created, you can choose whether or not to add some
+				default entries.
+			</p>
 
-		<a class="btn submit"
-			href="/index.php?p=admin/actions/websitedocumentation/settings/save-default-entries">
-			Add Default Entries
-		</a>
+			<a class="btn submit"
+				href="/index.php?p=admin/actions/websitedocumentation/settings/save-default-entries">
+				Add Default Entries
+			</a>
+		{% endif %}
+	{% else %}
+		<p>Please make sure the redactor plugin is installed & enabled before using this plugin.</p>
 	{% endif %}
 {% endblock %}
