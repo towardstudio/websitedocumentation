@@ -19,37 +19,29 @@ class DefaultEntries
 					"Users",
 				],
 			],
-			// [
-			// 	"title" => "Adding/Editing Entries",
-			// ],
-			// [
-			// 	"title" => "Navigation",
-			// ],
-			// [
-			// 	"title" => "Retour",
-			// ],
-			// [
-			// 	"title" => "SEOMatic",
-			// ],
-			// [
-			// 	"title" => "Field Types",
-			// 	"children" => [
-			// 		"Assets Field",
-			// 		"Entry Picker Field",
-			// 		"Matrix Field",
-			// 		"Rich Content Field",
-			// 	],
-			// ],
-			// [
-			// 	"title" => "Entry Sections",
-			// 	"children" => [
-			// 		"Common Fields",
-			// 		"Singles",
-			// 		"Pages Structure",
-			// 		"CTA Structure",
-			// 		"Team Member Structure",
-			// 	],
-			// ],
+			[
+				"title" => "Adding/Editing Entries",
+			],
+			[
+				"title" => "Navigation",
+			],
+			[
+				"title" => "Retour",
+			],
+			[
+				"title" => "SEOMatic",
+			],
+			[
+				"title" => "Field Types",
+				"children" => [
+					"Assets Field",
+					"Entry Picker Field",
+					"Matrix Field",
+				],
+			],
+			[
+				"title" => "Entry Sections",
+			],
 		];
 
 		return $defaultEntries;

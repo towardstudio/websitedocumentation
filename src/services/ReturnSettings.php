@@ -18,12 +18,14 @@ class ReturnSettings extends Component
 
 	public function formatContent($content)
 	{
+		// Format Tab Buttons to work with JS
 		$newContent = preg_replace_callback('/<p .*?class="tab-button">(.*?)<\/p>/',
-       		function ($name) {
+			function ($name) {
 				$tab = strtolower(preg_replace('/\s+/', '-', $name[1]));
-         		return '<button class="tab mb-4 block underline" role="tab" data-tab-inner="guide" data-tab="'. $tab .'" data-hash="'. $tab .'">'. $name[1] .'</button>';
-       		},
-       		$content);
+				return '<button class="tab mb-4 block underline" role="tab" data-tab-inner="guide" data-tab="'. $tab .'" data-hash="'. $tab .'">'. $name[1] .'</button>';
+			},
+			$content
+		);
 
 		return $newContent;
 
