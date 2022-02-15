@@ -21,18 +21,7 @@ cd /path/to/project/craft
 composer require bluegg/website-documentation
 ```
 
-3. You need to tell composer to look in Github
-
-```
-"repositories": [
-	{
-		"type": "vcs",
-		"url": "https://github.com/Bluegg/website-documentation"
-	}
-]
-```
-
-4. In the Control Panel, go to Settings → Plugins and click the “Install” button for Website Documentation.
+3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Website Documentation.
 
 
 Brought to you by [Bluegg](https://bluegg.co.uk)
