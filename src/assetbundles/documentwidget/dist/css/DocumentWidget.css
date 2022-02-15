@@ -1,0 +1,41 @@
+.widget.bluegg\\websitedocumentation\\widgets\\documentationwidget .front .pane {
+	padding: 0;
+	overflow: hidden;
+}
+
+.widget.bluegg\\websitedocumentation\\widgets\\documentationwidget .front .pane h2 {
+	margin: 0;
+	font-weight: normal;
+	color: #000;
+	text-decoration: none;
+}
+
+.widget.bluegg\\websitedocumentation\\widgets\\documentationwidget .front .pane .cs-screen .cs-opt {
+	display: block;
+	padding: 24px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.widget.bluegg\\websitedocumentation\\widgets\\documentationwidget .front .pane .cs-screen .cs-opt:hover {
+	background: #f3f7fc;
+}
+
+.widget.bluegg\\websitedocumentation\\widgets\\documentationwidget .front .pane .cs-screen .cs-opt:first-child {
+	border-radius: 4px 4px 0 0;
+}
+
+.widget.bluegg\\websitedocumentation\\widgets\\documentationwidget .front .pane .cs-screen .cs-opt:not(first-child) {
+	border-top: 1px solid #f3f7fc;
+}
+
+.widget.bluegg\\websitedocumentation\\widgets\\documentationwidget .front .pane .cs-screen .cs-opt-icon svg {
+	display: block;
+	margin: 0 auto 14px;
+	width: 50px;
+	height: 50px;
+}
+
+.widget.bluegg\\websitedocumentation\\widgets\\documentationwidget .front .pane .cs-screen .cs-opt-icon svg path {
+	fill: #cdd8e4;
+}
