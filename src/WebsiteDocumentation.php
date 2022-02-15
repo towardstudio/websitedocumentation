@@ -7,18 +7,21 @@ use craft\services\Plugins;
 use craft\events\RegisterUrlRulesEvent;
 use craft\events\PluginEvent;
 use craft\events\RegisterTemplateRootsEvent;
+use craft\events\RegisterComponentTypesEvent;
 use craft\helpers\UrlHelper;
 use craft\web\UrlManager;
 use craft\web\View;
 use craft\web\twig\variables\CraftVariable;
 
 use craft\services\Elements;
+use craft\services\Dashboard;
 use craft\events\ElementEvent;
 use craft\elements\Entry;
 
 use bluegg\websitedocumentation\models\Settings;
 use bluegg\websitedocumentation\assetbundles\DocumentationAsset;
 use bluegg\websitedocumentation\services\ReturnSettings;
+use bluegg\websitedocumentation\widgets\DocumentationWidget;
 
 use yii\base\Event;
 
@@ -78,6 +81,15 @@ class WebsiteDocumentation extends Plugin
 				}
 			}
 		);
+
+		// Register our widgets
+        Event::on(
+            Dashboard::class,
+            Dashboard::EVENT_REGISTER_WIDGET_TYPES,
+            function (RegisterComponentTypesEvent $event) {
+                $event->types[] = DocumentationWidget::class;
+            }
+        );
 
 		# prettier-ignore
 		Event::on(
