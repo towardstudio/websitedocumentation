@@ -24,8 +24,8 @@
         "handle": "websitedocumentation",
         "developer": "Bluegg",
         "developerUrl": "https://bluegg.co.uk",
-        "documentationUrl": "https://github.com/websitedocumentation/websitedocumentation/blob/master/README.md",
-        "changelogUrl": "https://raw.githubusercontent.com/websitedocumentation/websitedocumentation/master/CHANGELOG.md",
+        "documentationUrl": "https://github.com/bluegg/websitedocumentation/blob/main/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/bluegg/websitedocumentation/main/CHANGELOG.md",
         "class": "bluegg\\websitedocumentation\\WebsiteDocumentation"
     }
 }
