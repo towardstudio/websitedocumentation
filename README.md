@@ -18,7 +18,7 @@ cd /path/to/project/craft
 2. Then tell Composer to load the plugin:
 
 ```
-composer require bluegg/website-documentation
+composer require bluegg/websitedocumentation
 ```
 
 3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Website Documentation.
