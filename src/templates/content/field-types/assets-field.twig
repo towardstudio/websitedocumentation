@@ -2,10 +2,16 @@
 
 <p>Once you’ve chosen the relevant asset, click the red <strong>Select</strong> button at the bottom right of the popup window (see screenshot below).</p>
 
-<img src="/cms-assets/websiteGuideImages/assets-dashboard.png" alt="Assets Dashboard">
+{% set assetsDashboard = craft.assets().filename('assets-dashboard.png').one() | default() %}
+{% if assetsDashboard is not empty %}
+	<img src="{{ assetsDashboard.url }}" alt="Assets Dashboard" />
+{% endif %}
 
 <p>A thumbnail image of the selected asset will now appear in place of the button in the Assets field. To choose a different asset, click the grey ‘cross’ icon next to the thumbnail and repeat the process.</p>
 
-<img src="/cms-assets/websiteGuideImages/assets-field.png" alt="Assets Field">
+{% set assetsField = craft.assets().filename('assets-field.png').one() | default() %}
+{% if assetsField is not empty %}
+	<img src="{{ assetsField.url }}" alt="Assets Field" />
+{% endif %}
 
 <p>When you upload an image, the website will automatically create a variety of images of different sizes from this original image. The correct size image is then displayed on the website depending on the screen size of the device. This keeps the website loading times down and ensures that the end user isn’t downloading more data than they actually need.</p>

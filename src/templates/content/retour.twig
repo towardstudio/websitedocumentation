@@ -1,33 +1,57 @@
-<p>Retour is where you can manage your Redirects. It is set up to automatically create a redirect when you change the slug of a page. We have also created redirects for pages on your old site.</p>
+<p>
+	Retour is where you can manage your Redirects. It is set up to automatically
+	create a redirect when you change the slug of a page. We have also created
+	redirects for pages on your old site.
+</p>
 
-<p>If you’d like to manually create a new redirect you can go to <strong>Retour > Redirects > New Static Redirect</strong> and add one here. </p>
+<p>
+	If you’d like to manually create a new redirect you can go to <strong>
+		Retour > Redirects > New Static Redirect
+	</strong> and add one here.
+</p>
 
-<img src="/cms-assets/websiteGuideImages/retour-redirect.png" alt="Retour Redirect" />
+{% set retourImage = craft.assets().filename('retour-redirect.png').one() | default() %}
+{% if retourImage is not empty %}
+	<img src="{{ retourImage.url }}" alt="Retour Redirect" />
+{% endif %}
 
-<h3 class="my-6">Options</h3>
+<h3 class="my-6">
+	Options
+</h3>
 
 <ul>
 	<li>
-		<strong>Enabled</strong> - You can choose to disable a redirect if it’s no longer needed from here.
+		<strong>Enabled</strong> - You can choose to disable a redirect if it’s no longer
+		needed from here.
 	</li>
 	<li>
-		<strong>Sites</strong> - This will always be All Sites, as you only have one site on the Craft CMS.
+		<strong>Sites</strong> - This will always be All Sites, as you only have one
+		site on the Craft CMS.
 	</li>
 	<li>
-		<strong>Legacy URL Pattern</strong> - This will be the Url you want to create a redirect from.
+		<strong>Legacy URL Pattern</strong> - This will be the Url you want to create
+		a redirect from.
 	</li>
 	<li>
-		<strong>Legacy Url Match Type</strong> - You can choose whether to redirect from a path or a full Url (includes the domain name).
+		<strong>Legacy Url Match Type</strong> - You can choose whether to redirect from
+		a path or a full Url (includes the domain name).
 	</li>
 	<li>
-		<strong>Destination Url</strong> - This will be the Url you want to redirect to.
+		<strong>Destination Url</strong> - This will be the Url you want to redirect
+		to.
 	</li>
 	<li>
-		<strong>Match Type</strong> - You can choose whether the urls above use Regex, or they are an exact match. Mainly you will be using the Exact Match as Regex won’t be needed.
+		<strong>Match Type</strong> - You can choose whether the urls above use Regex,
+		or they are an exact match. Mainly you will be using the Exact Match as Regex
+		won’t be needed.
 	</li>
 	<li>
-		<strong>Redirect Type</strong> - You can choose a permanent redirect (301) or a temporary redirect (302).
+		<strong>Redirect Type</strong> - You can choose a permanent redirect (301) or
+		a temporary redirect (302).
 	</li>
 </ul>
 
-<p>Incorrectly configured redirects can cause issues and may even stop people being able to access the website. If in doubt please contact us.</p>
+<p>
+	Incorrectly configured redirects can cause issues and may even stop people
+	being able to access the website. If in doubt please contact us.
+</p>

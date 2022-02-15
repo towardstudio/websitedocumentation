@@ -18,7 +18,10 @@
 	<li>Image Caption (plain text field, add a caption to display underneath the image)</li>
 </ul>
 
-<img src="/cms-assets/websiteGuideImages/image-block.png" alt="Image Block">
+{% set imageBlock = craft.assets().filename('image-block.png').one() | default() %}
+{% if imageBlock is not empty %}
+	<img src="{{ imageBlock.url }}" alt="Image Block" />
+{% endif %}
 
 <p>Further blocks can be added by clicking the relevant content type buttons. In this way, the user builds up a set of content for the entry organised into convenient chunks, which already have the correct styles defined for them.
 </p>
