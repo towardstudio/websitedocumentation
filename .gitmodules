@@ -1,0 +1,3 @@
+[submodule "disclaimer"]
+	path = disclaimer
+	url = git@github.com:Bluegg/bluegg-open-source-disclaimer.git
