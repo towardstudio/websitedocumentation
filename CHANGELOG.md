@@ -10,3 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## 1.2.0 - 2022-02-15
 - Adding CMS Section to Create Structure & Default Entries
+
+
+## 1.3.0 - 2022-02-16
+- Added Widget for the Dashboard
