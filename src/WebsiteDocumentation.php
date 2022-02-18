@@ -121,7 +121,7 @@ class WebsiteDocumentation extends Plugin
         $url = Craft::$app->sites->currentSite->baseUrl;
 
         // Get the documentation url
-        $docUrl = getenv("DOCS_URL") ? getenv("DOCS_URL") : "website-docs";
+        $docUrl = isset(Craft::$app->config->general->documentationUrl) ? Craft::$app->config->general->documentationUrl : "website-docs";
 
         // Set additional information on the nav item
         $item = parent::getCpNavItem();

@@ -21,3 +21,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## 1.3.1 - 2022-02-17
 
 - Hide Settings based on general config
+
+## 1.3.2 - 2022-02-18
+
+- Make sure plugin still runs if general config doesn't exist

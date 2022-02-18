@@ -1,31 +1,34 @@
-{% extends'_layouts/cp' %}
+{% extends '_layouts/cp' %}
 
 {% set title = 'Website Documentation' %}
 
 {% set siteUrl = craft.app.sites.primarySite.baseUrl %}
-{% set docUrl = craft.app.config.general.documentationUrl ? craft.app.config.general.documentationUrl : 'website-docs' %}
+{% set docUrl = craft.app.config.general.__isset('documentationUrl')
+  ? craft.app.config.general.documentationUrl
+  : 'website-docs'
+%}
 
 {% set blocks = {
-    styleguide: {
-		label: 'Styleguide',
-		url: craft.app.sites.primarySite.baseUrl ~ docUrl ~ '/styleguide',
-		icon: 'photo',
-	},
-    guide: {
-		label: 'CMS Guide',
-		url: craft.app.sites.primarySite.baseUrl ~ docUrl ~ '/guide',
-		icon: 'book',
-	},
+  styleguide: {
+    label: 'Styleguide',
+    url: craft.app.sites.primarySite.baseUrl ~ docUrl ~ '/styleguide',
+    icon: 'photo'
+  },
+  guide: {
+    label: 'CMS Guide',
+    url: craft.app.sites.primarySite.baseUrl ~ docUrl ~ '/guide',
+    icon: 'book'
+  }
 } %}
 
 {% block content %}
-	<ul class="icons">
-		{% for block in blocks %}
-			<li>
-				<a href="{{ block.url }}" target="_blank" data-icon="{{ block.icon }}">
-					{{ block.label }}
-				</a>
-			</li>
-		{% endfor %}
-	</ul>
+  <ul class="icons">
+    {% for block in blocks %}
+      <li>
+        <a href="{{ block.url }}" target="_blank" data-icon="{{ block.icon }}">
+          {{ block.label }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
 {% endblock %}

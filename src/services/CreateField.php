@@ -67,8 +67,6 @@ class CreateField extends Component
 			"toolbarFixed" => true,
 		];
 
-		Craft::info($volume->uid, "CharlieChecker");
-
 		// Create a new redactor field
 		$field = $fieldsService->createField([
 			"type" => Redactor::class,
