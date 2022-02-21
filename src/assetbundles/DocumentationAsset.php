@@ -12,10 +12,10 @@ class DocumentationAsset extends AssetBundle
 
     public function init()
     {
-        $this->sourcePath = "@bluegg/websitedocumentation/resources/";
+        $this->sourcePath = "@bluegg/websitedocumentation/assetbundles/dist";
 
-		$this->depends = [
-            CpAsset::class,
+		$this->js = [
+            'js/DocumentationAsset.min.js',
         ];
 
         parent::init();

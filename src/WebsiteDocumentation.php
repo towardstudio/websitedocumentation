@@ -106,6 +106,13 @@ class WebsiteDocumentation extends Plugin
 			}
 		);
 
+        // If we're on the guide page, we need to load the JS
+        if (Craft::$app->request->getSegment(-1) === "guide") {
+            Craft::$app
+                ->getView()
+                ->registerAssetBundle(DocumentationAsset::class);
+        }
+
         Craft::info(
             Craft::t("websitedocumentation", "{name} plugin loaded", [
                 "name" => $this->name,
@@ -121,7 +128,9 @@ class WebsiteDocumentation extends Plugin
         $url = Craft::$app->sites->currentSite->baseUrl;
 
         // Get the documentation url
-        $docUrl = isset(Craft::$app->config->general->documentationUrl) ? Craft::$app->config->general->documentationUrl : "website-docs";
+        $docUrl = isset(Craft::$app->config->general->documentationUrl)
+            ? Craft::$app->config->general->documentationUrl
+            : "website-docs";
 
         // Set additional information on the nav item
         $item = parent::getCpNavItem();
