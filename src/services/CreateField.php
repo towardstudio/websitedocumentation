@@ -50,7 +50,6 @@ class CreateField extends Component
 					"api" => "module.block.format",
 					"args" => [
 						"tag" => "h3",
-						"class" => "my-6",
 					],
 				],
 				"tab-button" => [
