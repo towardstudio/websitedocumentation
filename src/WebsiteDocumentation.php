@@ -107,7 +107,10 @@ class WebsiteDocumentation extends Plugin
 		);
 
         // If we're on the guide page, we need to load the JS
-        if (Craft::$app->request->getSegment(-1) === "guide") {
+        $urlSplit = explode('/', Craft::$app->request->absoluteUrl);
+
+		if (end($urlSplit) === 'guide')
+        {
             Craft::$app
                 ->getView()
                 ->registerAssetBundle(DocumentationAsset::class);
