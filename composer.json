@@ -2,7 +2,7 @@
   "name": "bluegg/websitedocumentation",
   "description": "Craft Plugin: Creates two links within admin for Styleguide and CMS Guide",
   "type": "craft-plugin",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "license": "MIT",
   "authors": [
     {
