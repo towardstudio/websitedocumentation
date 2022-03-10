@@ -40,7 +40,7 @@ class DocumentationWidget extends Widget
      * @return string|null The path to the widget’s SVG icon
      */
 
-	public static function icon()
+	public static function icon(): string
     {
         return Craft::getAlias('@appicons/book.svg');
     }
@@ -48,14 +48,14 @@ class DocumentationWidget extends Widget
 	/**
      * Returns the widget’s maximum colspan.
      *
-     * @return int|null The widget’s maximum colspan, if it has one
+     * @return int The widget’s maximum colspan
      */
-    public static function maxColspan()
+    public static function maxColspan(): int
     {
-        return null;
+        return 3;
     }
 
-	public function getBodyHtml()
+	public function getBodyHtml(): string
     {
 
 		Craft::$app->getView()->registerAssetBundle(DocumentWidgetAsset::class);

@@ -96,7 +96,7 @@ class CreateEntries extends Component
 						$childEntry->title = $child;
 
 						// Set the parent to the original item ID
-						$childEntry->newParentId = $entry->id;
+						$childEntry->parentId = $entry->id;
 
 						// Check to see if any default content exists for this page
 						if (

@@ -22,17 +22,12 @@ use yii\base\InvalidConfigException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
-/**
- * @author    nystudio107
- * @package   Retour
- * @since     3.0.0
- */
 class SettingsController extends Controller
 {
 	// Protected Properties
 	// =========================================================================
 
-	protected $allowAnonymous = [];
+	protected array|bool|int $allowAnonymous = [];
 
 	// Public Methods
 	// =========================================================================
@@ -79,7 +74,7 @@ class SettingsController extends Controller
 	 * @throws \craft\errors\MissingComponentException
 	 * @throws \yii\web\ForbiddenHttpException
 	 */
-	public function actionSaveStructureSettings()
+	public function actionSaveStructureSettings(): Response
 	{
 		$this->requirePostRequest();
 		$settings = Craft::$app->getRequest()->getBodyParam("settings");
@@ -106,18 +101,18 @@ class SettingsController extends Controller
 			StringHelper::toCamelCase($settings["structure"])
 		);
 
-		if ($sectionRequired != null) {
-			Craft::$app
-				->getSession()
-				->setError(
-					Craft::t(
-						"app",
-						"A section with this name already exists. Please add a unique name."
-					)
-				);
-
-			return $this->redirectToPostedUrl();
-		}
+// 		if ($sectionRequired != null) {
+// 			Craft::$app
+// 				->getSession()
+// 				->setError(
+// 					Craft::t(
+// 						"app",
+// 						"A section with this name already exists. Please add a unique name."
+// 					)
+// 				);
+//
+// 			return $this->redirectToPostedUrl();
+// 		}
 
 		// Check that the plugin can save the new setting
 		if (
@@ -210,7 +205,7 @@ class SettingsController extends Controller
 		return $this->redirectToPostedUrl();
 	}
 
-	public function actionSaveDefaultEntries()
+	public function actionSaveDefaultEntries(): Response
 	{
 		$settings = WebsiteDocumentation::$settings;
 		$structureHandle = StringHelper::toCamelCase($settings["structure"]);

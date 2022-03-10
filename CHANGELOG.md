@@ -25,3 +25,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## 1.3.2 - 2022-02-18
 
 - Make sure plugin still runs if general config doesn't exist
+
+
+## 2.0.0-beta - 2022-03-10
+
+- Initial Code update to work for Craft 4.

@@ -31,7 +31,9 @@ class UpdateEntryType extends Component
 		$tabSortOrder = 0;
 
         // Create a new default layout tab
-		$tab = $tabs[] = new FieldLayoutTab();
+		$tab = $tabs[] = new FieldLayoutTab([
+			'layout' => $layout,
+		]);
 		$tab->name = "Content";
 		$tab->sortOrder = 1;
 		$tab->elements = [];
@@ -42,14 +44,12 @@ class UpdateEntryType extends Component
 		]);
 
 		$elementConfig = Json::decode($elementConfigs);
-        
-        // Add the config to the layout
-		$layoutElement = Craft::$app->fields->createLayoutElement(
-			$elementConfig
-		);
 
-		$tab->elements[] = $layoutElement;
-        
+		$fieldsService = Craft::$app->getFields();
+		$layoutElement = $fieldsService->createLayoutElement($elementConfig);
+
+		$tab->setElements([$layoutElement]);
+
         // Add the field to the layout
 		$fieldUid = $layoutElement->getFieldUid();
 		$field = Craft::$app->fields->getFieldByUid($fieldUid);
@@ -61,7 +61,6 @@ class UpdateEntryType extends Component
 		$fields[] = $field;
 
 		$layout->setTabs($tabs);
-		$layout->setFields($fields);
 		$entryType->setFieldLayout($layout);
 
         // Save the entry type

@@ -3,6 +3,7 @@ namespace bluegg\websitedocumentation;
 
 use Craft;
 use craft\base\Plugin;
+use craft\base\Model;
 use craft\services\Plugins;
 use craft\events\RegisterUrlRulesEvent;
 use craft\events\PluginEvent;
@@ -33,11 +34,11 @@ use yii\base\Event;
  */
 class WebsiteDocumentation extends Plugin
 {
-    public static $plugin;
+    public static ?WebsiteDocumentation $plugin;
 
-    public $hasCpSection = true;
-    public $hasCpSettings = true;
-    public static $settings;
+    public bool $hasCpSection = true;
+    public bool $hasCpSettings = true;
+    public static ?Settings $settings;
 
     // Public Methods
     // =========================================================================
@@ -105,7 +106,7 @@ class WebsiteDocumentation extends Plugin
 				);
 			}
 		);
-        
+
         $request = Craft::$app->getRequest();
 
 		if (!$request->getIsConsoleRequest() && $request->getSegment(-1) === 'guide')
@@ -122,7 +123,7 @@ class WebsiteDocumentation extends Plugin
     }
 
     // Rename the Control Panel Item & Add Sub Menu
-    public function getCpNavItem()
+    public function getCpNavItem(): ?array
     {
         // Get the site Url
         $url = Craft::$app->sites->currentSite->baseUrl;
@@ -185,18 +186,17 @@ class WebsiteDocumentation extends Plugin
     /**
      * @inheritdoc
      */
-    protected function createSettingsModel()
+    protected function createSettingsModel(): ?Model
     {
         return new Settings();
     }
 
-    public function getSettingsResponse()
+	public function getSettingsResponse(): mixed
     {
         // Just redirect to the plugin settings page
-        Craft::$app
-            ->getResponse()
-            ->redirect(UrlHelper::cpUrl("websitedocumentation/settings"));
+        return Craft::$app->getResponse()->redirect(UrlHelper::cpUrl('websitedocumentation/settings'));
     }
+
 
     // Private Methods
     // =========================================================================
