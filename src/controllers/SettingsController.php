@@ -101,18 +101,18 @@ class SettingsController extends Controller
 			StringHelper::toCamelCase($settings["structure"])
 		);
 
-// 		if ($sectionRequired != null) {
-// 			Craft::$app
-// 				->getSession()
-// 				->setError(
-// 					Craft::t(
-// 						"app",
-// 						"A section with this name already exists. Please add a unique name."
-// 					)
-// 				);
-//
-// 			return $this->redirectToPostedUrl();
-// 		}
+		if ($sectionRequired != null) {
+			Craft::$app
+				->getSession()
+				->setError(
+					Craft::t(
+						"app",
+						"A section with this name already exists. Please add a unique name."
+					)
+				);
+
+			return $this->redirectToPostedUrl();
+		}
 
 		// Check that the plugin can save the new setting
 		if (
