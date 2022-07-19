@@ -8,25 +8,30 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Added
 
-- Initial release
+-   Initial release
 
 ## 1.2.0 - 2022-02-15
 
-- Adding CMS Section to Create Structure & Default Entries
+-   Adding CMS Section to Create Structure & Default Entries
 
 ## 1.3.0 - 2022-02-16
 
-- Added Widget for the Dashboard
+-   Added Widget for the Dashboard
 
 ## 1.3.1 - 2022-02-17
 
-- Hide Settings based on general config
+-   Hide Settings based on general config
 
 ## 1.3.2 - 2022-02-18
 
-- Make sure plugin still runs if general config doesn't exist
-
+-   Make sure plugin still runs if general config doesn't exist
 
 ## 2.0.0-beta - 2022-03-10
 
-- Initial Code update to work for Craft 4.
+-   Initial Code update to work for Craft 4.
+
+## 2.0.1 - 2022-07-19
+
+-   New Settings UI
+-   Updated Design for Styleguide and CMS Guide
+-   Download Templates
