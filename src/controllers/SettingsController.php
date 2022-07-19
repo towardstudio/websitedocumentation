@@ -9,8 +9,6 @@ use bluegg\websitedocumentation\services\CreateStructure;
 use bluegg\websitedocumentation\services\UpdateEntryType;
 use bluegg\websitedocumentation\services\CreateEntries;
 
-use bluegg\websitedocumentation\exceptions\DataException;
-
 use Craft;
 use craft\helpers\UrlHelper;
 use craft\web\Controller;
@@ -46,24 +44,52 @@ class SettingsController extends Controller
 			$settings = WebsiteDocumentation::$settings;
 		}
 
-		$variables = [];
-
-		/** @var Settings $settings */
-		$templateTitle = Craft::t("websitedocumentation", "Settings");
-
-		$view = Craft::$app->getView();
+		$section = Craft::$app->request->getSegment(3);
 
 		// Basic variables
 		$variables["fullPageForm"] = true;
 		$variables["selectedSubnavItem"] = "settings";
 		$variables["settings"] = $settings;
 
-		// Render the template
-		return $this->renderTemplate(
-			"websitedocumentation/settings",
-			$variables
-		);
+		// Logo
+		$logo = null;
+    	if ($settings->logo) {
+        	foreach ($settings->logo as $item) {
+            	$logo = Craft::$app->elements->getElementById($item);
+        	}
+    	}
+		$variables["logo"] = $logo;
+
+        return $this->renderTemplate(
+            'websitedocumentation/settings/'.($section ? (string) $section : ''),
+            $variables
+        );
 	}
+
+
+	/**
+	 * Save General Settings
+	 *
+	 * @return Response The rendered result
+	 * @throws \yii\web\ForbiddenHttpException
+	 */
+	public function actionSaveGeneralSettings()
+	{
+		$this->requirePostRequest();
+		$updates = Craft::$app->getRequest()->getBodyParams();
+		$plugin = Craft::$app->getPlugins()->getPlugin("websitedocumentation");
+
+		if (
+			!Craft::$app->getPlugins()->savePluginSettings($plugin, $updates)
+		) {
+			Craft::$app
+				->getSession()
+				->setError(Craft::t("app", "Couldn't save plugin settings."));
+
+			return $this->redirectToPostedUrl();
+		}
+	}
+
 
 	/**
 	 * Save and Create a New Structure.
@@ -79,6 +105,7 @@ class SettingsController extends Controller
 		$this->requirePostRequest();
 		$settings = Craft::$app->getRequest()->getBodyParam("settings");
 		$plugin = Craft::$app->getPlugins()->getPlugin("websitedocumentation");
+		$guideUrl = $this->redirect("websitedocumentation/settings/cms-guide");
 
 		// Check that we can get the plugin by handle
 		if ($plugin === null) {
@@ -93,7 +120,7 @@ class SettingsController extends Controller
 					Craft::t("app", "Please enter a valid structure name")
 				);
 
-			return $this->redirectToPostedUrl();
+			return $guideUrl;
 		}
 
 		// Check that the section doesn't already exist
@@ -111,7 +138,7 @@ class SettingsController extends Controller
 					)
 				);
 
-			return $this->redirectToPostedUrl();
+			return $guideUrl;
 		}
 
 		// Check that the plugin can save the new setting
@@ -122,7 +149,7 @@ class SettingsController extends Controller
 				->getSession()
 				->setError(Craft::t("app", "Couldn't save plugin settings."));
 
-			return $this->redirectToPostedUrl();
+			return $guideUrl;
 		}
 
 		// Create Volume if it doesn't exist - This MUST come before the field
@@ -138,7 +165,7 @@ class SettingsController extends Controller
 						"There has been a problem creating the default entries. Please check the logs to see why."
 					)
 				);
-			return $this->redirectToPostedUrl();
+			return $guideUrl;
 		}
 
 		// Create new Field
@@ -154,7 +181,7 @@ class SettingsController extends Controller
 						"There has been a problem creating your field. Please check the logs to see why."
 					)
 				);
-			return $this->redirectToPostedUrl();
+			return $guideUrl;
 		}
 
 		// Create new Structure
@@ -170,7 +197,7 @@ class SettingsController extends Controller
 						"There has been a problem creating your structure. Please check the logs to see why."
 					)
 				);
-			return $this->redirectToPostedUrl();
+			return $guideUrl;
 		}
 
 		$newStructure = Craft::$app->sections->getSectionByHandle(
@@ -190,7 +217,7 @@ class SettingsController extends Controller
 						"There has been a problem adding the field to the entry type. Please check the logs to see why."
 					)
 				);
-			return $this->redirectToPostedUrl();
+			return $guideUrl;
 		}
 
 		Craft::$app
@@ -202,7 +229,7 @@ class SettingsController extends Controller
 				)
 			);
 
-		return $this->redirectToPostedUrl();
+		return $guideUrl;
 	}
 
 	public function actionSaveDefaultEntries(): Response
@@ -226,7 +253,7 @@ class SettingsController extends Controller
 						"There has been a problem creating the default entries. Please check the logs to see why."
 					)
 				);
-			return $this->redirectToPostedUrl();
+			return $guideUrl;
 		}
 
 		Craft::$app
@@ -240,6 +267,6 @@ class SettingsController extends Controller
 				)
 			);
 
-		return $this->redirect("websitedocumentation/settings");
+		return $this->redirect("websitedocumentation/settings/cms-guide");
 	}
 }

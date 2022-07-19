@@ -1,0 +1,278 @@
+{#
+	Forms
+	==============================
+	One of the sections displayed in the styleguide.
+#}
+
+{# Inherit the blocks and their content from the styleguide layout. #}
+{% extends 'website-docs/_layouts/_style-guide.twig' %}
+
+{% block body %}
+	{# Set the data specific to the section #}
+	{% set data = {
+		inputs: {
+			one: {
+				id: 'input-one',
+				type: 'email',
+				placeholder: styleguide.data.placeholders.short,
+				label: styleguide.data.placeholders.tiny,
+				attributes: {
+					autocomplete: 'email'
+				}
+			}
+		},
+		searches: {
+			one: {
+				id: 'search-one',
+				placeholder: styleguide.data.placeholders.short,
+				label: styleguide.data.placeholders.tiny,
+				buttonText: 'Search'
+			}
+		},
+		textAreas: {
+			one: {
+				id: 'text-area-one',
+				placeholder: styleguide.data.placeholders.short,
+				label: styleguide.data.placeholders.tiny,
+				attributes: {
+					rows: 4
+				}
+			}
+		},
+		checkboxes: {
+			one: {
+				id: 'checkbox-one',
+				name: 'checkbox',
+				type: 'checkbox',
+				label: styleguide.data.placeholders.short
+			},
+			two: {
+				id: 'checkbox-two',
+				name: 'checkbox',
+				type: 'checkbox',
+				label: styleguide.data.placeholders.short
+			}
+		},
+		radios: {
+			one: {
+				id: 'radio-one',
+				name: 'radio',
+				type: 'radio',
+				label: styleguide.data.placeholders.short
+			},
+			two: {
+				id: 'radio-two',
+				name: 'radio',
+				type: 'radio',
+				label: styleguide.data.placeholders.short
+			}
+		},
+		selects: {
+			one: {
+				id: 'select-one',
+				placeholder: styleguide.data.placeholders.short,
+				options: [
+					{
+						value: styleguide.data.placeholders.short | kebab,
+						name: styleguide.data.placeholders.short
+					},
+					{
+						value: styleguide.data.placeholders.short | kebab,
+						name: styleguide.data.placeholders.short
+					}
+				],
+				label: styleguide.data.placeholders.tiny
+			}
+		},
+		buttons: {
+			one: {
+				tag: 'button',
+				text: styleguide.data.placeholders.tiny,
+				type: 'submit'
+			}
+		}
+	} %}
+
+	{# Fetch the relevant styleguide data #}
+	{% set sectionPadding = styleguide.classes.sectionPadding %}
+	{% set sectionLabel = styleguide.classes.sectionLabel %}
+
+	{# Render the HTML #}
+	<section id="inputs-section" class="mb-12">
+		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container'
+		%}
+			{% block header %}
+				{% include '_atoms/_paragraph' with {
+					text: 'Text Fields',
+					classes: [sectionLabel]
+				} %}
+			{% endblock %}
+			{% block content %}
+				{% for input in data.inputs %}
+					{% include '_atoms/_input' with {
+						id: input.id | default,
+						name: input.name | default(input.id | default),
+						type: input.type | default,
+						placeholder: input.placeholder | default,
+						value: input.value | default,
+						label: input.label | default,
+						classes: input.classes | default,
+						attributes: input.attributes | default
+					} %}
+				{% endfor %}
+			{% endblock %}
+		{% endembed %}
+	</section>
+
+	<section id="searches-section" class="mb-12">
+		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container'
+		%}
+			{% block header %}
+				{% include '_atoms/_paragraph' with {
+					text: 'Search Fields',
+					classes: [sectionLabel]
+				} %}
+			{% endblock %}
+			{% block content %}
+				{% for search in data.searches %}
+					{% include '_atoms/_search' with {
+						id: search.id | default,
+						name: search.name | default(input.id | default),
+						placeholder: search.placeholder | default,
+						value: search.value | default,
+						label: search.label | default,
+						buttonText: search.buttonText | default,
+						classes: search.classes | default,
+						wrapperClasses: search.wrapperClasses | default,
+						attributes: search.attributes | default
+					} %}
+				{% endfor %}
+			{% endblock %}
+		{% endembed %}
+	</section>
+
+	<section id="text-areas-section" class="mb-12">
+		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container'
+		%}
+			{% block header %}
+				{% include '_atoms/_paragraph' with {
+					text: 'Text Areas',
+					classes: [sectionLabel]
+				} %}
+			{% endblock %}
+			{% block content %}
+				{% for textArea in data.textAreas %}
+					{% include '_atoms/_text-area' with {
+						id: textArea.id | default,
+						name: textArea.name | default,
+						placeholder: textArea.placeholder | default,
+						value: textArea.value | default,
+						label: textArea.label | default,
+						classes: textArea.classes | default,
+						attributes: textArea.attributes | default
+					} %}
+				{% endfor %}
+			{% endblock %}
+		{% endembed %}
+	</section>
+
+	<section id="checkboxes-section" class="mb-12">
+		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container'
+		%}
+			{% block header %}
+				{% include '_atoms/_paragraph' with {
+					text: 'Checkbox Fields',
+					classes: [sectionLabel]
+				} %}
+			{% endblock %}
+			{% block content %}
+				{% for checkbox in data.checkboxes %}
+					{% include '_atoms/_input' with {
+						id: checkbox.id | default,
+						name: checkbox.name | default,
+						type: checkbox.type | default,
+						placeholder: checkbox.placeholder | default,
+						value: checkbox.value | default,
+						label: checkbox.label | default,
+						classes: checkbox.classes | default,
+						attributes: checkbox.attributes | default
+					} %}
+				{% endfor %}
+			{% endblock %}
+		{% endembed %}
+	</section>
+
+	<section id="radios-section" class="mb-12">
+		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container'
+		%}
+			{% block header %}
+				{% include '_atoms/_paragraph' with {
+					text: 'Radio Fields',
+					classes: [sectionLabel]
+				} %}
+			{% endblock %}
+			{% block content %}
+				{% for radio in data.radios %}
+					{% include '_atoms/_input' with {
+						id: radio.id | default,
+						name: radio.name | default,
+						type: radio.type | default,
+						placeholder: radio.placeholder | default,
+						value: radio.value | default,
+						label: radio.label | default,
+						classes: radio.classes | default,
+						attributes: radio.attributes | default
+					} %}
+				{% endfor %}
+			{% endblock %}
+		{% endembed %}
+	</section>
+
+	<section id="selects-section" class="mb-12">
+		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container'
+		%}
+			{% block header %}
+				{% include '_atoms/_paragraph' with {
+					text: 'Select Fields',
+					classes: [sectionLabel]
+				} %}
+			{% endblock %}
+			{% block content %}
+				{% for select in data.selects %}
+					{% include '_atoms/_select' with {
+						id: select.id | default,
+						name: select.name | default,
+						placeholder: select.placeholder | default,
+						options: select.options | default,
+						label: select.label | default,
+						multiple: select.multiple | default,
+						classes: select.classes | default,
+						attributes: select.attributes | default
+					} %}
+				{% endfor %}
+			{% endblock %}
+		{% endembed %}
+	</section>
+
+	<section id="submit-buttons-section" class="mb-12">
+		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container'
+		%}
+			{% block header %}
+				{% include '_atoms/_paragraph' with {
+					text: 'Submit Buttons',
+					classes: [sectionLabel]
+				} %}
+			{% endblock %}
+			{% block content %}
+				{% for button in data.buttons %}
+					{% include '_atoms/_button' with {
+						tag: button.tag | default,
+						text: button.text | default,
+						type: button.type | default,
+						classes: button.classes | default
+					} %}
+				{% endfor %}
+			{% endblock %}
+		{% endembed %}
+	</section>
+{% endblock %}

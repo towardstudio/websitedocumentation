@@ -1,0 +1,85 @@
+{#
+Main
+==============================
+* classes: ARRAY (optional) - Custom classes
+* attributes OBJECT (optional) - Custom attributes
+#}
+
+{# Set the element's base classes #}
+{% set elementBaseClasses = [
+	'flex justify-center items-center py-base sm:py-base-sm md:py-base-md'
+] %}
+
+{# Merge custom classes with the base classes #}
+{% if classes is defined and classes is not empty %}
+	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+{% endif %}
+
+{# Set the element's base attributes #}
+{% set elementAttributes = {
+	id: 'main',
+	class: elementBaseClasses
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{% endif %}
+
+{# Get properties from settings #}
+{% set brandBackground = settings.brandBgColor | default('D7D7D7') %}
+{% set brandText = settings.brandTextColor | default('000') %}
+
+{# Render the HTML #}
+<main {{ attr(elementAttributes) }}>
+	<section id="index-main">
+		<div class="index-main__block">
+			<a href="/{{ websitedocumentation.getUrl() ~ '/style-guide' }}">
+				<div class="index-main__block-icon"
+					style="background: #{{ brandBackground }}">
+					{% set styleGuide = websitedocumentation.getUrl()
+						~ '/_atoms/_icons/_style-guide'
+					%}
+					{% if include(styleGuide, ignore_missing = true) is not empty %}
+						<span class="icon">
+							{% include styleGuide with {
+								attributes: {
+									style: 'fill: #' ~ brandText
+								}
+							} only %}
+						</span>
+					{% endif %}
+				</div>
+				<div class="index-main__block-title">
+					<h2>
+						{{ 'Style Guide' | t }}
+					</h2>
+				</div>
+			</a>
+		</div>
+		<div class="index-main__block">
+			<a href="/{{ websitedocumentation.getUrl() ~ '/cms-guide' }}">
+				<div class="index-main__block-icon"
+					style="background: #{{ brandBackground }}">
+					{% set cmsGuide = websitedocumentation.getUrl()
+						~ '/_atoms/_icons/_cms-guide'
+					%}
+					{% if include(cmsGuide, ignore_missing = true) is not empty %}
+						<span class="icon">
+							{% include cmsGuide with {
+								attributes: {
+									style: 'fill: #' ~ brandText
+								}
+							} only %}
+						</span>
+					{% endif %}
+				</div>
+				<div class="index-main__block-title">
+					<h2>
+						{{ 'CMS Guide' | t }}
+					</h2>
+				</div>
+			</a>
+		</div>
+	</section>
+</main>

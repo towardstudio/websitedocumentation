@@ -1,0 +1,28 @@
+{#
+  Global Layout
+  ==============================
+	Contains data and variables to be inherited by all layouts and templates.
+#}
+
+{# Set an object containing data inherited by all layouts and templates. #}
+{% set global = {
+	templateName: craft.app.controller.actionParams.template | split('/') | last
+} %}
+
+{# Set an object containing cookies inherited by all layouts and templates. #}
+{% set cookies = {
+	cookiesAccepted: 'cookiesAccepted',
+	notificationBannerDismissed: 'notificationBanner%id%Dismissed'
+} %}
+
+{# Set an object containing helpers inherited by all layouts and templates. #}
+{% set helpers = {
+	isGuide: global.templateName == 'cms-guide' ? true : false,
+	isStyleguide: global.templateName == 'style-guide' ? true : false,
+	isCookiesPluginEnabled: craft.app.plugins.isPluginEnabled('cookies')
+} %}
+
+{# All HTML output to be rendered. Should generally be left blank. #}
+{% block html %}
+
+{% endblock %}

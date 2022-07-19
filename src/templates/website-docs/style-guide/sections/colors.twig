@@ -1,0 +1,34 @@
+{#
+	Colors
+	==============================
+	One of the sections displayed in the styleguide.
+#}
+
+{# Inherit the blocks and their content from the styleguide layout. #}
+{% extends 'website-docs/_layouts/_style-guide.twig' %}
+
+{% block body %}
+	{# Fetch the relevant styleguide data #}
+	{% set colorArray = styleguide.data.colors %}
+
+	{# Render the HTML #}
+	<section>
+		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container'
+		%}
+			{% block content %}
+				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10">
+					{% for colors in colorArray %}
+						{% for color in colors %}
+							{% include websitedocumentation.getUrl()
+								~ '/style-guide/_atoms/_color' with {
+								name: color.name,
+								class: color.class,
+								hex: color.hex
+							} %}
+						{% endfor %}
+					{% endfor %}
+				</div>
+			{% endblock %}
+		{% endembed %}
+	</section>
+{% endblock %}

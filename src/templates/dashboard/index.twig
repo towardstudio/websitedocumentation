@@ -3,20 +3,17 @@
 {% set title = 'Website Documentation' %}
 
 {% set siteUrl = craft.app.sites.primarySite.baseUrl %}
-{% set docUrl = craft.app.config.general.__isset('documentationUrl')
-  ? craft.app.config.general.documentationUrl
-  : 'website-docs'
-%}
+{% set docUrl = websitedocumentation.getUrl() %}
 
 {% set blocks = {
   styleguide: {
     label: 'Styleguide',
-    url: craft.app.sites.primarySite.baseUrl ~ docUrl ~ '/styleguide',
+    url: craft.app.sites.primarySite.baseUrl ~ docUrl ~ '/style-guide',
     icon: 'photo'
   },
   guide: {
     label: 'CMS Guide',
-    url: craft.app.sites.primarySite.baseUrl ~ docUrl ~ '/guide',
+    url: craft.app.sites.primarySite.baseUrl ~ docUrl ~ '/cms-guide',
     icon: 'book'
   }
 } %}

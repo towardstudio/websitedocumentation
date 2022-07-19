@@ -1,0 +1,38 @@
+{#
+  Large Desktop Icon
+  ==============================
+
+  * classes: ARRAY (optional) - Custom classes
+  * attributes OBJECT (optional) - Custom attributes
+
+#}
+
+{# Set the element's base classes #}
+{% set elementBaseClasses = [] %}
+
+{# Merge custom classes with the base classes #}
+{% if classes is defined and classes is not empty %}
+	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+{% endif %}
+
+{# Set the element's base attributes #}
+{% set elementAttributes = {
+	xmlns: 'http://www.w3.org/2000/svg',
+	viewBox: '0 0 88.67 88.93',
+	class: elementBaseClasses
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{% endif %}
+
+{# Render the HTML #}
+<svg {{ attr(elementAttributes) }}>
+	<path d="M75.99,71.74H12.68c-6.97,0-12.64-5.67-12.64-12.64V14.97C0.04,8,5.71,2.33,12.68,2.33h63.31
+	c6.97,0,12.64,5.67,12.64,12.64V59.1C88.63,66.07,82.96,71.74,75.99,71.74z M12.68,9.22c-3.17,0-5.75,2.58-5.75,5.75V59.1
+	c0,3.17,2.58,5.75,5.75,5.75h63.31c3.17,0,5.75-2.58,5.75-5.75V14.97c0-3.17-2.58-5.75-5.75-5.75H12.68z" />
+	<rect x="40.89" y="65.65" width="6.89" height="18.95" />
+	<path d="M59.89,86.6c-0.01,0-0.02,0-0.03,0l-32.81-0.25c-1.9-0.02-3.43-1.57-3.42-3.47c0.02-1.9,1.68-3.49,3.47-3.42
+	l32.81,0.25c1.9,0.02,3.43,1.57,3.42,3.47C63.33,85.07,61.79,86.6,59.89,86.6z" />
+</svg>

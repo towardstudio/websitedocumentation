@@ -1,0 +1,42 @@
+{#
+  CMS Guide Icon
+  ==============================
+
+  * classes: ARRAY (optional) - Custom classes
+  * attributes OBJECT (optional) - Custom attributes
+
+#}
+
+{# Set the element's base classes #}
+{% set elementBaseClasses = [] %}
+
+{# Merge custom classes with the base classes #}
+{% if classes is defined and classes is not empty %}
+	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+{% endif %}
+
+{# Set the element's base attributes #}
+{% set elementAttributes = {
+	xmlns: 'http://www.w3.org/2000/svg',
+	viewBox: '0 0 200 200',
+	class: elementBaseClasses
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{% endif %}
+
+{# Render the HTML #}
+<svg {{ attr(elementAttributes) }}>
+	<path d="M196.51,37.14h-95.49l-0.01-0.01l-83.89-25.5c-1.07-0.33-2.21-0.13-3.1,0.53c-0.89,0.66-1.41,1.71-1.41,2.8v22.17H3.5
+	c-1.93,0-3.5,1.57-3.5,3.5V164.2c0,1.93,1.57,3.5,3.5,3.5h72.47v13.84H62.72v3.5v3.49h74.56v-3.49v-3.5h-13.25v-13.84h72.48
+	c1.93,0,3.5-1.57,3.5-3.5V40.63C200.01,38.7,198.43,37.14,196.51,37.14z M19.61,37.14V19.69l57.4,17.45l11.5,3.5l8,2.43v1.06v115.19
+	l-76.9-23.38V44.13v-3.5V37.14z M193.01,160.71H103.5V44.13h13.73V57.1l6.81-4.3l6.81,4.3V44.13h62.19L193.01,160.71L193.01,160.71z
+	 M84.66,65.5l-27.25-8.29v-4.6l27.25,8.3V65.5z M84.66,83.05l-27.25-8.29v-4.61l27.25,8.3V83.05z M84.66,100.74l-54.5-16.58v-4.59
+	l54.5,16.57V100.74z M84.66,118.27l-54.5-16.57V97.1l54.5,16.57V118.27z M84.66,135.98l-54.5-16.57v-4.6l54.5,16.56V135.98z
+	 M34.82,69.24l1.42-4.63l8.21,2.49l1.46,5.5l2.38,0.73l2.4,0.73l-7.65-27.2l-2.62-0.79l-2.62-0.79l-7.65,22.55l2.34,0.72
+	L34.82,69.24z M40.37,51.61l2.86,10.86l-5.73-1.74L40.37,51.61z M186.13,145.74H114.7v-4.8h71.42V145.74z M185.63,71.13l-7.36-6.85
+	l-16.16,17.35l7.36,6.84L185.63,71.13z M129.5,122.66l-3.01-2.82l33.94-36.41l3.01,2.78L129.5,122.66z M164.79,87.47l3,2.81
+	l-33.94,36.42l-3-2.8L164.79,87.47z M124.8,121.66l7.37,6.84l-5.26,5.65l-9.04,2.32l1.68-9.17L124.8,121.66z" />
+</svg>

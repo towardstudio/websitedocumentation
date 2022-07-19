@@ -1,0 +1,39 @@
+{#
+  Master Layout
+  ==============================
+	The layout inherited by all layouts and templates across the project.
+#}
+
+{# Inherit the blocks and their content from the globals file. #}
+{% extends 'website-docs/_layouts/_global.twig' %}
+
+{% set settings = websitedocumentation.getSettings() %}
+{% set docsUrl = websitedocumentation.getUrl() %}
+
+{# The basic essentials of all webpages served across the project. #}
+{% block html %}
+	<!DOCTYPE html>
+	<html lang="{{ currentSite.language }}" dir="ltr" class="no-js">
+		<head>
+			{% block head %}
+				{# Head content to be inherited by ALL layouts and templates. #}
+				{% include websitedocumentation.getUrl()
+					~ '/_partials/_head-meta.twig' %}
+				{% include websitedocumentation.getUrl()
+					~ '/_partials/_favicons.twig' %}
+			{% endblock %}
+		</head>
+
+		<body id="body" data-template="{{ global.templateName }}">
+			<a id="a11y-button"
+				href="#content"
+				title="Jump to Content"
+				class="absolute left-[-200%] top-0 bg-black text-white p-3 focus:left-0">
+				Jump to content
+			</a>
+			{% block body %}
+				{# Body content to be inherited by ALL layouts and templates. #}
+			{% endblock %}
+		</body>
+	</html>
+{% endblock %}

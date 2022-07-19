@@ -1,0 +1,34 @@
+{#
+	Footer
+	==============================
+	* classes: ARRAY (optional) - Custom classes
+	* attributes OBJECT (optional) - Custom attributes
+#}
+
+{# Set the element's base classes #}
+{% set elementBaseClasses = [] %}
+
+{# Merge custom classes with the base classes #}
+{% if classes is defined and classes is not empty %}
+	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+{% endif %}
+
+{# Set the element's base attributes #}
+{% set elementAttributes = {
+	id: 'footer',
+	class: elementBaseClasses
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{% endif %}
+
+{# Render the HTML #}
+<footer {{ attr(elementAttributes) }}>
+	{% block content %}
+		<div class="text-center">
+			&#169; {{ 'now' | date('Y') }} {{ siteName | default }}
+		</div>
+	{% endblock %}
+</footer>

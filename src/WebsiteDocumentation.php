@@ -9,7 +9,9 @@ use craft\events\RegisterUrlRulesEvent;
 use craft\events\PluginEvent;
 use craft\events\RegisterTemplateRootsEvent;
 use craft\events\RegisterComponentTypesEvent;
+use craft\helpers\App;
 use craft\helpers\UrlHelper;
+use craft\web\Request;
 use craft\web\UrlManager;
 use craft\web\View;
 use craft\web\twig\variables\CraftVariable;
@@ -22,7 +24,9 @@ use craft\elements\Entry;
 use bluegg\websitedocumentation\models\Settings;
 use bluegg\websitedocumentation\assetbundles\DocumentationAsset;
 use bluegg\websitedocumentation\services\ReturnSettings;
+use bluegg\websitedocumentation\twigextensions\DocumentationTwigExtension;
 use bluegg\websitedocumentation\widgets\DocumentationWidget;
+use bluegg\websitedocumentation\variables\DocumentationVariable;
 
 use yii\base\Event;
 
@@ -34,66 +38,75 @@ use yii\base\Event;
  */
 class WebsiteDocumentation extends Plugin
 {
-    public static ?WebsiteDocumentation $plugin;
+	public static ?WebsiteDocumentation $plugin;
+    public static ?DocumentationVariable $documentationVariable;
 
-    public bool $hasCpSection = true;
-    public bool $hasCpSettings = true;
-    public static ?Settings $settings;
+	public bool $hasCpSection = true;
+	public bool $hasCpSettings = true;
+	public static ?Settings $settings;
 
-    // Public Methods
-    // =========================================================================
+	// Public Methods
+	// =========================================================================
 
-    public function init()
-    {
-        parent::init();
-        self::$plugin = $this;
-        self::$settings = $this->getSettings();
+	public function init()
+	{
+		parent::init();
+		self::$plugin = $this;
+		self::$settings = $this->getSettings();
+		self::$documentationVariable = new DocumentationVariable();
 
-        // Handler: UrlManager::EVENT_REGISTER_CP_URL_RULES
-        Event::on(
-            UrlManager::class,
-            UrlManager::EVENT_REGISTER_CP_URL_RULES,
-            function (RegisterUrlRulesEvent $event) {
-                Craft::debug(
-                    "UrlManager::EVENT_REGISTER_CP_URL_RULES",
-                    __METHOD__
-                );
-                // Register our Control Panel routes
-                $event->rules = array_merge(
-                    $event->rules,
-                    $this->customAdminCpRoutes()
-                );
-            }
-        );
+		// Create Custom Alias
+		Craft::setAlias('@websitedocumentation', __DIR__);
 
-        Event::on(
-            View::class,
-            View::EVENT_REGISTER_CP_TEMPLATE_ROOTS,
-            function (RegisterTemplateRootsEvent $e) {
-                if (
-                    is_dir(
-                        $baseDir =
-                            $this->getBasePath() .
-                            DIRECTORY_SEPARATOR .
-                            "templates"
-                    )
-                ) {
-                    $e->roots[$this->id] = $baseDir;
-                }
-            }
-        );
+		// Run custom functions
+		$this->initRoutes();
+		$this->_registerTwigExtensions();
 
-        // Register our widgets
-        Event::on(
-            Dashboard::class,
-            Dashboard::EVENT_REGISTER_WIDGET_TYPES,
-            function (RegisterComponentTypesEvent $event) {
-                $event->types[] = DocumentationWidget::class;
-            }
-        );
+		// Handler: UrlManager::EVENT_REGISTER_CP_URL_RULES
+		Event::on(
+			UrlManager::class,
+			UrlManager::EVENT_REGISTER_CP_URL_RULES,
+			function (RegisterUrlRulesEvent $event) {
+				Craft::debug(
+					"UrlManager::EVENT_REGISTER_CP_URL_RULES",
+					__METHOD__
+				);
+				// Register our Control Panel routes
+				$event->rules = array_merge(
+					$event->rules,
+					$this->customAdminCpRoutes()
+				);
+			}
+		);
 
-        # prettier-ignore
-        Event::on(
+		Event::on(
+			View::class,
+			View::EVENT_REGISTER_CP_TEMPLATE_ROOTS,
+			function (RegisterTemplateRootsEvent $e) {
+				if (
+					is_dir(
+						$baseDir =
+							$this->getBasePath() .
+							DIRECTORY_SEPARATOR .
+							"templates"
+					)
+				) {
+					$e->roots[$this->id] = $baseDir;
+				}
+			}
+		);
+
+		// Register our widgets
+		Event::on(
+			Dashboard::class,
+			Dashboard::EVENT_REGISTER_WIDGET_TYPES,
+			function (RegisterComponentTypesEvent $event) {
+				$event->types[] = DocumentationWidget::class;
+			}
+		);
+
+		# prettier-ignore
+		Event::on(
 			CraftVariable::class,
 			CraftVariable::EVENT_INIT,
 			function (Event $e) {
@@ -107,113 +120,156 @@ class WebsiteDocumentation extends Plugin
 			}
 		);
 
-        $request = Craft::$app->getRequest();
+		$request = Craft::$app->getRequest();
 
-		if (!$request->getIsConsoleRequest() && $request->getSegment(-1) === 'guide')
+		if (
+			!$request->getIsConsoleRequest() &&
+			$request->getSegment(-1) === "guide"
+		) {
+			Craft::$app
+				->getView()
+				->registerAssetBundle(DocumentationAsset::class);
+		}
+
+		Craft::info(
+			Craft::t("websitedocumentation", "{name} plugin loaded", [
+				"name" => $this->name,
+			]),
+			__METHOD__
+		);
+	}
+
+	// Rename the Control Panel Item & Add Sub Menu
+	public function getCpNavItem(): ?array
+	{
+		// Get the site Url
+		$url = Craft::$app->sites->currentSite->baseUrl;
+
+		// Get the documentation url
+		$config = WebsiteDocumentation::customConfig();
+		if (empty($config))
 		{
-			Craft::$app->getView()->registerAssetBundle(DocumentationAsset::class);
-		};
+			$docUrl = 'website-docs';
+		} else {
+			if ($config['documentationUrl']) {
+				$docUrl = $config['documentationUrl'];
+			} else {
+				$docUrl = 'website-docs';
+			}
+		}
 
-        Craft::info(
-            Craft::t("websitedocumentation", "{name} plugin loaded", [
-                "name" => $this->name,
-            ]),
-            __METHOD__
-        );
-    }
+		// Set additional information on the nav item
+		$item = parent::getCpNavItem();
 
-    // Rename the Control Panel Item & Add Sub Menu
-    public function getCpNavItem(): ?array
-    {
-        // Get the site Url
-        $url = Craft::$app->sites->currentSite->baseUrl;
+		$item["label"] = "Documentation";
+		$item["icon"] = "@app/icons/book.svg";
 
-        // Get the documentation url
-        $docUrl = isset(Craft::$app->config->general->documentationUrl) ? Craft::$app->config->general->documentationUrl : "website-docs";
+		// Create SubNav
+		$subNavs = [];
 
-        // Set additional information on the nav item
-        $item = parent::getCpNavItem();
+		// Add Dashboard Sub Nav Item
+		$subNavs["dashboard"] = [
+			"label" => "Dashboard",
+			"url" => "websitedocumentation/dashboard",
+		];
 
-        $item["label"] = "Documentation";
-        $item["icon"] = "@app/icons/book.svg";
+		// Add Styleguide External Sub Nav Item
+		$subNavs["styleguide"] = [
+			"label" => "Styleguide",
+			"url" => $url . $docUrl . "/style-guide",
+			"external" => true,
+		];
 
-        // Create SubNav
-        $subNavs = [];
+		// Add Guide External Sub Nav Item
+		$subNavs["guide"] = [
+			"label" => "CMS Guide",
+			"url" => $url . $docUrl . "/cms-guide",
+			"external" => true,
+		];
 
-        // Add Dashboard Sub Nav Item
-        $subNavs["dashboard"] = [
-            "label" => "Dashboard",
-            "url" => "websitedocumentation/dashboard",
-        ];
+		// Add Settings on dev environment
+		$editableSettings = true;
+		$general = Craft::$app->getConfig()->getGeneral();
+		if (!$general->allowAdminChanges) {
+			$editableSettings = false;
+		}
+		if ($editableSettings) {
+			$subNavs["settings"] = [
+				"label" => "Plugin Settings",
+				"url" => "websitedocumentation/settings",
+			];
+		}
 
-        // Add Styleguide External Sub Nav Item
-        $subNavs["styleguide"] = [
-            "label" => "Styleguide",
-            "url" => $url . $docUrl . "/styleguide",
-            "external" => true,
-        ];
+		$item = array_merge($item, [
+			"subnav" => $subNavs,
+		]);
 
-        // Add Guide External Sub Nav Item
-        $subNavs["guide"] = [
-            "label" => "CMS Guide",
-            "url" => $url . $docUrl . "/guide",
-            "external" => true,
-        ];
+		return $item;
+	}
 
-        // Add Settings on dev environment
-        $editableSettings = true;
-        $general = Craft::$app->getConfig()->getGeneral();
-        if (!$general->allowAdminChanges) {
-            $editableSettings = false;
-        }
-        if ($editableSettings) {
-            $subNavs["settings"] = [
-                "label" => "Settings",
-                "url" => "websitedocumentation/settings",
-            ];
-        }
+	public static function customConfig()
+	{
+		$config = Craft::$app->config->getConfigFromFile(self::$plugin->id);
 
-        $item = array_merge($item, [
-            "subnav" => $subNavs,
-        ]);
+		if ($config) {
+			return $config;
+		}
 
-        return $item;
-    }
+	}
 
-    // Protected Methods
-    // =========================================================================
+	// Protected Methods
+	// =========================================================================
 
-    /**
-     * @inheritdoc
+	/**
+	 * @inheritdoc
+	 */
+	protected function createSettingsModel(): ?Model
+	{
+		return new Settings();
+	}
+
+	protected function settingsHtml(): string
+	{
+		return Craft::$app
+			->getView()
+			->renderTemplate("websitedocumentation/settings", [
+				"settings" => $this->getSettings(),
+			]);
+	}
+
+	protected function customAdminCpRoutes(): array
+	{
+		return [
+			"websitedocumentation" => [
+				"template" => "websitedocumentation/dashboard",
+			],
+			"websitedocumentation/settings" =>
+				"websitedocumentation/settings/plugin-settings",
+		];
+	}
+
+	// Private Methods
+	// =========================================================================
+
+
+	private function initRoutes()
+	{
+		Event::on(
+			UrlManager::class,
+			UrlManager::EVENT_REGISTER_CP_URL_RULES,
+			function (RegisterUrlRulesEvent $event) {
+				$routes = include __DIR__ . "/routes.php";
+				$event->rules = array_merge($event->rules, $routes);
+			}
+		);
+	}
+
+	/**
+     * Registers Twig extensions.
      */
-    protected function createSettingsModel(): ?Model
+    private function _registerTwigExtensions()
     {
-        return new Settings();
+        Craft::$app->view->registerTwigExtension(new DocumentationTwigExtension());
     }
 
-	public function getSettingsResponse(): mixed
-    {
-        // Just redirect to the plugin settings page
-        return Craft::$app->getResponse()->redirect(UrlHelper::cpUrl('websitedocumentation/settings'));
-    }
-
-
-    // Private Methods
-    // =========================================================================
-
-    /**
-     * Return the custom Control Panel routes
-     *
-     * @return array
-     */
-    protected function customAdminCpRoutes(): array
-    {
-        return [
-            "websitedocumentation" => [
-                "template" => "websitedocumentation/dashboard",
-            ],
-            "websitedocumentation/settings" =>
-                "websitedocumentation/settings/plugin-settings",
-        ];
-    }
 }

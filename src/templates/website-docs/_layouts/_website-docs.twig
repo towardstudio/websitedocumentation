@@ -1,0 +1,20 @@
+{#
+  Styleguide Layout
+  ==============================
+	The layout inherited by templates specific to the styleguide site.
+#}
+
+{# Inherit the blocks and their content from the master layout. #}
+{% extends 'website-docs/_layouts/_master.twig' %}
+
+{% block head %}
+	{{ parent() }}
+	{# Head content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's head block. #}
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	{# Body content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's body block. #}
+{% endblock %}

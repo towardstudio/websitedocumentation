@@ -73,12 +73,12 @@ class DocumentationWidget extends Widget
 			'settings' => [
 				"styleguide" => [
 					"label" => "Styleguide",
-					"url" => $url . $docUrl . "/styleguide",
+					"url" => $url . $docUrl . "/style-guide",
 					"icon"	=> file_get_contents($iconsDirectory . "/photo.svg"),
 				],
 				"guide" => [
 					"label" => "CMS Guide",
-					"url" => $url . $docUrl . "/guide",
+					"url" => $url . $docUrl . "/cms-guide",
 					"icon"	=> file_get_contents($iconsDirectory . "/book.svg"),
 				],
 			],

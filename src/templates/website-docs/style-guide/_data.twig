@@ -1,0 +1,44 @@
+{#
+  Styleguide Data
+  ==============================
+	The data inherited by templates specific to the styleguide site.
+#}
+
+{# All values entered below should be contained within the `data` object and
+referenced using the same name structure, E.G. `data.placeholders.tiny`. #}
+{% macro data() %}
+	{% set data = {
+		colors: {
+			white: [
+				{
+					class: 'bg-white',
+					name: 'White',
+					hex: '#fff'
+				}
+			],
+			black: [
+				{
+					class: 'bg-black',
+					name: 'Black',
+					hex: '#222'
+				}
+			]
+		},
+		fonts: {
+			one: {
+				name: 'Helvetica',
+				class: 'font-sans'
+			}
+		},
+		placeholders: {
+			url: 'https://bluegg.co.uk',
+			tiny: 'Lorem ipsum',
+			short: 'Lorem ipsum dolor sit amet',
+			medium: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+			long: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vulputate ut pharetra sit amet aliquam id diam maecenas ultricies. Dolor magna eget est lorem ipsum dolor. Pellentesque diam volutpat commodo sed egestas egestas.'
+		}
+	} %}
+
+	{# Do not modify. This outputs the object as a string of JSON data. #}
+	{{ data | json_encode | raw }}
+{% endmacro %}

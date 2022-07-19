@@ -1,0 +1,35 @@
+{#
+  Mobile Icon
+  ==============================
+
+  * classes: ARRAY (optional) - Custom classes
+  * attributes OBJECT (optional) - Custom attributes
+
+#}
+
+{# Set the element's base classes #}
+{% set elementBaseClasses = [] %}
+
+{# Merge custom classes with the base classes #}
+{% if classes is defined and classes is not empty %}
+	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+{% endif %}
+
+{# Set the element's base attributes #}
+{% set elementAttributes = {
+	xmlns: 'http://www.w3.org/2000/svg',
+	viewBox: '0 0 88.67 88.93',
+	class: elementBaseClasses
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{% endif %}
+
+{# Render the HTML #}
+<svg {{ attr(elementAttributes) }}>
+	<path d="M62.49,88.89H23.47c-6.58,0-11.92-5.35-11.92-11.92V11.92C11.54,5.35,16.89,0,23.47,0h39.03
+	c6.58,0,11.92,5.35,11.92,11.92v65.04C74.42,83.55,69.07,88.89,62.49,88.89z M23.47,6.5c-2.99,0-5.42,2.43-5.42,5.42v65.04
+	c0,2.99,2.43,5.42,5.42,5.42h39.03c2.99,0,5.42-2.43,5.42-5.42V11.92c0-2.99-2.43-5.42-5.42-5.42H23.47z" />
+</svg>

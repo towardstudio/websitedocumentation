@@ -5,7 +5,7 @@ use Craft;
 use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;
 
-class DocumentationAsset extends AssetBundle
+class StyleGuideAsset extends AssetBundle
 {
     // Public Methods
     // =========================================================================
@@ -14,8 +14,13 @@ class DocumentationAsset extends AssetBundle
     {
         $this->sourcePath = "@bluegg/websitedocumentation/resources";
 
+		$this->js = [
+            'js/dist/style-guide.min.js',
+        ];
+
 		$this->css = [
-            'css/dist/index.min.css',
+            'css/dist/style-guide.min.css',
+			'css/dist/sidebar.min.css'
         ];
 
         parent::init();

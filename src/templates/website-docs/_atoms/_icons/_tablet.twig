@@ -1,0 +1,35 @@
+{#
+  Tablet Icon
+  ==============================
+
+  * classes: ARRAY (optional) - Custom classes
+  * attributes OBJECT (optional) - Custom attributes
+
+#}
+
+{# Set the element's base classes #}
+{% set elementBaseClasses = [] %}
+
+{# Merge custom classes with the base classes #}
+{% if classes is defined and classes is not empty %}
+	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+{% endif %}
+
+{# Set the element's base attributes #}
+{% set elementAttributes = {
+	xmlns: 'http://www.w3.org/2000/svg',
+	viewBox: '0 0 88.67 88.93',
+	class: elementBaseClasses
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{% endif %}
+
+{# Render the HTML #}
+<svg {{ attr(elementAttributes) }}>
+	<path d="M68.63,88.93H20.04c-6.58,0-11.93-5.35-11.93-11.93V11.93C8.11,5.35,13.47,0,20.04,0h48.59
+	c6.58,0,11.93,5.35,11.93,11.93V77C80.56,83.58,75.2,88.93,68.63,88.93z M20.04,6.51c-2.99,0-5.42,2.43-5.42,5.42V77
+	c0,2.99,2.43,5.42,5.42,5.42h48.59c2.99,0,5.42-2.43,5.42-5.42V11.93c0-2.99-2.43-5.42-5.42-5.42H20.04z" />
+</svg>

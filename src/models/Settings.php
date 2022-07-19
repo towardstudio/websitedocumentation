@@ -17,6 +17,11 @@ class Settings extends Model
 
 	public $name = "Website Docs";
 	public $structure;
+	public $logo;
+	public $brandBgColor;
+	public $brandTextColor;
+	public $accentBgColor;
+	public $accentTextColor;
 
 	// Public Methods
 	// =========================================================================
@@ -26,6 +31,12 @@ class Settings extends Model
 	 */
 	public function rules(): array
 	{
-		return [["structure", "string"]];
+		return [
+			["structure", "string"],
+			["brandBgColor", "string"],
+			["brandTextColor", "string"],
+			["accentBgColor", "string"],
+			["accentTextColor", "string"]
+		];
 	}
 }

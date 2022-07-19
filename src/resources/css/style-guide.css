@@ -1,0 +1,173 @@
+#body {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+
+	@media only screen and (min-width: 1024px) {
+		flex-direction: row;
+	}
+}
+
+[data-content] {
+	display: none;
+
+	&.open {
+		display: block;
+	}
+
+}
+
+[data-container] {
+	background: #fff;
+	border-radius: 8px;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+}
+
+#main {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	width: 100%;
+	border-top: 1px solid #E7E7E7;
+
+	@media only screen and (min-width: 1024px) {
+		background: #E7E7E7;
+		border-top: 0;
+		padding: 1rem;
+		overflow: hidden;
+		overflow-y: scroll;
+	}
+
+	[data-controls] {
+		display: none;
+		position: relative;
+
+		@media only screen and (min-width: 1024px) {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 3rem;
+			padding: 1rem;
+			font-size: 1rem;
+			font-weight: 400;
+			border-bottom: 1px solid #E7E7E7;
+		}
+
+		[data-breakpoint],
+		[data-fullscreen],
+		[data-copy-link],
+		[data-default] {
+			cursor: pointer;
+			position: relative;
+			display: flex;
+			align-items: center;
+			gap: .8rem;
+
+			.icon {
+				display: block;
+				width: 20px;
+				height: 20px;
+				pointer-events: none;
+			}
+
+			&:after {
+				content: '';
+				position: absolute;
+				bottom: -1rem;
+				left: 0;
+				width: 0;
+				background: #000;
+				height: 3px;
+			}
+
+			&.active {
+				&:after {
+					width: 100%;
+				}
+			}
+
+		}
+
+		[data-default] {
+			display: none;
+			position: absolute;
+			left: 1.5rem;
+			top: 50%;
+			transform: translateY(-50%);
+
+			.icon {
+				width: 12px;
+				pointer-events: none;
+			}
+
+		}
+
+		[data-copy-link] {
+			position: absolute;
+			right: 1.5rem;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+	}
+
+	#loader {
+		width: 100px;
+		height: 100px;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	[data-content] {
+		flex: 1;
+		height: 100%;
+		position: relative;
+		padding: 3rem 0;
+	}
+
+	#canvas-wrapper {
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+
+		> h2 {
+			padding: 0 2.5rem;
+			margin: 2rem 0 0;
+
+			@media only screen and (min-width: 640px) {
+				padding: 0 3rem;
+			}
+
+			@media only screen and (min-width: 768px) {
+				padding: 0 4rem;
+			}
+
+		}
+	}
+
+	#canvas {
+		background-position: -1px -1px,-1px -1px,-1px -1px,-1px -1px;
+		border: 0;
+		box-sizing: content-box;
+		height: calc(100% - 7rem);
+		left: 50%;
+		transform: translateX(-50%);
+		position: absolute;
+		top: 7rem;
+		transition: all .3s ease 0s,background-position 0s ease 0s,visibility 0s ease 0s;
+		width: 100%;
+		display: none;
+
+		&.loaded {
+			display: block;
+		}
+
+	}
+
+}

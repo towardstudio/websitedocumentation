@@ -1,0 +1,33 @@
+{#
+	Notification Banner
+	==============================
+	One of the sections displayed in the styleguide.
+#}
+
+{# Inherit the blocks and their content from the styleguide layout. #}
+{% extends 'website-docs/_layouts/_style-guide.twig' %}
+
+{% block body %}
+	{# Fetch the relevant styleguide data #}
+	{% set sectionPadding = styleguide.classes.sectionPadding %}
+	{% set sectionLabel = styleguide.classes.sectionLabel %}
+
+	{# Render the HTML #}
+	<section id="notification-banner-section">
+		{% embed websitedocumentation.getUrl()
+			~ '/style-guide/_embeds/_no-container'
+		%}
+			{% block content %}
+				{% include '_organisms/notification-banner' with {
+					bannerID: 'test-banner',
+					expiryLength: 0,
+					heading: styleguide.data.placeholders.tiny,
+					content: styleguide.data.announcement.richContent,
+					button: styleguide.data.button,
+					close: true,
+					classes: ['bg-gradient-to-tr from-pink-40 to-yellow-40']
+				} %}
+			{% endblock %}
+		{% endembed %}
+	</section>
+{% endblock %}

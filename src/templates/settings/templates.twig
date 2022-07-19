@@ -1,0 +1,30 @@
+{% extends 'websitedocumentation/_layouts/demo' %}
+
+{% import '_includes/forms' as forms %}
+
+{% set title = 'Install Templates' | t('websitedocumentation') %}
+
+{% block content %}
+
+	<form method="post">
+        <input type="hidden" name="action" value="websitedocumentation/install/install-templates">
+        {{ redirectInput('websitedocumentation/settings/templates') }}
+    	{{ csrfInput() }}
+        <input type="hidden" name="{{ craft.app.config.general.csrfTokenName }}" value="{{ craft.app.request.csrfToken }}">
+
+       <h2 class="first">{{ "Install Templates"|t('websitedocumentation') }}</h2>
+
+        <table width="100%">
+            <tr>
+                <td width="95%">
+					<p>{{ 'You can install the plugin base templates to your local environment. These will give you a starting point to building your style guide & cms guide.' | t }}</p>
+                </td>
+                <td>
+                    <div class="buttons" style="margin: 18px 0 0 15px !important;">
+                        <input type="submit" class="btn submit" value="{{ "Install"|t }}" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}

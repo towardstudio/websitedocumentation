@@ -1,0 +1,37 @@
+{#
+  Small Desktop Icon
+  ==============================
+
+  * classes: ARRAY (optional) - Custom classes
+  * attributes OBJECT (optional) - Custom attributes
+
+#}
+
+{# Set the element's base classes #}
+{% set elementBaseClasses = [] %}
+
+{# Merge custom classes with the base classes #}
+{% if classes is defined and classes is not empty %}
+	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+{% endif %}
+
+{# Set the element's base attributes #}
+{% set elementAttributes = {
+	xmlns: 'http://www.w3.org/2000/svg',
+	viewBox: '0 0 88.67 88.93',
+	class: elementBaseClasses
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{% endif %}
+
+{# Render the HTML #}
+<svg {{ attr(elementAttributes) }}>
+	<path d="M72.44,72.71H16.22c-8.94,0-16.22-7.27-16.22-16.22V21.9c0-8.94,7.27-16.22,16.22-16.22h56.22
+	c8.94,0,16.22,7.27,16.22,16.22v34.6C88.66,65.44,81.39,72.71,72.44,72.71z M16.22,12.17c-5.37,0-9.73,4.36-9.73,9.73v34.6
+	c0,5.37,4.36,9.73,9.73,9.73h56.22c5.37,0,9.73-4.36,9.73-9.73V21.9c0-5.37-4.36-9.73-9.73-9.73H16.22z" />
+	<path d="M83.26,83.52H5.41c-1.79,0-3.24-1.45-3.24-3.24c0-1.79,1.45-3.24,3.24-3.24h77.84
+	c1.79,0,3.24,1.45,3.24,3.24C86.5,82.07,85.05,83.52,83.26,83.52z" />
+</svg>

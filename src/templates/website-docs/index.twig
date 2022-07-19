@@ -1,0 +1,26 @@
+{#
+  Website Docs Index
+  ==============================
+	The web server's default page for the website docs index.
+#}
+
+{# Inherit the blocks and their content from the site layout. #}
+{% extends 'website-docs/_layouts/_website-docs' %}
+
+{% block head %}
+	{{ parent() }}
+	{# Head content to be inherited by this template ONLY. The `parent` function
+	inherits the content from the styleguide layout's head block. #}
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	{# Body content to be inherited by this template ONLY. The `parent` function
+	inherits the content from the styleguide layout's body block. #}
+	{% include websitedocumentation.getUrl() ~ '/_organisms/_header' %}
+	{% include websitedocumentation.getUrl() ~ '/_organisms/_main' %}
+	{% include websitedocumentation.getUrl() ~ '/_organisms/_footer' %}
+	{% do view.registerAssetBundle(
+		'bluegg\\websitedocumentation\\assetbundles\\DocumentationAsset'
+	) %}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends '_layouts/cp' %}
+
+{% set selectedSubnavItem = 'settings' %}
+
+{% set title = 'Settings' %}
+
+{% set navItems = {
+	general: {
+		title: 'General Settings',
+	},
+	'cms-guide': {
+		title: 'CMS Guide Settings',
+	},
+	templates: {
+		title: 'Install Templates',
+	}
+} %}
+
+{% set extraSegment = craft.app.request.getSegment(4) | default %}
+{% set appendix = extraSegment ? '/'~extraSegment : '' %}
+{% set selectedItem = (craft.app.request.getSegment(3) ~ appendix)|default %}
+
+{% set crumbs = [
+    { label: "Documentation"|t("websitedocumentation"), url: url("websitedocumentation") },
+    { label: "Settings"|t("websitedocumentation"), url: url("websitedocumentation/settings") },
+] %}
+
+{% block actionButton %}
+    <div class="buttons">
+        <div class="btngroup submit">
+            <input type="submit" class="btn submit" value="{{ 'Save'|t('freeform') }}">
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    <nav>
+        <ul>
+            {% for id, item in navItems %}
+                <li>
+                    <a href="{{ url('websitedocumentation/settings/' ~ id) }}"{% if id == selectedItem %} class="sel"{% endif %}>
+                        {{ item.title | raw }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+{% endblock %}

@@ -1,0 +1,53 @@
+{#
+  Color
+  ==============================
+  * name: STRING - The color's name | Default: null
+  * class: STRING - The color's class | Default: null
+  * hex: STRING - The color's hex value | Default: null
+  * classes: ARRAY (optional) - Custom classes
+  * attributes OBJECT (optional) - Custom attributes
+#}
+
+{# Set the element's default properties #}
+{% set name = name | default(null) %}
+{% set class = class | default(null) %}
+{% set hex = hex | default(null) %}
+
+{# Set the element's base classes #}
+{% set elementBaseClasses = [
+	'shadow-[0_5px_10px_0_rgba(0,0,0,0.2)]',
+	'rounded-[20px]',
+	'overflow-hidden'
+] %}
+
+{# Merge custom classes with the base classes #}
+{% if classes is defined and classes is not empty %}
+	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+{% endif %}
+
+{# Set the element's base attributes #}
+{% set elementAttributes = {
+	class: elementBaseClasses
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{% endif %}
+
+{# Render the HTML #}
+{% if class is not empty %}
+	<div {{ attr(elementAttributes) }}>
+		<div class="aspect-video border border-[#E8E8E8] rounded-t-[20px] {{
+			class
+			}}"></div>
+		<div class="p-6">
+			<p class="font-bold text-left mb-0">
+				{{ name }}
+			</p>
+			{% if hex is not empty %}
+				<code class="text-left">{{ hex }}</code>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

@@ -40,6 +40,7 @@ class CreateVolume extends Component
 
 			if (!$fileService->saveFilesystem($newFileService)) {
             	return $this->asModelFailure($newFileService, Craft::t('app', 'Couldn’t save filesystem.'), 'filesystem');
+				Craft::info('This has Failed', 'DowleyDev');
         	}
 		}
 
@@ -73,13 +74,11 @@ class CreateVolume extends Component
 
 			// We need to move our files from the plugin to the new volume
 			$filePath = Craft::getAlias(
-				"@bluegg/websitedocumentation/resources/"
+				"@bluegg/websitedocumentation/resources/images"
 			);
 
 			$files = FileHelper::findFiles($filePath);
-                
-                
-            // TODO: Come back to this one Craft 4 Assets work correctly. Currently they don't create the folder once you've created the volume.
+
 			$basePath = Craft::getAlias('@webroot') . '/cms-assets';
 
 			if (!file_exists($basePath)) {
