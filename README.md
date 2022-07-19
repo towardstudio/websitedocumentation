@@ -1,10 +1,10 @@
-# Website Documentation plugin for Craft CMS 3.x
+# Website Documentation plugin for Craft CMS 4.x
 
 Creates two links within admin for Styleguide and CMS Guide
 
 ## Requirements
 
-This plugin requires Craft CMS 3.0.0-beta.23 or later.
+This plugin requires Craft CMS 4.
 
 ## Installation
 
@@ -15,6 +15,7 @@ To install the plugin, follow these instructions.
 ```
 cd /path/to/project/craft
 ```
+
 2. Then tell Composer to load the plugin:
 
 ```
@@ -22,7 +23,6 @@ composer require bluegg/websitedocumentation
 ```
 
 3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Website Documentation.
-
 
 [Bluegg Disclaimer](https://github.com/Bluegg/bluegg-open-source-disclaimer)
 
