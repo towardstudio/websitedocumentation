@@ -38,15 +38,13 @@
 			}
 
 			ol {
-				li:before {
-					content: counter(a, lower-alpha);
-				}
+				list-style: lower-alpha;
+
 
 				ol {
-					li:before {
-						content: counter(a, lower-roman);
-					}
+					list-style: lower-roman;
 				}
+
 			}
 
 		}
