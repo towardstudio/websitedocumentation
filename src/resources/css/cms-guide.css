@@ -30,7 +30,28 @@
 			li {
 				margin-bottom: .8rem;
 			}
+
+			ul,
+			ol {
+				margin-top: 1rem;
+				margin-bottom: 1rem;
+			}
+
+			ol {
+				li:before {
+					content: counter(a, lower-alpha);
+				}
+
+				ol {
+					li:before {
+						content: counter(a, lower-roman);
+					}
+				}
+			}
+
 		}
+
+
 
 		img {
 			margin: 1.5rem 0;
