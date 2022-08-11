@@ -175,7 +175,7 @@ class WebsiteDocumentation extends Plugin
 
 		// Add Styleguide External Sub Nav Item
 		$subNavs["styleguide"] = [
-			"label" => "Styleguide",
+			"label" => "Style Guide",
 			"url" => $url . $docUrl . "/style-guide",
 			"external" => true,
 		];

@@ -72,7 +72,7 @@ class DocumentationWidget extends Widget
         return Craft::$app->getView()->renderTemplate('websitedocumentation/_components/widgets/body', [
 			'settings' => [
 				"styleguide" => [
-					"label" => "Styleguide",
+					"label" => "Style Guide",
 					"url" => $url . $docUrl . "/style-guide",
 					"icon"	=> file_get_contents($iconsDirectory . "/photo.svg"),
 				],
