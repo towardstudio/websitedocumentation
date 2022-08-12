@@ -35,8 +35,8 @@ be referenced by all templates inheriting this layout. #}
 		<head>
 			{% block head %}
 				{# Head content to be inherited by ALL layouts and templates. #}
-				{% include '_partials/_head-scripts.twig' %}
-				{% include '_partials/_favicons.twig' %}
+				{% include '_partials/_head-scripts.twig' ignore missing %}
+				{% include '_partials/_favicons.twig' ignore missing %}
 			{% endblock %}
 		</head>
 
@@ -44,7 +44,7 @@ be referenced by all templates inheriting this layout. #}
 			{% block body %}
 				{# Body content to be inherited by ALL layouts and templates. #}
 			{% endblock %}
-			{% include '_partials/_foot-scripts.twig' %}
+			{% include '_partials/_foot-scripts.twig' ignore missing %}
 		</body>
 	</html>
 {% endblock %}
