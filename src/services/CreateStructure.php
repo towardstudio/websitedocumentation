@@ -30,9 +30,6 @@ class CreateStructure extends Component
 		// Hide previews for the structure as we won't have urls
 		$section->previewTargets = [];
 
-		// Set the Max Levels to 2. This should be default. If anymore are needed this can be changed in settings.
-		$section->maxLevels = 2;
-
 		// Set the settings for all sites, this is in case of a multisite install.
 		$allSiteSettings = [];
 

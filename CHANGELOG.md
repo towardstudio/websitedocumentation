@@ -35,3 +35,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 -   New Settings UI
 -   Updated Design for Styleguide and CMS Guide
 -   Download Templates
+
+## 2.0.2 - 2022-08-19
+
+-   Remove Max Levels for the Structure

@@ -1,31 +1,31 @@
 {
-  "name": "bluegg/websitedocumentation",
-  "description": "Craft Plugin: Creates two links within admin for Styleguide and CMS Guide",
-  "type": "craft-plugin",
-  "version": "2.0.1",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Bluegg",
-      "homepage": "https://bluegg.co.uk"
-    }
-  ],
-  "require": {
-    "craftcms/cms": "^4.0.0",
-    "craftcms/redactor": "^3"
-  },
-  "autoload": {
-    "psr-4": {
-      "bluegg\\websitedocumentation\\": "src/"
-    }
-  },
-  "extra": {
-    "name": "Website Documentation",
-    "handle": "websitedocumentation",
-    "developer": "Bluegg",
-    "developerUrl": "https://bluegg.co.uk",
-    "documentationUrl": "https://github.com/bluegg/websitedocumentation/blob/main/README.md",
-    "changelogUrl": "https://raw.githubusercontent.com/bluegg/websitedocumentation/main/CHANGELOG.md",
-    "class": "bluegg\\websitedocumentation\\WebsiteDocumentation"
-  }
+	"name": "bluegg/websitedocumentation",
+	"description": "Craft Plugin: Creates two links within admin for Styleguide and CMS Guide",
+	"type": "craft-plugin",
+	"version": "2.0.2",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Bluegg",
+			"homepage": "https://bluegg.co.uk"
+		}
+	],
+	"require": {
+		"craftcms/cms": "^4.0.0",
+		"craftcms/redactor": "^3"
+	},
+	"autoload": {
+		"psr-4": {
+			"bluegg\\websitedocumentation\\": "src/"
+		}
+	},
+	"extra": {
+		"name": "Website Documentation",
+		"handle": "websitedocumentation",
+		"developer": "Bluegg",
+		"developerUrl": "https://bluegg.co.uk",
+		"documentationUrl": "https://github.com/bluegg/websitedocumentation/blob/main/README.md",
+		"changelogUrl": "https://raw.githubusercontent.com/bluegg/websitedocumentation/main/CHANGELOG.md",
+		"class": "bluegg\\websitedocumentation\\WebsiteDocumentation"
+	}
 }
