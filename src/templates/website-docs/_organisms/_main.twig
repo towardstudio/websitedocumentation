@@ -1,9 +1,12 @@
 {#
-Main
-==============================
-* classes: ARRAY (optional) - Custom classes
-* attributes OBJECT (optional) - Custom attributes
+	Main
+	==============================
+	* classes: ARRAY (optional) - Custom classes
+	* attributes OBJECT (optional) - Custom attributes
 #}
+
+{# Imports #}
+{% import '_macros/_styles' as styles %}
 
 {# Set the element's base classes #}
 {% set elementBaseClasses = [
@@ -26,25 +29,22 @@ Main
 	{% set elementAttributes = elementAttributes | merge(attributes) %}
 {% endif %}
 
-{# Get properties from settings #}
-{% set brandBackground = settings.brandBgColor | default('D7D7D7') %}
-{% set brandText = settings.brandTextColor | default('000') %}
-
 {# Render the HTML #}
 <main {{ attr(elementAttributes) }}>
 	<section id="index-main">
+		{# Style Guide #}
 		<div class="index-main__block">
-			<a href="/{{ websitedocumentation.getUrl() ~ '/style-guide' }}">
+			<a href="/{{ global.url ~ '/style-guide' }}">
 				<div class="index-main__block-icon"
-					style="background: #{{ brandBackground }}">
-					{% set styleGuide = websitedocumentation.getUrl()
-						~ '/_atoms/_icons/_style-guide'
-					%}
+					style="background: {{ styles.hex(global.colors.brandBackground) }}">
+					{% set styleGuide = global.url ~ '/_atoms/_icons/_style-guide' %}
 					{% if include(styleGuide, ignore_missing = true) is not empty %}
 						<span class="icon">
 							{% include styleGuide with {
 								attributes: {
-									style: 'fill: #' ~ brandText
+									style: styles.parse({
+										fill: styles.hex(global.colors.brandText)
+									})
 								}
 							} only %}
 						</span>
@@ -57,18 +57,20 @@ Main
 				</div>
 			</a>
 		</div>
+		{# CMS Guide #}
 		<div class="index-main__block">
-			<a href="/{{ websitedocumentation.getUrl() ~ '/cms-guide' }}">
+			<a href="/{{ global.url ~ '/cms-guide' }}">
 				<div class="index-main__block-icon"
-					style="background: #{{ brandBackground }}">
-					{% set cmsGuide = websitedocumentation.getUrl()
-						~ '/_atoms/_icons/_cms-guide'
+					style="background: {{ styles.hex(global.colors.brandBackground) }}">
+					{% set cmsGuide = global.url ~ '/_atoms/_icons/_style-guide'
 					%}
 					{% if include(cmsGuide, ignore_missing = true) is not empty %}
 						<span class="icon">
 							{% include cmsGuide with {
 								attributes: {
-									style: 'fill: #' ~ brandText
+									style: styles.parse({
+										fill: styles.hex(global.colors.brandText)
+									})
 								}
 							} only %}
 						</span>

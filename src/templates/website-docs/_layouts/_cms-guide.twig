@@ -1,45 +1,32 @@
 {#
-  CMS Guide Layout
-  ==============================
+	CMS Guide Layout
+	==============================
 	The layout inherited by templates specific to the CMS guide site.
 #}
 
 {# Inherit the blocks and their content from the master layout. #}
-{% extends 'website-docs/_layouts/_global.twig' %}
+{% extends websitedocumentation.getUrl() ~ '/_layouts/_master' %}
 
 {# Import the `config()` and `data()` macros containing JSON-encoded strings.
 These string will need to be transformed into valid JSON objects before they can
 be referenced by all templates inheriting this layout. #}
-{% import websitedocumentation.getUrl() ~ '/cms-guide/_config.twig' as config %}
+{% import websitedocumentation.getUrl() ~ '/cms-guide/_config' as config %}
+{% import websitedocumentation.getUrl() ~ '/cms-guide/_data' as data %}
 
 {# Set an object containing data inherited by the CMS guide site ONLY. #}
-{% set guide = {
+{% set cmsGuide = {
 	config: config.config() | spaceless | replace('&quot;', '"') | json_decode,
-	classes: {
-		sectionPadding: 'px-base sm:px-base-sm md:px-base-md',
-		sectionLabel: 'font-bold text-gray mb-4'
-	}
+	data: data.data() | spaceless | replace('&quot;', '"') | json_decode
 } %}
 
-{# The basic essentials of all webpages served across the project. #}
-{% block html %}
-	{% include '_partials/_http-headers' %}
+{% block head %}
+	{{ parent() }}
+	{# Head content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's head block. #}
+{% endblock %}
 
-	<!DOCTYPE html>
-	<html lang="{{ currentSite.language }}" dir="ltr" class="no-js">
-		<head>
-			{% block head %}
-				{# Head content to be inherited by ALL layouts and templates. #}
-				{% include '_partials/_head-scripts.twig' ignore missing %}
-				{% include '_partials/_favicons.twig' ignore missing %}
-			{% endblock %}
-		</head>
-
-		<body id="body">
-			{% block body %}
-				{# Body content to be inherited by ALL layouts and templates. #}
-			{% endblock %}
-			{% include '_partials/_foot-scripts.twig' ignore missing %}
-		</body>
-	</html>
+{% block body %}
+	{{ parent() }}
+	{# Body content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's body block. #}
 {% endblock %}

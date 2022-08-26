@@ -1,10 +1,10 @@
 {#
-  Fonts
-  ==============================
-  * name: STRING - The color's name | Default: null
-  * class: STRING - The color's class | Default: null
-  * classes: ARRAY (optional) - Custom classes
-  * attributes OBJECT (optional) - Custom attributes
+	Fonts
+	==============================
+	* name: STRING - The font's name | Default: null
+	* class: STRING - The font's class | Default: null
+	* classes: ARRAY (optional) - Custom classes
+	* attributes OBJECT (optional) - Custom attributes
 #}
 
 {# Set the element's default properties #}
@@ -12,16 +12,7 @@
 {% set class = class | default(null) %}
 
 {# Set the element's base classes #}
-{% set elementBaseClasses = [
-	class,
-	'shadow-[0_5px_10px_0_rgba(0,0,0,0.2)]',
-	'rounded-[20px]',
-	'text-[2rem]',
-	'leading-[1.2]',
-	'shadow-[0_5px_10px_0_rgba(0,0,0,0.2)]',
-	'rounded-[20px]',
-	'p-[2rem]'
-] %}
+{% set elementBaseClasses = ['col-span-1 p-10 shadow-lg rounded-2xl overflow-hidden'] %}
 
 {# Merge custom classes with the base classes #}
 {% if classes is defined and classes is not empty %}
@@ -41,10 +32,10 @@
 {# Render the HTML #}
 {% if name is not empty %}
 	<div {{ attr(elementAttributes) }}>
-		<p class="mb-6">
+		<p class="text-[40px] mb-6">
 			{{ name }}
 		</p>
-		<p class="mb-0 break-words">
+		<p class="text-[26px] mb-0 break-words">
 			abcdefghijklmnopqrstuvwxyz<br />
 			1234567890<br />
 			!@£$%&*?+

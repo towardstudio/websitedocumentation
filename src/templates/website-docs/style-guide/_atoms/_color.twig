@@ -1,11 +1,11 @@
 {#
-  Color
-  ==============================
-  * name: STRING - The color's name | Default: null
-  * class: STRING - The color's class | Default: null
-  * hex: STRING - The color's hex value | Default: null
-  * classes: ARRAY (optional) - Custom classes
-  * attributes OBJECT (optional) - Custom attributes
+	Color
+	==============================
+	* name: STRING - The color's name | Default: null
+	* class: STRING - The color's class | Default: null
+	* hex: STRING - The color's hex value | Default: null
+	* classes: ARRAY (optional) - Custom classes
+	* attributes OBJECT (optional) - Custom attributes
 #}
 
 {# Set the element's default properties #}
@@ -14,15 +14,12 @@
 {% set hex = hex | default(null) %}
 
 {# Set the element's base classes #}
-{% set elementBaseClasses = [
-	'shadow-[0_5px_10px_0_rgba(0,0,0,0.2)]',
-	'rounded-[20px]',
-	'overflow-hidden'
-] %}
+{% set elementBaseClasses = ['shadow-lg rounded-2xl overflow-hidden'] %}
 
 {# Merge custom classes with the base classes #}
 {% if classes is defined and classes is not empty %}
 	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+	{% set classes = null %}
 {% endif %}
 
 {# Set the element's base attributes #}
@@ -33,21 +30,22 @@
 {# Merge custom attributes with the base attributes #}
 {% if attributes is defined and attributes is not empty %}
 	{% set elementAttributes = elementAttributes | merge(attributes) %}
+	{% set attributes = null %}
 {% endif %}
 
 {# Render the HTML #}
 {% if class is not empty %}
-	<div {{ attr(elementAttributes) }}>
-		<div class="aspect-video border border-[#E8E8E8] rounded-t-[20px] {{
-			class
-			}}"></div>
+	<section {{ attr(elementAttributes) }}>
+		<div class="aspect-photograph border border-[#E8E8E8] {{ class }}"></div>
 		<div class="p-6">
-			<p class="font-bold text-left mb-0">
+			<p class="font-bold mb-2">
 				{{ name }}
 			</p>
 			{% if hex is not empty %}
-				<code class="text-left">{{ hex }}</code>
+				<p class="font-mono text-[#aaaaaa]">
+					{{ hex }}
+				</p>
 			{% endif %}
 		</div>
-	</div>
+	</section>
 {% endif %}

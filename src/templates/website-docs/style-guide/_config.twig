@@ -1,7 +1,7 @@
 {#
-  Styleguide Configuration
-  ==============================
-	The settings inherited by templates specific to the styleguide site.
+	Style Guide Configuration
+	==============================
+	The settings inherited by templates specific to the style guide site.
 #}
 
 {# All values entered below should be contained within the `config` object and
@@ -34,20 +34,15 @@ referenced using the same name structure, E.G. `config.sections`. #}
 					}
 				]
 			}
-		]
+		],
+		breakpoints: {
+			Mobile: 400,
+			Tablet: 768,
+			'Small Desktop': 1024,
+			'Large Desktop': 1280
+		}
 	} %}
 
 	{# Do not modify. This outputs the object as a string of JSON data. #}
 	{{ config | json_encode | raw }}
-{% endmacro %}
-
-{% macro breakpoints() %}
-	{% set breakpoints = {
-		Mobile: 400,
-		Tablet: 768,
-		'Small Desktop': 1024,
-		'Large Desktop': 1280
-	} %}
-
-	{{ breakpoints | json_encode | raw }}
 {% endmacro %}

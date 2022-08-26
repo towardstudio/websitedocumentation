@@ -1,0 +1,22 @@
+{#
+	Style Guide Section Layout
+	==============================
+	The layout inherited by templates specific to the style guide sections.
+#}
+
+{# Inherit the blocks and their content from the master layout. #}
+{% extends websitedocumentation.getUrl() ~ '/_layouts/_style-guide' %}
+
+{% block head %}
+	{{ parent() }}
+	{# Head content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's head block. #}
+
+	{{ craft.vite.script('src/js/app.js') }}
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	{# Body content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's body block. #}
+{% endblock %}

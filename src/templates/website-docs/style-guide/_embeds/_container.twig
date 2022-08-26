@@ -3,7 +3,7 @@
 {% set notes = block('notes') ?? null %}
 
 {% if header | spaceless is not empty %}
-	<div class="px-base sm:px-base-sm md:px-base-md mb-6">
+	<div class="px-base md:px-base-md mb-6">
 		<div class="container">
 			{% block header %}
 
@@ -13,23 +13,11 @@
 {% endif %}
 
 {% if content | spaceless is not empty %}
-	<div class="px-base sm:px-base-sm md:px-base-md mb-20">
+	<div class="px-base md:px-base-md">
 		<div class="container">
 			{% block content %}
 
 			{% endblock %}
-		</div>
-	</div>
-{% endif %}
-
-{% if notes | spaceless is not empty %}
-	<div class="px-base sm:px-base-sm md:px-base-md mt-6 mb-20">
-		<div class="container">
-			{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_notes' %}
-				{% block content %}
-					{{ notes | raw }}
-				{% endblock %}
-			{% endembed %}
 		</div>
 	</div>
 {% endif %}

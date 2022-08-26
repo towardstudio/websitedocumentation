@@ -1,30 +1,23 @@
 {#
-  CMS Guide Configuration
-  ==============================
+	CMS Guide Configuration
+	==============================
 	The settings inherited by templates specific to the CMS guide site.
 #}
 
 {# All values entered below should be contained within the `config` object and
 referenced using the same name structure, E.G. `config.sections`. #}
 {% macro config() %}
-	{# Check if the Craft Cookies plugin is installed and enabled #}
-	{% set isPluginEnabled =
-		craft.app.plugins.isPluginEnabled('websitedocumentation')
-	%}
+	{# Check if the Website Documentation plugin is installed and enabled #}
+	{% set isPluginEnabled = craft.app.plugins.isPluginEnabled('websitedocumentation') %}
 
 	{# Get the guide's section name from the Website Documentation plugin #}
-	{% set sectionName = isPluginEnabled
-		? craft.documentSettings.guideSection | default
-	%}
+	{% set sectionName = isPluginEnabled ? craft.documentSettings.guideSection | default %}
 
 	{% set config = {
 		websitedocumention: {
 			isEnabled: isPluginEnabled,
-			section: craft.app.sections.getSectionByHandle(
-				sectionName | camel
-			) | default,
-			settingsUrl: '/' ~ craft.app.config.general.cpTrigger
-				~ '/websitedocumentation/settings'
+			section: craft.app.sections.getSectionByHandle(sectionName | camel) | default,
+			settingsUrl: '/' ~ craft.app.config.general.cpTrigger ~ '/websitedocumentation/settings'
 		}
 	} %}
 

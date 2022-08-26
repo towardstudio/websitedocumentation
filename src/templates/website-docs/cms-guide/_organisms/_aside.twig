@@ -27,31 +27,32 @@
 {# Get config #}
 {% set section = guide.config.websitedocumention.section %}
 {% set settingsUrl = guide.config.websitedocumention.settingsUrl %}
-{% set entries =
-	craft.entries.section(section.handle).level(1).all() | default
-%}
+{% set entries = craft.entries.section(section.handle).level(1).all() | default %}
 
 {# Get properties from settings #}
 {% set logoID = settings.logo[0] | default %}
-{% set brandBackground = settings.brandBgColor | default('FFF') %}
-{% set brandText = settings.brandTextColor | default('000') %}
+{% set brandBackground = websiteglobal.getSettings().brandBgColor | default('FFF') %}
+{% set brandText = websiteglobal.getSettings().colors.brandText | default('000') %}
 
 {# Render the HTML #}
 <aside {{ attr(elementAttributes) }}>
-	<a href="/"
-		title="{{ 'Back to Website' | t }}"
-		id="site-button"
-		style="background: #{{ brandBackground }}; color: #{{ brandText }}">
-		<span class="icon">
-			<svg xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 166.4 122.4"
-				style="fill: #{{ brandText }}">
-				<path d="M62.3,122.4l20.6-8.7C72,90.2,58,78.4,39.3,70.8h127.2V51.4H39.8
-				C58,42.6,72.2,32,82.9,8.7L62.3,0C39.8,46.2,16.6,50.9,0,53.7v14.9C16.6,71.5,39.8,76.3,62.3,122.4" />
-			</svg>
-		</span>
-		{{ 'Back to Website' | t }}
-	</a>
+	{% embed global.url ~ '/_atoms/_link'
+		with {
+			url: siteUrl,
+			attributes: {
+				id: 'site-button',
+				style: styles.parse({
+					background: styles.hex(global.colors.brandBackground),
+					color: styles.hex(global.colors.brandText)
+				})
+			}
+		}
+	%}
+		{% block content %}
+			{{ 'Back to Website' | t }}
+			{% include global.url ~ '/_atoms/_icons/_arrow' %}
+		{% endblock %}
+	{% endembed %}
 	<div id="header">
 		<div>
 			{% if logoID is not empty %}
@@ -98,13 +99,9 @@
 {% endfor %}
 
 <script>
-	window.cmsGuideSections = {{ entriesStructure | json_encode | raw }}
-	window.accentBgColor = {{
-		settings.accentBgColor | default('000') | json_encode | raw
-	}}
-	window.accentTextColor = {{
-		settings.accentTextColor | default('FFF') | json_encode | raw
-	}}
+	window.cmsGuideSections = {{ cmsGuide.config.sections | json_encode | raw }}
+	window.accentBgColor = {{ styles.hex(global.colors.accentBackground) | json_encode | raw }}
+	window.colors.accentText = {{ styles.hex(global.colors.accentText) | json_encode | raw }}
 </script>
 
 {# Render the HTML #}

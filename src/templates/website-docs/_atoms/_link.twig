@@ -1,0 +1,56 @@
+{#
+	Link
+	==============================
+	* tag: STRING (a|span|div) - The HTML element | Default: 'a'
+	* url: STRING - The link's URL | Default: null
+	* text: STRING - The link's text | Default: null
+	* classes: ARRAY (optional) - Custom classes
+	* attributes OBJECT (optional) - Custom attributes
+#}
+
+{# Set the element's default properties #}
+{% set tag = tag | default('a') %}
+{% set url = url | default(null) %}
+{% set text = text | default(null) %}
+
+{# Set the element's base classes #}
+{% set elementBaseClasses = [] %}
+
+{# Merge custom classes with the base classes #}
+{% if classes is defined and classes is not empty %}
+	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+	{% set classes = null %}
+{% endif %}
+
+{# Check if the destination URL is external (off-site) #}
+{% set isExternal = url is defined and 'http' in url and siteUrl not in url ? true : false %}
+
+{# Set the element's base attributes #}
+{% set elementAttributes = {
+	href: url,
+	target: isExternal ? '_blank' : null,
+	rel: isExternal ? 'noopener noreferrer' : null,
+	class: elementBaseClasses
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
+	{% set attributes = null %}
+{% endif %}
+
+{# Check if the content block has any content #}
+{% set content = block('content') ?? null %}
+
+{# Render the HTML #}
+{% if text is not empty or content | spaceless is not empty %}
+	{% if tag == 'a' or tag == 'span' or tag == 'div' %}
+		{% tag tag with elementAttributes %}
+			{%- block content %}
+				{{- text | raw -}}
+			{% endblock -%}
+		{% endtag %}
+	{% else %}
+		<code>⚠️ Invalid button tag</code>
+	{% endif %}
+{% endif %}
