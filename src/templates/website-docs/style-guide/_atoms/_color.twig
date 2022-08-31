@@ -1,27 +1,25 @@
 {#
-  Color
-  ==============================
-  * name: STRING - The color's name | Default: null
-  * class: STRING - The color's class | Default: null
-  * hex: STRING - The color's hex value | Default: null
-  * classes: ARRAY (optional) - Custom classes
-  * attributes OBJECT (optional) - Custom attributes
+	Color
+	==============================
+	* name: 		STRING - The colors name | Default: null
+	* hex: 			STRING - The colors hex value | Default: null
+	* classes: 		ARRAY (optional) - Custom classes
+	* attributes: 	OBJECT (optional) - Custom attributes
 #}
 
 {# Set the element's default properties #}
-{% set name = name | default(null) %}
-{% set class = class | default(null) %}
-{% set hex = hex | default(null) %}
+{% set name = name | default() %}
+{% set hex = hex | default() %}
+{% set classes = classes | default() %}
+{% set attributes = attributes | default() %}
 
 {# Set the element's base classes #}
 {% set elementBaseClasses = [
-	'shadow-[0_5px_10px_0_rgba(0,0,0,0.2)]',
-	'rounded-[20px]',
-	'overflow-hidden'
+	'color-block'
 ] %}
 
 {# Merge custom classes with the base classes #}
-{% if classes is defined and classes is not empty %}
+{% if classes is not empty %}
 	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
 {% endif %}
 
@@ -31,23 +29,19 @@
 } %}
 
 {# Merge custom attributes with the base attributes #}
-{% if attributes is defined and attributes is not empty %}
+{% if attributes is not empty %}
 	{% set elementAttributes = elementAttributes | merge(attributes) %}
 {% endif %}
 
 {# Render the HTML #}
-{% if class is not empty %}
+{% if hex is not empty %}
 	<div {{ attr(elementAttributes) }}>
-		<div class="aspect-video border border-[#E8E8E8] rounded-t-[20px] {{
-			class
-			}}"></div>
-		<div class="p-6">
-			<p class="font-bold text-left mb-0">
+		<div class="color-block__color" style="background: {{ hex }}"></div>
+		<div class="color-block__content">
+			<p class="color-block__heading">
 				{{ name }}
 			</p>
-			{% if hex is not empty %}
-				<code class="text-left">{{ hex }}</code>
-			{% endif %}
+			<code class="color-block__hex">{{ hex }}</code>
 		</div>
 	</div>
 {% endif %}

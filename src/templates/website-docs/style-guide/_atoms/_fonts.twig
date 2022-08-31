@@ -1,30 +1,26 @@
 {#
   Fonts
   ==============================
-  * name: STRING - The color's name | Default: null
+  * name: STRING - The font name | Default: null
   * class: STRING - The color's class | Default: null
   * classes: ARRAY (optional) - Custom classes
   * attributes OBJECT (optional) - Custom attributes
 #}
 
 {# Set the element's default properties #}
-{% set name = name | default(null) %}
-{% set class = class | default(null) %}
+{% set name = name | default() %}
+{% set class = class | default() %}
+{% set classes = classes | default() %}
+{% set attributes = attributes | default() %}
 
 {# Set the element's base classes #}
 {% set elementBaseClasses = [
 	class,
-	'shadow-[0_5px_10px_0_rgba(0,0,0,0.2)]',
-	'rounded-[20px]',
-	'text-[2rem]',
-	'leading-[1.2]',
-	'shadow-[0_5px_10px_0_rgba(0,0,0,0.2)]',
-	'rounded-[20px]',
-	'p-[2rem]'
+	'font-block',
 ] %}
 
 {# Merge custom classes with the base classes #}
-{% if classes is defined and classes is not empty %}
+{% if classes is not empty %}
 	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
 {% endif %}
 
@@ -34,17 +30,17 @@
 } %}
 
 {# Merge custom attributes with the base attributes #}
-{% if attributes is defined and attributes is not empty %}
+{% if attributes is not empty %}
 	{% set elementAttributes = elementAttributes | merge(attributes) %}
 {% endif %}
 
 {# Render the HTML #}
 {% if name is not empty %}
 	<div {{ attr(elementAttributes) }}>
-		<p class="mb-6">
+		<p class="font-block__name">
 			{{ name }}
 		</p>
-		<p class="mb-0 break-words">
+		<p class="font-block__demo">
 			abcdefghijklmnopqrstuvwxyz<br />
 			1234567890<br />
 			!@£$%&*?+

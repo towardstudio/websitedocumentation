@@ -1,59 +1,71 @@
 {#
 	Typography
 	==============================
+	One of the sections displayed in the styleguide.
 #}
 
 {# Inherit the blocks and their content from the styleguide layout. #}
-{% extends 'website-docs/_layouts/_style-guide.twig' %}
+{% extends websitedocumentation.getUrl() ~ '/_layouts/_section.twig' %}
+
+{% block head %}
+	{{ parent() }}
+	{# Head content to be inherited by this template ONLY. The `parent` function
+	inherits the content from the styleguide layout's head block. #}
+	{% do view.registerAssetBundle(global.bundles.components) %}
+{% endblock %}
 
 {% block body %}
 	{% set data = {
 		lede: {
-			text: styleguide.data.placeholders.long,
-			classes: ['lede']
+			text: styleGuide.data.placeholders.long,
+			classes: []
 		},
 		paragraph: {
-			text: styleguide.data.placeholders.long
+			text: styleGuide.data.placeholders.long
 		},
 		paragraphSmall: {
-			text: styleguide.data.placeholders.long,
-			classes: ['text-base', 'leading-8xl', 'tracking-xs']
+			text: styleGuide.data.placeholders.long,
+			classes: []
 		},
 		unorderedList: {
 			list: [
-				styleguide.data.placeholders.medium,
-				styleguide.data.placeholders.medium
+				styleGuide.data.placeholders.medium,
+				styleGuide.data.placeholders.medium
 			]
 		},
 		orderedList: {
 			list: [
-				styleguide.data.placeholders.medium,
-				styleguide.data.placeholders.medium,
-				styleguide.data.placeholders.long,
-				styleguide.data.placeholders.medium
+				styleGuide.data.placeholders.medium,
+				styleGuide.data.placeholders.medium,
+				styleGuide.data.placeholders.long,
+				styleGuide.data.placeholders.medium
 			]
 		}
 	} %}
 
 	{# Fetch the relevant styleguide data #}
 	{# Fetch the relevant styleguide data #}
-	{% set fontsArray = styleguide.data.fonts %}
-	{% set sectionPadding = styleguide.classes.sectionPadding %}
-	{% set sectionLabel = styleguide.classes.sectionLabel %}
+	{% set fontsArray = styleGuide.data.fonts %}
 
 	{# Render the HTML #}
-	<section id="fonts-section" class="mb-12">
-		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container'
-		%}
+	<section class="font-section">
+		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container' with {
+			headerClasses: [
+				'container-padding',
+			],
+			contentClasses: [
+				'container-padding',
+			]
+		} %}
 			{% block header %}
 				{% include websitedocumentation.getUrl()
 					~ '/style-guide/_atoms/_paragraph' with {
 					text: 'Fonts',
-					classes: ['text-[#868686]']
+					classes: ['font-label']
 				} %}
 			{% endblock %}
 			{% block content %}
-				<div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
+				<div class="font-section__blocks">
 					{% for font in fontsArray %}
 						{% include websitedocumentation.getUrl()
 							~ '/style-guide/_atoms/_fonts' with {
@@ -66,100 +78,128 @@
 		{% endembed %}
 	</section>
 
-	<section id="headings-section" class="mb-12">
-		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container'
-		%}
+	<section class="font-section">
+		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container' with {
+			contentClasses: [
+				'container-padding',
+			]
+		} %}
 			{% block content %}
 				{% for i in range(1, 6) %}
-					{% include websitedocumentation.getUrl()
-						~ '/style-guide/_atoms/_paragraph' with {
-						text: 'Heading ' ~ i,
-						classes: ['text-[#868686]']
-					} %}
-					{% include websitedocumentation.getUrl()
-						~ '/style-guide/_atoms/_heading' with {
-						level: i,
-						text: styleguide.data.placeholders.tiny,
-						classes: ['mb-6']
-					} %}
+					<div class="font__headings-block">
+						{% include websitedocumentation.getUrl()
+							~ '/style-guide/_atoms/_paragraph' with {
+							text: 'Heading ' ~ i,
+							classes: ['font-label']
+						} %}
+						{% include websitedocumentation.getUrl()
+							~ '/style-guide/_atoms/_heading' with {
+							level: i,
+							text: styleGuide.data.placeholders.tiny,
+						} %}
+					</div>
 				{% endfor %}
 			{% endblock %}
 		{% endembed %}
 	</section>
 
-	<section id="paragraph-section" class="mb-12">
-		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container'
-		%}
+	<section class="font-section">
+		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container' with {
+			headerClasses: [
+				'container-padding',
+			],
+			contentClasses: [
+				'container-padding',
+			]
+		} %}
 			{% block header %}
 				{% include websitedocumentation.getUrl()
 					~ '/style-guide/_atoms/_paragraph' with {
 					text: 'Paragraph',
-					classes: ['text-[#868686]']
+					classes: ['font-label']
 				} %}
 			{% endblock %}
 			{% block content %}
 				{% include websitedocumentation.getUrl()
 					~ '/style-guide/_atoms/_paragraph' with {
-					text: data.paragraph.text | default,
-					classes: data.paragraph.classes | default
+					text: data.paragraph.text|default,
+					classes: data.paragraph.classes|default
 				} %}
 			{% endblock %}
 		{% endembed %}
 	</section>
 
-	<section id="paragraph-small-section" class="mb-12">
-		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container'
-		%}
+	<section class="font-section">
+		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container' with {
+			headerClasses: [
+				'container-padding',
+			],
+			contentClasses: [
+				'container-padding',
+			]
+		} %}
 			{% block header %}
 				{% include websitedocumentation.getUrl()
 					~ '/style-guide/_atoms/_paragraph' with {
 					text: 'Paragraph (Small)',
-					classes: ['text-[#868686]']
+					classes: ['font-label']
 				} %}
 			{% endblock %}
 			{% block content %}
 				{% include websitedocumentation.getUrl()
 					~ '/style-guide/_atoms/_paragraph' with {
-					text: data.paragraphSmall.text | default,
-					classes: data.paragraphSmall.classes | default
+					text: data.paragraphSmall.text|default,
+					classes: data.paragraphSmall.classes|default
 				} %}
 			{% endblock %}
 		{% endembed %}
 	</section>
 
-	<section id="unordered-list-section" class="mb-12">
-		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container'
-		%}
+	<section class="font-section">
+		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container' with {
+			headerClasses: [
+				'container-padding',
+			],
+			contentClasses: [
+				'container-padding',
+			]
+		} %}
 			{% block header %}
 				{% include websitedocumentation.getUrl()
 					~ '/style-guide/_atoms/_paragraph' with {
 					text: 'Unordered List',
-					classes: ['text-[#868686]']
+					classes: ['font-label']
 				} %}
 			{% endblock %}
 			{% block content %}
 				{% include '_atoms/_unordered-list' with {
-					list: data.unorderedList.list | default,
-					classes: data.unorderedList.classes | default
+					list: data.unorderedList.list|default,
+					classes: data.unorderedList.classes|default
 				} %}
 			{% endblock %}
 		{% endembed %}
 	</section>
 
-	<section id="ordered-list-section" class="mb-12">
-		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container'
-		%}
+	<section class="font-section">
+		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container' with {
+			headerClasses: [
+				'container-padding',
+			],
+			contentClasses: [
+				'container-padding',
+			]
+		} %}
 			{% block header %}
 				{% include websitedocumentation.getUrl()
 					~ '/style-guide/_atoms/_paragraph' with {
 					text: 'Ordered List',
-					classes: ['text-[#868686]']
+					classes: ['font-label']
 				} %}
 			{% endblock %}
 			{% block content %}
 				{% include '_atoms/_ordered-list' with {
-					list: data.orderedList.list | default,
-					classes: data.orderedList.classes | default
+					list: data.orderedList.list|default,
+					classes: data.orderedList.classes|default
 				} %}
 			{% endblock %}
 		{% endembed %}

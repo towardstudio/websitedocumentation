@@ -1,25 +1,23 @@
 {#
-  Styleguide Index
-  ==============================
+	Style Guide Index
+	==============================
 	The web server's default page for the styleguide site.
 #}
 
 {# Inherit the blocks and their content from the site layout. #}
-{% extends 'website-docs/_layouts/_guide-overview' %}
+{% extends websitedocumentation.getUrl() ~ '/_layouts/_style-guide' %}
 
 {% block head %}
 	{{ parent() }}
 	{# Head content to be inherited by this template ONLY. The `parent` function
 	inherits the content from the styleguide layout's head block. #}
-	{% do view.registerAssetBundle(
-		'bluegg\\websitedocumentation\\assetbundles\\StyleGuideAsset'
-	) %}
+	{% do view.registerAssetBundle(global.bundles.styleGuide) %}
 {% endblock %}
 
 {% block body %}
 	{{ parent() }}
 	{# Body content to be inherited by this template ONLY. The `parent` function
 	inherits the content from the styleguide layout's body block. #}
-	{% include websitedocumentation.getUrl() ~ '/style-guide/_organisms/_aside' %}
-	{% include websitedocumentation.getUrl() ~ '/style-guide/_organisms/_main' %}
+	{% include global.url ~ '/_organisms/_aside' %}
+	{% include global.url ~ '/style-guide/_organisms/_main' %}
 {% endblock %}

@@ -5,34 +5,30 @@
 #}
 
 {# Inherit the blocks and their content from the site layout. #}
-{% extends 'website-docs/_layouts/_guide-overview' %}
+{% extends websitedocumentation.getUrl() ~ '/_layouts/_cms-guide' %}
 
 {% block head %}
 	{{ parent() }}
 	{# Head content to be inherited by this template ONLY. The `parent` function
 	inherits the content from the styleguide layout's head block. #}
-	{% do view.registerAssetBundle(
-		'bluegg\\websitedocumentation\\assetbundles\\CMSGuideAsset'
-	) %}
+	{% do view.registerAssetBundle(global.bundles.cmsGuide) %}
 {% endblock %}
 
 {% block body %}
 	{{ parent() }}
 	{# Body content to be inherited by this template ONLY. The `parent` function
 	inherits the content from the styleguide layout's body block. #}
-	{% set isPluginEnabled =
-		guide.config.websitedocumention.isEnabled | default(false)
-	%}
-	{% set section = guide.config.websitedocumention.section %}
-	{% set settingsUrl = guide.config.websitedocumention.settingsUrl %}
+	{% set isPluginEnabled = cmsGuide.config.websitedocumention.isEnabled | default(false) %}
+	{% set section = cmsGuide.config.websitedocumention.section %}
 
 	{% if isPluginEnabled %}
 		{% if section is not empty %}
-			{% include websitedocumentation.getUrl()
-				~ '/cms-guide/_organisms/_aside' with {
-				classes: ['flex-shrink-0']
+			{% include global.url
+				~ '/_organisms/_aside' with {
+				section: section,
+				guideType: 'cms',
 			} %}
-			{% include websitedocumentation.getUrl()
+			{% include global.url
 				~ '/cms-guide/_organisms/_main' %}
 		{% else %}
 			<div id="content-wrapper">
@@ -46,8 +42,7 @@
 	{% else %}
 		<div id="content-wrapper">
 			<p>
-				The Website Documentation plugin is currently not enabled! This template
-				will not work until this plugin is enabled.
+				The Website Documentation plugin is currently not enabled! This template will not work until this plugin is enabled.
 			</p>
 		</div>
 	{% endif %}

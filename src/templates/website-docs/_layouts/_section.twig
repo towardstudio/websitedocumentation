@@ -1,0 +1,26 @@
+{#
+	Section Layout
+	==============================
+	The layout inherited by templates specific to the guides sections.
+#}
+
+{% set name = name | default('style-guide') %}
+
+{# Inherit the blocks and their content from the master layout. #}
+{% extends websitedocumentation.getUrl() ~ '/_layouts/_style-guide' %}
+
+{% block head %}
+	{{ parent() }}
+	{# Head content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's head block. #}
+
+	{% include '_partials/_head-scripts.twig' ignore missing %}
+	{% include '_partials/_favicons.twig' ignore missing %}
+{% endblock %}
+
+{% block body %}
+	{{ parent() }}
+	{# Body content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's body block. #}
+	{% include '_partials/_foot-scripts.twig' ignore missing %}
+{% endblock %}

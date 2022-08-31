@@ -1,0 +1,98 @@
+{#
+	Toolbar
+	==============================
+	* classes: ARRAY (optional) - Custom classes
+	* attributes OBJECT (optional) - Custom attributes
+#}
+
+{# Set the element's base classes #}
+{% set elementBaseClasses = [] %}
+
+{# Merge custom classes with the base classes #}
+{% if classes is defined and classes is not empty %}
+	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+{% endif %}
+
+{# Set the element's base attributes #}
+{% set elementAttributes = {
+	id: 'toolbar',
+	class: elementBaseClasses,
+	'data-controls': true
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{% endif %}
+
+{# Add the control for showing the sidebar #}
+{% set controls = [
+	{
+		attributes: {
+			'data-default': ''
+		},
+		icon: 'arrow',
+		text: 'Show Sidebar' | t
+	}
+] %}
+
+{# Add the controls for each breakpoint #}
+{% for key, breakpoint in styleGuide.config.breakpoints %}
+	{% set controls =
+		controls | merge(
+			[
+				{
+					attributes: {
+						'data-breakpoint': breakpoint
+					},
+					icon: key | kebab,
+					text: key
+				}
+			]
+		)
+	%}
+{% endfor %}
+
+{# Add the control for enabling fullscreen mode #}
+{% set controls =
+	controls | merge(
+		[
+			{
+				attributes: {
+					'data-fullscreen': true
+				},
+				icon: 'full-screen',
+				text: 'Full Screen' | t
+			}
+		]
+	)
+%}
+
+{# Add the control for copying the current page link #}
+{% set controls =
+	controls | merge(
+		[
+			{
+				attributes: {
+					'data-copy-link': ''
+				},
+				icon: 'copy',
+				text: 'Copy Link' | t
+			}
+		]
+	)
+%}
+
+{# Render the HTML #}
+<div {{ attr(elementAttributes) }}>
+	{% for control in controls %}
+		{% set icon = global.url ~ '/_atoms/_icons/_' ~ control.icon %}
+
+		<div {{ attr(control.attributes) }}>
+			{% if include(icon, ignore_missing = true) is not empty %}
+				<span class="icon">{% include icon %}</span>
+			{% endif %}
+			{{ control.text }}
+		</div>
+	{% endfor %}
+</div>

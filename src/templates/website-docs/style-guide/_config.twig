@@ -24,30 +24,19 @@ referenced using the same name structure, E.G. `config.sections`. #}
 							{
 								title: 'Large Buttons'
 							},
-							{
-								title: 'Small Buttons'
-							}
 						]
 					},
-					{
-						title: 'Forms'
-					}
 				]
 			}
-		]
+		],
+		breakpoints: {
+			Mobile: 400,
+			Tablet: 768,
+			'Small Desktop': 1024,
+			'Large Desktop': 1280
+		}
 	} %}
 
 	{# Do not modify. This outputs the object as a string of JSON data. #}
 	{{ config | json_encode | raw }}
-{% endmacro %}
-
-{% macro breakpoints() %}
-	{% set breakpoints = {
-		Mobile: 400,
-		Tablet: 768,
-		'Small Desktop': 1024,
-		'Large Desktop': 1280
-	} %}
-
-	{{ breakpoints | json_encode | raw }}
 {% endmacro %}

@@ -18,7 +18,7 @@
     },
     "scripts": {
         "scripts": "rollup --config",
-        "styles": "postcss src/resources/css/index.css -o src/resources/css/dist/index.min.css --minify && postcss src/resources/css/sidebar.css -o src/resources/css/dist/sidebar.min.css --minify && postcss src/resources/css/style-guide.css -o src/resources/css/dist/style-guide.min.css --minify && postcss src/resources/css/cms-guide.css -o src/resources/css/dist/cms-guide.min.css --minify",
+        "styles": "postcss src/resources/css/index.css -o src/resources/css/dist/index.min.css --minify && postcss src/resources/css/sidebar.css -o src/resources/css/dist/sidebar.min.css --minify && postcss src/resources/css/style-guide.css -o src/resources/css/dist/style-guide.min.css --minify && postcss src/resources/css/cms-guide.css -o src/resources/css/dist/cms-guide.min.css --minify && postcss src/resources/css/components.css -o src/resources/css/dist/components.min.css --minify",
         "postcss": "postcss src/resources/css/index.css -o src/resources/css/dist/index.min.css --watch --minify",
         "watch-scripts": "npm-watch scripts",
         "watch-styles": "npm-watch styles",
@@ -33,7 +33,7 @@
         "@rollup/plugin-node-resolve": "^13.0.6",
         "@rollup/plugin-replace": "^3.0.0",
         "postcss": "^8.4.5",
-        "postcss-cli": "^1.4.0",
+        "postcss-cli": "^10.0.0",
         "postcss-easy-import": "^4.0.0",
         "postcss-import": "^14.0.2",
         "postcss-nested": "^5.0.6",

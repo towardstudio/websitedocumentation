@@ -1,0 +1,53 @@
+{#
+	Identity Block
+	==============================
+	* title: 		STRING | Default: Style Guide
+	* global: 	OBJECT | Default: null
+	* classes: 		ARRAY (optional) - Custom classes
+	* attributes: 	OBJECT (optional) - Custom attributes
+#}
+
+{# Set default values #}
+{% set title = title | default('Style Guide' | t) %}
+{% set global = global | default() %}
+
+{# Set the element's base classes #}
+{% set elementBaseClasses = [] %}
+
+{# Merge custom classes with the base classes #}
+{% if classes is defined and classes is not empty %}
+	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+{% endif %}
+
+{# Set the element's base attributes #}
+{% set elementAttributes = {
+	id: 'header',
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{% endif %}
+
+{# Render the HTML #}
+{% if global is not empty %}
+	<div {{ attr(elementAttributes) }}>
+		<div>
+			{% if global.logo is not empty %}
+				<div id="sidebar-logo">
+					<a href="/" title="{{ siteName }}">
+						<img src="{{ craft.assets().id(global.logo).one.url }}"
+							title="{{ 'Brand Logo' | t }}" />
+					</a>
+				</div>
+			{% endif %}
+			<h1 id="sidebar-title">
+				{{ title }}
+			</h1>
+		</div>
+		<div data-burger>
+			<span></span>
+			<span></span>
+		</div>
+	</div>
+{% endif %}

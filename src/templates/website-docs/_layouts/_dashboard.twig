@@ -1,11 +1,11 @@
 {#
-  Styleguide Layout
-  ==============================
-	The layout inherited by templates specific to the styleguide site.
+	Website Documentation Dashboard
+	==============================
+	The layout inherited by templates specific to the Website Documentation dashboard.
 #}
 
 {# Inherit the blocks and their content from the master layout. #}
-{% extends 'website-docs/_layouts/_master.twig' %}
+{% extends websitedocumentation.getUrl() ~ '/_layouts/_master' %}
 
 {% block head %}
 	{{ parent() }}
