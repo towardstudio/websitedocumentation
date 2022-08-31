@@ -17,10 +17,6 @@ be referenced by all templates inheriting this layout. #}
 {% set styleGuide = {
 	config: config.config() | spaceless | replace('&quot;', '"') | json_decode,
 	data: data.data() | spaceless | replace('&quot;', '"') | json_decode,
-	classes: {
-		sectionSpacing: 'my-base md:my-base-md first:mt-0 last:mb-0',
-		sectionLabel: 'font-normal text-gray !mb-6'
-	}
 } %}
 
 {% block head %}
