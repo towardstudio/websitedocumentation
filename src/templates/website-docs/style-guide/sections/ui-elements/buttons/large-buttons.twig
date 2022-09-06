@@ -1,0 +1,23 @@
+{#
+	Buttons
+	==============================
+	One of the sections displayed in the styleguide.
+#}
+
+{# Inherit the blocks and their content from the styleguide layout. #}
+{% extends 'website-docs/_layouts/_style-guide.twig' %}
+
+{% block body %}
+	{# Render the HTML #}
+	<section>
+		{% embed websitedocumentation.getUrl()
+			~ '/style-guide/_embeds/_container'
+		%}
+			{% block content %}
+
+				{# Add in button component #}
+
+			{% endblock %}
+		{% endembed %}
+	</section>
+{% endblock %}

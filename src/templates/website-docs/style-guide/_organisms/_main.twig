@@ -1,8 +1,8 @@
 {#
-Main
-==============================
-* classes: ARRAY (optional) - Custom classes
-* attributes OBJECT (optional) - Custom attributes
+	Main
+	==============================
+	* classes: ARRAY (optional) - Custom classes
+	* attributes OBJECT (optional) - Custom attributes
 #}
 
 {# Set the element's base classes #}
@@ -24,108 +24,88 @@ Main
 	{% set elementAttributes = elementAttributes | merge(attributes) %}
 {% endif %}
 
-{# Get all titles from the #}
-{% set titles = [] %}
+{# Get all sections from the style guide configuration #}
+{% set sections = [] %}
+{% for section in styleGuide.config.sections %}
+	{% if section.sub | default(null) %}
+		{% for levelOne in section.sub %}
+			{% if levelOne.sub | default(null) %}
 
-{% for section in styleguide.config.sections %}
-	{% if section.sub | default %}
-		{% for item in section.sub %}
-			{% set titles = titles | merge([item.title]) %}
-			{% if item.sub | default %}
-				{% for child in item.sub %}
-					{% set titles = titles | merge([child.title]) %}
+				{% set sectionArray = sections[(section.title | kebab)] | default(null) %}
+
+				{% if sectionArray == null %}
+					{# If a sub menu exists, we need to create an array of it #}
+					{% set sections = sections | merge({
+						(section.title | kebab) : {}
+					}) %}
+				{% endif %}
+
+				{# Create an array with the title as key #}
+				{% set sections = sections | merge({
+					(section.title | kebab) : sections[(section.title | kebab)] | merge({
+						(levelOne.title | kebab) : [],
+					})
+				}) %}
+
+			{% else %}
+				{% set sections = sections | merge({(section.title | kebab) : [levelOne.title]}) %}
+			{% endif %}
+
+			{% if levelOne.sub | default(null) %}
+				{% for levelTwo in levelOne.sub %}
+					{% set sections = sections | merge({
+						(section.title | kebab) : sections[(section.title | kebab)] | merge({
+							(levelOne.title | kebab) : sections[(section.title | kebab)][(levelOne.title | kebab)] | merge([levelTwo.title]),
+						})
+					}) %}
 				{% endfor %}
 			{% endif %}
+
 		{% endfor %}
 	{% else %}
-		{% set titles = titles | merge([section.title]) %}
+		{% set sections = sections | merge([section.title]) %}
 	{% endif %}
 {% endfor %}
-
-{% set controls = [
-	{
-		attributes: {
-			'data-default': ''
-		},
-		icon: 'arrow',
-		text: 'Show Sidebar' | t
-	}
-] %}
-
-{% for key, breakpoint in styleguide.breakpoints %}
-	{% set controls =
-		controls | merge(
-			[
-				{
-					attributes: {
-						'data-breakpoint': breakpoint
-					},
-					icon: key | kebab,
-					text: key
-				}
-			]
-		)
-	%}
-{% endfor %}
-
-{% set controls =
-	controls | merge(
-		[
-			{
-				attributes: {
-					'data-fullscreen': ''
-				},
-				icon: 'full-screen',
-				text: 'Full Screen' | t
-			}
-		]
-	)
-%}
 
 {# Render the HTML #}
 <main {{ attr(elementAttributes) }}>
 	<div data-container>
-		<div data-controls>
-			{% for item in controls %}
-				<div {{ attr(item.attributes) }}>
-					{% set icon = websitedocumentation.getUrl() ~ '/_atoms/_icons/_'
-						~ item.icon
-					%}
-					{% if include(icon, ignore_missing = true) is not empty %}
-						<span class="icon">{% include icon %}</span>
+		{% include global.url ~ '/style-guide/_organisms/_toolbar' %}
+		{% set containers = [] %}
+
+		{# Create the Containers #}
+		{% for sectionKey, section in sections %}
+			{% if section is iterable %}
+				{% for itemKey, items in section %}
+					{% if items is iterable %}
+						{% for item in items %}
+							{% set containers = containers | merge([{
+								template: global.url ~ '/style-guide/sections/' ~ sectionKey ~ '/' ~ itemKey ~ '/' ~ (item | kebab),
+								section: item,
+							}]) %}
+						{% endfor %}
+					{% else %}
+						{% set containers = containers | merge([{
+							template: global.url ~ '/style-guide/sections/' ~ sectionKey ~ '/' ~ (items | kebab),
+							section: items,
+						}]) %}
 					{% endif %}
-					{{ item.text }}
-				</div>
-			{% endfor %}
-			<div data-copy-link>
-				{{ 'Copy Link' | t }}
-				{% set copy = websitedocumentation.getUrl() ~ '/_atoms/_icons/_copy' %}
-				{% if include(copy, ignore_missing = true) is not empty %}
-					<span class="icon">{% include copy %}</span>
-				{% endif %}
-			</div>
-		</div>
-		{% for section in titles %}
-			{% set template = websitedocumentation.getUrl() ~ '/style-guide/sections/'
-				~ (section | kebab)
-			%}
-			{% if include(template, ignore_missing = true) is not empty %}
-				<div data-content="{{ section | kebab }}"
-					aria-labelledby="{{ section | kebab }}"
-					tabindex="0"
-					role="tabpanel">
-					<div id="canvas-wrapper">
-						<h2 class="content-heading">
-							{{ section }}
-						</h2>
-						<div id="loader">
-							{% include websitedocumentation.getUrl()
-								~ '/_atoms/_icons/_loader' only %}
-						</div>
-						<iframe id="canvas"
-							data-path="/website-docs/style-guide/sections/{{ section | kebab }}"></iframe>
-					</div>
-				</div>
+				{% endfor %}
+			{% else %}
+				{% set containers = containers | merge([{
+					template: global.url ~ '/style-guide/sections/' ~ (section | kebab),
+					section: section,
+				}]) %}
+			{% endif %}
+		{% endfor %}
+
+		{# Include the templates #}
+		{% for container in containers %}
+			{% if include(container.template, ignore_missing = true) is not empty %}
+				{% include global.url ~ '/style-guide/_organisms/_content' with {
+					section: container.section,
+					template: container.template
+				} %}
 			{% endif %}
 		{% endfor %}
 	</div>

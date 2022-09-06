@@ -177,6 +177,8 @@ export default {
 			const itemSubExists = item.hasAttribute("data-sub");
 			const itemSub = item.dataset.sub;
 
+			console.log(item);
+
 			const parentPage = item.hasAttribute("data-parent") ? true : false;
 			let parent = item.hasAttribute("data-parent")
 				? item.dataset.section
@@ -184,7 +186,15 @@ export default {
 			parent = document.querySelector('[data-section="' + parent + '"]');
 
 			if (window.location.hash && !this.execute) {
-				this.hashtagActive(window.location.hash.replace("#", ""), item);
+				const hashtag = window.location.hash.replace("#", "");
+				const activeTab = document.querySelector('[data-section="' + item.dataset.section + '"]');
+
+				if (activeTab) {
+					this.hashtagActive(window.location.hash.replace("#", ""), item);
+				} else {
+					this.toggleActiveSection(item);
+					this.findActiveContent();
+				}
 			} else if (itemSubExists) {
 				if (itemSub === "false" && parentPage) {
 					this.toggleActiveSection(item);

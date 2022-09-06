@@ -1,8 +1,8 @@
 {#
-  Main
-  ==============================
-  * classes: ARRAY (optional) - Custom classes
-  * attributes OBJECT (optional) - Custom attributes
+	Main
+	==============================
+	* classes: ARRAY (optional) - Custom classes
+	* attributes OBJECT (optional) - Custom attributes
 #}
 
 {# Set the element's base classes #}
@@ -24,8 +24,8 @@
 	{% set elementAttributes = elementAttributes | merge(attributes) %}
 {% endif %}
 
-{% set section = guide.config.websitedocumention.section %}
-{% set settingsUrl = guide.config.websitedocumention.settingsUrl %}
+{% set section = cmsGuide.config.websitedocumention.section %}
+{% set settingsUrl = cmsGuide.config.websitedocumention.settingsUrl %}
 {% set entries = craft.entries.section(section.handle).all() | default %}
 
 {# Render the HTML #}
@@ -33,25 +33,14 @@
 	<div data-container>
 		{% if entries is not empty %}
 			{% for entry in entries %}
-				<div data-content="{{ entry.title | kebab }}"
-					aria-labelledby="{{ entry.title | kebab }}"
-					role="tabpanel"
-					tabindex="0">
-					<h2>
-						{{ entry.title }}
-					</h2>
-					<div id="guide-content">
-						{{
-							craft.documentSettings.formatContent(
-								entry.documentBodyField
-							) | raw
-						}}
-					</div>
-				</div>
+				{% include global.url ~ '/cms-guide/_organisms/_content' with {
+					section: entry.title,
+					content: entry.documentBodyField,
+				} %}
 			{% endfor %}
 		{% else %}
 			<p id="no-entries">
-				⚠️ No entries exist under the {{ section.name }} section. Default entries
+				No entries exist under the {{ section.name }} section. Default entries
 				can be generated via the Website Documentation
 				<a href="{{ settingsUrl }}" target="_blank">plugin settings</a>.
 			</p>

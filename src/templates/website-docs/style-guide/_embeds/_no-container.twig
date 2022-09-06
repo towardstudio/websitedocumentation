@@ -1,9 +1,40 @@
+{#
+	No Container
+	=======================================
+	* headerClasses: 	ARRAY | Default: null
+	* contentClasses: 	ARRAY | Default: null
+	* headerAttributes: OBJECT | Default: null
+	* contentAttributes: OBJECT | Default: null
+#}
+
+{# Set Default Values #}
 {% set header = block('header') ?? null %}
 {% set content = block('content') ?? null %}
-{% set notes = block('notes') ?? null %}
+{% set headerClasses = headerClasses | default() %}
+{% set contentClasses = contentClasses | default()%}
+{% set headerAttributes = headerAttributes | default() %}
+{% set contentAttributes = contentAttributes | default()%}
 
 {% if header | spaceless is not empty %}
-	<div class="px-base sm:px-base-sm md:px-base-md mb-6 mb-20">
+	{# Set the element's base classes #}
+	{% set headerBaseClasses = [] %}
+
+	{# Merge header classes with the base classes #}
+	{% if headerClasses is not empty %}
+		{% set headerBaseClasses = headerBaseClasses | merge(headerClasses) %}
+	{% endif %}
+
+	{# Set the element's base attributes #}
+	{% set headerBaseAttributes = {
+		class: headerBaseClasses
+	} %}
+
+	{# Merge custom attributes with the base attributes #}
+	{% if headerAttributes is not empty %}
+		{% set headerBaseAttributes = headerBaseAttributes | merge(headerAttributes) %}
+	{% endif %}
+
+	<div {{ attr(headerBaseAttributes) }}>
 		<div class="container">
 			{% block header %}
 
@@ -13,19 +44,27 @@
 {% endif %}
 
 {% if content | spaceless is not empty %}
-	{% block content %}
+		{# Set the element's base classes #}
+	{% set contentBaseClasses = [] %}
 
-	{% endblock %}
-{% endif %}
+	{# Merge header classes with the base classes #}
+	{% if contentClasses is not empty %}
+		{% set contentBaseClasses = contentBaseClasses | merge(contentClasses) %}
+	{% endif %}
 
-{% if notes | spaceless is not empty %}
-	<div class="px-base sm:px-base-sm md:px-base-md mt-6 mb-20">
-		<div class="container">
-			{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_notes' %}
-				{% block content %}
-					{{ notes | raw }}
-				{% endblock %}
-			{% endembed %}
-		</div>
+	{# Set the element's base attributes #}
+	{% set contentBaseAttributes = {
+		class: contentBaseClasses
+	} %}
+
+	{# Merge custom attributes with the base attributes #}
+	{% if contentAttributes is not empty %}
+		{% set contentBaseAttributes = contentBaseAttributes | merge(contentAttributes) %}
+	{% endif %}
+
+	<div {{ attr(contentBaseAttributes) }}>
+		{% block content %}
+
+		{% endblock %}
 	</div>
 {% endif %}

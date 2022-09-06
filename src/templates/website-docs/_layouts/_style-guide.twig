@@ -1,50 +1,32 @@
 {#
-  Styleguide Layout
-  ==============================
-	The layout inherited by templates specific to the styleguide site.
+	Style Guide Layout
+	==============================
+	The layout inherited by templates specific to the style guide site.
 #}
 
 {# Inherit the blocks and their content from the master layout. #}
-{% extends 'website-docs/_layouts/_master.twig' %}
+{% extends websitedocumentation.getUrl() ~ '/_layouts/_master' %}
 
 {# Import the `config()` and `data()` macros containing JSON-encoded strings.
 These string will need to be transformed into valid JSON objects before they can
 be referenced by all templates inheriting this layout. #}
-{% import websitedocumentation.getUrl() ~ '/style-guide/_config.twig'
-	as config
-%}
-{% import websitedocumentation.getUrl() ~ '/style-guide/_data.twig' as data %}
+{% import websitedocumentation.getUrl() ~ '/style-guide/_config' as config %}
+{% import websitedocumentation.getUrl() ~ '/style-guide/_data' as data %}
 
-{# Set an object containing data inherited by the styleguide site ONLY. #}
-{% set styleguide = {
+{# Set an object containing data inherited by the style guide site ONLY. #}
+{% set styleGuide = {
 	config: config.config() | spaceless | replace('&quot;', '"') | json_decode,
 	data: data.data() | spaceless | replace('&quot;', '"') | json_decode,
-	classes: {
-		sectionPadding: 'px-base sm:px-base-sm md:px-base-md',
-		sectionLabel: 'font-bold mb-4'
-	}
 } %}
 
-{% set sectionPadding = styleguide.classes.sectionPadding %}
-{% set sectionLabel = styleguide.classes.sectionLabel %}
+{% block head %}
+	{{ parent() }}
+	{# Head content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's head block. #}
+{% endblock %}
 
-{# The basic essentials of all webpages served across the project. #}
-{% block html %}
-	<!DOCTYPE html>
-	<html lang="{{ currentSite.language }}" dir="ltr" class="no-js">
-		<head>
-			{% block head %}
-				{# Head content to be inherited by ALL layouts and templates. #}
-				{% include '_partials/_head-scripts.twig' ignore missing %}
-				{% include '_partials/_favicons.twig' ignore missing %}
-			{% endblock %}
-		</head>
-
-		<body id="body">
-			{% block body %}
-				{# Body content to be inherited by ALL layouts and templates. #}
-			{% endblock %}
-			{% include '_partials/_foot-scripts.twig' ignore missing %}
-		</body>
-	</html>
+{% block body %}
+	{{ parent() }}
+	{# Body content to be inherited by this layout ONLY. The `parent` function
+	inherits the content from the master layout's body block. #}
 {% endblock %}

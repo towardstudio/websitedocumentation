@@ -1,0 +1,100 @@
+{#
+  Aside
+  ==============================
+  * section:		ARRAY | Default: null
+  * guideType:		STRING | Default: style,
+  * classes: 		ARRAY (optional) - Custom classes
+  * attributes 		OBJECT (optional) - Custom attributes
+#}
+
+{# Set default values #}
+{% set section = section | default() %}
+{% set guideType = guideType | default('style') %}
+{% set entries = entries | default() %}
+
+{# Set the element's base classes #}
+{% set elementBaseClasses = [] %}
+
+{# Merge custom classes with the base classes #}
+{% if classes is defined and classes is not empty %}
+	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+{% endif %}
+
+{# Set the element's base attributes #}
+{% set elementAttributes = {
+	id: 'aside',
+	class: elementBaseClasses
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{% endif %}
+
+{# Get config #}
+{% if section is not empty %}
+	{% set entries =
+		craft.entries.section(section.handle).level(1).all() | default
+	%}
+{% endif %}
+
+{# Render the HTML #}
+<aside {{ attr(elementAttributes) }}>
+	{% include websitedocumentation.getUrl()
+		~ '/_atoms/_back-link' with {
+		global: global,
+	} only %}
+	{% include websitedocumentation.getUrl()
+		~ '/_atoms/_identity' with {
+		title: 'CMS Guide',
+		global: global,
+	} only %}
+	<div id="sidebar-content"></div>
+</aside>
+
+{# Create Structure for JSON #}
+{% if entries is not empty %}
+	{% set entriesStructure = [] %}
+
+	{% for entry in entries %}
+		{% set children = [] %}
+		{% if entry.children is not empty %}
+			{% for item in entry.children.all() %}
+				{% set children = children | merge([item.title]) %}
+			{% endfor %}
+		{% endif %}
+
+		{% set entriesStructure =
+			entriesStructure | merge(
+				[
+					{
+						title: entry.title,
+						children: children
+					}
+				]
+			)
+		%}
+	{% endfor %}
+{% endif %}
+
+<script>
+	{% if guideType == 'style' %}
+		window.styleGuideSections = {{
+			styleGuide.config.sections | json_encode | raw
+		}}
+		window.accentBgColor = {{
+			global.colors.accentBackground | json_encode | raw
+		}}
+		window.accentTextColor = {{
+			global.colors.accentText | json_encode | raw
+		}}
+	{% else %}
+		window.cmsGuideSections = {{ entriesStructure | json_encode | raw }}
+		window.accentBgColor = {{
+			global.colors.accentBackground | json_encode | raw
+		}}
+		window.accentTextColor = {{
+			global.colors.accentText | json_encode | raw
+		}}
+	{% endif %}
+</script>

@@ -5,24 +5,32 @@
 #}
 
 {# Inherit the blocks and their content from the styleguide layout. #}
-{% extends 'website-docs/_layouts/_style-guide.twig' %}
+{% extends websitedocumentation.getUrl() ~ '/_layouts/_section.twig' %}
+
+{% block head %}
+	{{ parent() }}
+	{# Head content to be inherited by this template ONLY. The `parent` function
+	inherits the content from the styleguide layout's head block. #}
+	{% do view.registerAssetBundle(global.bundles.components) %}
+{% endblock %}
 
 {% block body %}
 	{# Fetch the relevant styleguide data #}
-	{% set colorArray = styleguide.data.colors %}
+	{% set colorArray = styleGuide.data.colors %}
 
 	{# Render the HTML #}
 	<section>
-		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container'
-		%}
+		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container' with {
+			contentClasses: [
+				'container-padding',
+			]
+		} %}
 			{% block content %}
-				<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10">
+				<div id="color-grid">
 					{% for colors in colorArray %}
 						{% for color in colors %}
-							{% include websitedocumentation.getUrl()
-								~ '/style-guide/_atoms/_color' with {
+							{% include global.url ~ '/style-guide/_atoms/_color' with {
 								name: color.name,
-								class: color.class,
 								hex: color.hex
 							} %}
 						{% endfor %}

@@ -6,20 +6,21 @@
 
 {# Set an object containing data inherited by all layouts and templates. #}
 {% set global = {
-	templateName: craft.app.controller.actionParams.template | split('/') | last
-} %}
-
-{# Set an object containing cookies inherited by all layouts and templates. #}
-{% set cookies = {
-	cookiesAccepted: 'cookiesAccepted',
-	notificationBannerDismissed: 'notificationBanner%id%Dismissed'
-} %}
-
-{# Set an object containing helpers inherited by all layouts and templates. #}
-{% set helpers = {
-	isGuide: global.templateName == 'cms-guide' ? true : false,
-	isStyleguide: global.templateName == 'style-guide' ? true : false,
-	isCookiesPluginEnabled: craft.app.plugins.isPluginEnabled('cookies')
+	settings: websitedocumentation.getSettings(),
+	url: websitedocumentation.getUrl(),
+	logo: websitedocumentation.getSettings().logo[0] | default(null),
+	colors: {
+		brandBackground: websitedocumentation.getSettings().brandBgColor | default('fff'),
+		brandText: websitedocumentation.getSettings().brandTextColor | default('000'),
+		accentBackground: websitedocumentation.getSettings().accentBgColor | default('000'),
+		accentText: websitedocumentation.getSettings().accentTextColor | default('fff')
+	},
+	bundles: {
+		websiteDocumentation: 'bluegg\\websitedocumentation\\assetbundles\\DocumentationAsset',
+		cmsGuide: 'bluegg\\websitedocumentation\\assetbundles\\CMSGuideAsset',
+		styleGuide: 'bluegg\\websitedocumentation\\assetbundles\\StyleGuideAsset',
+		components: 'bluegg\\websitedocumentation\\assetbundles\\ComponentAsset'
+	}
 } %}
 
 {# All HTML output to be rendered. Should generally be left blank. #}
