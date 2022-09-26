@@ -37,7 +37,7 @@
 	{% block content %}
 		{% include websitedocumentation.getUrl()
 			~ '/_atoms/_back-link' with {
-			settings: global.settings,
+			global: global,
 		} only %}
 		<div id="index-header">
 			{% if logoID is not empty %}

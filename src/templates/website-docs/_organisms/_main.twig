@@ -27,8 +27,8 @@ Main
 {% endif %}
 
 {# Get properties from settings #}
-{% set brandBackground = settings.brandBgColor | default('D7D7D7') %}
-{% set brandText = settings.brandTextColor | default('000') %}
+{% set brandBackground =  global.settings.brandBgColor | default('D7D7D7') %}
+{% set brandText =  global.settings.brandTextColor | default('000') %}
 
 {# Render the HTML #}
 <main {{ attr(elementAttributes) }}>
