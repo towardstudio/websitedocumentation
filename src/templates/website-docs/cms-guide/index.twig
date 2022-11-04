@@ -19,6 +19,7 @@
 	{# Body content to be inherited by this template ONLY. The `parent` function
 	inherits the content from the styleguide layout's body block. #}
 	{% set isPluginEnabled = cmsGuide.config.websitedocumention.isEnabled | default(false) %}
+    {% set settingsUrl = cmsGuide.config.websitedocumention.settingsUrl %}
 	{% set section = cmsGuide.config.websitedocumention.section %}
 
 	{% if isPluginEnabled %}
