@@ -167,6 +167,9 @@ class WebsiteDocumentation extends Plugin
 		// Create SubNav
 		$subNavs = [];
 
+		// Get Documentation Settings
+		$settings = $this->getSettings();
+
 		// Add Dashboard Sub Nav Item
 		$subNavs["dashboard"] = [
 			"label" => "Dashboard",
@@ -174,18 +177,22 @@ class WebsiteDocumentation extends Plugin
 		];
 
 		// Add Styleguide External Sub Nav Item
-		$subNavs["styleguide"] = [
-			"label" => "Style Guide",
-			"url" => $url . $docUrl . "/style-guide",
-			"external" => true,
-		];
+		if ($settings->displayStyleGuide == '1') {
+			$subNavs["styleguide"] = [
+				"label" => "Style Guide",
+				"url" => $url . $docUrl . "/style-guide",
+				"external" => true,
+			];
+		}
 
 		// Add Guide External Sub Nav Item
-		$subNavs["guide"] = [
-			"label" => "CMS Guide",
-			"url" => $url . $docUrl . "/cms-guide",
-			"external" => true,
-		];
+		if ($settings->displayCmsGuide == '1') {
+			$subNavs["guide"] = [
+				"label" => "CMS Guide",
+				"url" => $url . $docUrl . "/cms-guide",
+				"external" => true,
+			];
+		}
 
 		// Add Settings on dev environment
 		$editableSettings = true;

@@ -4,54 +4,78 @@
 
 {% set title = 'General Settings' | t('websitedocumentation') %}
 
+{% set tabs = {
+  branding: {
+    label: 'Branding' | t('websitedocumentation'),
+    url: '#branding',
+  },
+  settings: {
+    label: 'Settings' | t('websitedocumentation'),
+    url: '#settings',
+  },
+} %}
+
 {% block content %}
 	<input type="hidden" name="action" value="websitedocumentation/settings/save-general-settings">
-    {{ redirectInput('websitedocumentation/settings') }}
-    {{ csrfInput() }}
+	{{ redirectInput('websitedocumentation/settings') }}
+	{{ csrfInput() }}
+	<div id="branding">
+		{{ forms.elementSelectField({
+    		label: "Logo",
+    		id: "logo",
+    		name: "logo",
+    		viewMode: "list",
+    		elementType: 'craft\\elements\\Asset',
+    		selectionLabel: "Add Images",
+    		required: false,
+    		errors: settings.getErrors('logo'),
+    		limit: 1,
+    		elements: [logo],
+    		criteria: { kind: 'image'}
+		}) }}
 
-	<h2 class="first">{{ "General Settings"|t('websitedocumentation') }}</h2>
+		{{ forms.colorField({
+    		label: "Brand Background Color",
+    		id: "brandBgColor",
+    		name: "brandBgColor",
+			value: settings.brandBgColor | default,
+		}) }}
 
-	{{ forms.elementSelectField({
-    	label: "Logo",
-    	id: "logo",
-    	name: "logo",
-    	viewMode: "list",
-    	elementType: 'craft\\elements\\Asset',
-    	selectionLabel: "Add Images",
-    	required: false,
-    	errors: settings.getErrors('logo'),
-    	limit: 1,
-    	elements: [logo],
-    	criteria: { kind: 'image'}
-	}) }}
+		{{ forms.colorField({
+    		label: "Brand Text Color",
+    		id: "brandTextColor",
+    		name: "brandTextColor",
+			value: settings.brandTextColor | default,
+		}) }}
 
-	{{ forms.colorField({
-    	label: "Brand Background Color",
-    	id: "brandBgColor",
-    	name: "brandBgColor",
-		value: settings.brandBgColor | default,
-	}) }}
+		{{ forms.colorField({
+    		label: "Accent Background Color",
+    		id: "accentBgColor",
+    		name: "accentBgColor",
+			value: settings.accentBgColor | default,
+		}) }}
 
-	{{ forms.colorField({
-    	label: "Brand Text Color",
-    	id: "brandTextColor",
-    	name: "brandTextColor",
-		value: settings.brandTextColor | default,
-	}) }}
-
-	{{ forms.colorField({
-    	label: "Accent Background Color",
-    	id: "accentBgColor",
-    	name: "accentBgColor",
-		value: settings.accentBgColor | default,
-	}) }}
-
-	{{ forms.colorField({
-    	label: "Active Text Color",
-    	id: "accentTextColor",
-    	name: "accentTextColor",
-		value: settings.accentTextColor | default,
-	}) }}
-
-
+		{{ forms.colorField({
+    		label: "Active Text Color",
+    		id: "accentTextColor",
+    		name: "accentTextColor",
+			value: settings.accentTextColor | default,
+		}) }}
+	</div>
+	<div id="settings" class="hidden">
+		{{ forms.lightswitchField({
+    		label: "Display Style Guide",
+			name: "displayStyleGuide",
+			onLabel: 'Enable' | t('websitedocumentation'),
+			offLabel: 'Disable' | t('websitedocumentation'),
+			on: (settings.displayStyleGuide is defined) ? settings.displayStyleGuide : ""
+		}) }}
+		{{ forms.lightswitchField({
+    		label: "Display CMS Guide",
+			name: "displayCmsGuide",
+			onLabel: 'Enable' | t('websitedocumentation'),
+			offLabel: 'Disable' | t('websitedocumentation'),
+			on: (settings.displayCmsGuide is defined) ? settings.displayCmsGuide : ""
+		}) }}
+	</div>
 {% endblock %}

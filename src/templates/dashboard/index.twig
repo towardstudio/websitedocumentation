@@ -4,28 +4,33 @@
 
 {% set siteUrl = craft.app.sites.primarySite.baseUrl %}
 {% set docUrl = websitedocumentation.getUrl() %}
+{% set settings = websitedocumentation.getSettings() %}
 
 {% set blocks = {
   styleguide: {
     label: 'Style Guide',
     url: craft.app.sites.primarySite.baseUrl ~ docUrl ~ '/style-guide',
-    icon: 'photo'
+    icon: 'photo',
+	display: settings.displayStyleGuide != '1' ? false : true,
   },
   guide: {
     label: 'CMS Guide',
     url: craft.app.sites.primarySite.baseUrl ~ docUrl ~ '/cms-guide',
-    icon: 'book'
+    icon: 'book',
+	display: settings.displayCmsGuide != '1' ? false : true,
   }
 } %}
 
 {% block content %}
   <ul class="icons">
     {% for block in blocks %}
-      <li>
-        <a href="{{ block.url }}" target="_blank" data-icon="{{ block.icon }}">
-          {{ block.label }}
-        </a>
-      </li>
+		{% if block.display %}
+			<li>
+				<a href="{{ block.url }}" target="_blank" data-icon="{{ block.icon }}">
+					{{ block.label }}
+				</a>
+			</li>
+		{% endif %}
     {% endfor %}
   </ul>
 {% endblock %}

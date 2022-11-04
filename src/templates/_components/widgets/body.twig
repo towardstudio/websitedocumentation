@@ -1,10 +1,12 @@
 <div class="cs-screen cs-screen-home">
 	{% for block in settings %}
-    	<div class="cs-opt">
-			<a href="{{ block.url }}" target="_blank">
-        		<div class="cs-opt-icon">{{ svg(block.icon, sanitize=false) }}</div>
-        		<h2>View {{ block.label }}</h2>
-			</a>
-    	</div>
+		{% if block.display %}
+    		<div class="cs-opt">
+				<a href="{{ block.url }}" target="_blank">
+        			<div class="cs-opt-icon">{{ svg(block.icon, sanitize=false) }}</div>
+        			<h2>View {{ block.label }}</h2>
+				</a>
+    		</div>
+		{% endif %}
 	{% endfor %}
 </div>

@@ -30,56 +30,49 @@ Main
 {% set brandBackground =  global.settings.brandBgColor | default('D7D7D7') %}
 {% set brandText =  global.settings.brandTextColor | default('000') %}
 
+{% set indexBlocks = [
+	{
+		url: '/' ~ websitedocumentation.getUrl() ~ '/style-guide',
+		icon: websitedocumentation.getUrl() ~ '/_atoms/_icons/_style-guide',
+		title: 'Style Guide' | t,
+		display: global.settings.displayStyleGuide == '1' ? true : false,
+	},
+	{
+		url: '/' ~ websitedocumentation.getUrl() ~ '/cms-guide',
+		icon: websitedocumentation.getUrl() ~ '/_atoms/_icons/_cms-guide',
+		title: 'CMS Guide' | t,
+		display: global.settings.displayCmsGuide == '1' ? true : false,
+	}
+] %}
+
 {# Render the HTML #}
 <main {{ attr(elementAttributes) }}>
 	<section id="index-main">
-		<div class="index-main__block">
-			<a href="/{{ websitedocumentation.getUrl() ~ '/style-guide' }}">
-				<div class="index-main__block-icon"
-					style="background: #{{ brandBackground }}">
-					{% set styleGuide = websitedocumentation.getUrl()
-						~ '/_atoms/_icons/_style-guide'
-					%}
-					{% if include(styleGuide, ignore_missing = true) is not empty %}
-						<span class="icon">
-							{% include styleGuide with {
-								attributes: {
-									style: 'fill: #' ~ brandText
-								}
-							} only %}
-						</span>
-					{% endif %}
+		{% for block in indexBlocks %}
+			{% if block.display %}
+				<div class="index-main__block">
+					<a href="{{ block.url }}">
+						<div class="index-main__block-icon"
+							style="background: #{{ brandBackground }}">
+							{% set icon = block.icon %}
+							{% if include(icon, ignore_missing = true) is not empty %}
+								<span class="icon">
+									{% include icon with {
+										attributes: {
+											style: 'fill: #' ~ brandText
+										}
+									} only %}
+								</span>
+							{% endif %}
+						</div>
+						<div class="index-main__block-title">
+							<h2>
+								{{ block.title }}
+							</h2>
+						</div>
+					</a>
 				</div>
-				<div class="index-main__block-title">
-					<h2>
-						{{ 'Style Guide' | t }}
-					</h2>
-				</div>
-			</a>
-		</div>
-		<div class="index-main__block">
-			<a href="/{{ websitedocumentation.getUrl() ~ '/cms-guide' }}">
-				<div class="index-main__block-icon"
-					style="background: #{{ brandBackground }}">
-					{% set cmsGuide = websitedocumentation.getUrl()
-						~ '/_atoms/_icons/_cms-guide'
-					%}
-					{% if include(cmsGuide, ignore_missing = true) is not empty %}
-						<span class="icon">
-							{% include cmsGuide with {
-								attributes: {
-									style: 'fill: #' ~ brandText
-								}
-							} only %}
-						</span>
-					{% endif %}
-				</div>
-				<div class="index-main__block-title">
-					<h2>
-						{{ 'CMS Guide' | t }}
-					</h2>
-				</div>
-			</a>
-		</div>
+			{% endif %}
+		{% endfor %}
 	</section>
 </main>

@@ -22,6 +22,8 @@ class Settings extends Model
 	public $brandTextColor;
 	public $accentBgColor;
 	public $accentTextColor;
+	public $displayStyleGuide = '1';
+	public $displayCmsGuide = '1';
 
 	// Public Methods
 	// =========================================================================
@@ -36,7 +38,9 @@ class Settings extends Model
 			["brandBgColor", "string"],
 			["brandTextColor", "string"],
 			["accentBgColor", "string"],
-			["accentTextColor", "string"]
+			["accentTextColor", "string"],
+			["displayStyleGuide", "string"],
+			["displayCmsGuide", "string"]
 		];
 	}
 }

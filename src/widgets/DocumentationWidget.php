@@ -63,6 +63,9 @@ class DocumentationWidget extends Widget
 		// Get the site Url
 		$url = Craft::$app->sites->currentSite->baseUrl;
 
+		// Get Settings
+		$settings = WebsiteDocumentation::$settings;
+
 		// Get the documentation url
 		$docUrl = getenv("DOCS_URL") ? getenv("DOCS_URL") : "website-docs";
 
@@ -75,11 +78,13 @@ class DocumentationWidget extends Widget
 					"label" => "Style Guide",
 					"url" => $url . $docUrl . "/style-guide",
 					"icon"	=> file_get_contents($iconsDirectory . "/photo.svg"),
+					"display" => $settings->displayStyleGuide != '1' ? false : true,
 				],
 				"guide" => [
 					"label" => "CMS Guide",
 					"url" => $url . $docUrl . "/cms-guide",
 					"icon"	=> file_get_contents($iconsDirectory . "/book.svg"),
+					"display" => $settings->displayCmsGuide != '1' ? false : true,
 				],
 			],
         ]);
