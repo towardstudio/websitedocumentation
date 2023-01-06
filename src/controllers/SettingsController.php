@@ -46,6 +46,17 @@ class SettingsController extends Controller
 
 		$section = Craft::$app->request->getSegment(3);
 
+		// Check if Structure Exists
+		$sectionRequired = Craft::$app->sections->getSectionByHandle(
+			StringHelper::toCamelCase($settings["structure"])
+		);
+
+		if ($sectionRequired != null) {
+			$settings["structureExists"] = true;
+		} else {
+			$settings["structureExists"] = false;
+		}
+
 		// Basic variables
 		$variables["fullPageForm"] = true;
 		$variables["selectedSubnavItem"] = "settings";
@@ -53,19 +64,19 @@ class SettingsController extends Controller
 
 		// Logo
 		$logo = null;
-    	if ($settings->logo) {
-        	foreach ($settings->logo as $item) {
-            	$logo = Craft::$app->elements->getElementById($item);
-        	}
-    	}
+		if ($settings->logo) {
+			foreach ($settings->logo as $item) {
+				$logo = Craft::$app->elements->getElementById($item);
+			}
+		}
 		$variables["logo"] = $logo;
 
-        return $this->renderTemplate(
-            'websitedocumentation/settings/'.($section ? (string) $section : ''),
-            $variables
-        );
+		return $this->renderTemplate(
+			"websitedocumentation/settings/" .
+				($section ? (string) $section : ""),
+			$variables
+		);
 	}
-
 
 	/**
 	 * Save General Settings
@@ -79,9 +90,7 @@ class SettingsController extends Controller
 		$updates = Craft::$app->getRequest()->getBodyParams();
 		$plugin = Craft::$app->getPlugins()->getPlugin("websitedocumentation");
 
-		if (
-			!Craft::$app->getPlugins()->savePluginSettings($plugin, $updates)
-		) {
+		if (!Craft::$app->getPlugins()->savePluginSettings($plugin, $updates)) {
 			Craft::$app
 				->getSession()
 				->setError(Craft::t("app", "Couldn't save plugin settings."));
@@ -89,7 +98,6 @@ class SettingsController extends Controller
 			return $this->redirectToPostedUrl();
 		}
 	}
-
 
 	/**
 	 * Save and Create a New Structure.

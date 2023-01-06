@@ -2,19 +2,21 @@
 
 {% import '_includes/forms' as forms %}
 
-{% set title = 'Guide Settings' | t('websitedocumentation') %}
+{% set title = 'Guide Settings'|t('websitedocumentation') %}
 
 {# Check if Document Plugin is installed #}
-{% set redactor =
-	craft.app.plugins.getPlugin('redactor', false)
-%}
+{% set redactor = craft.app.plugins.getPlugin('redactor', false) %}
 
 {% block content %}
-	<input type="hidden" name="action" value="websitedocumentation/settings/save-structure-settings">
-    {{ redirectInput('websitedocumentation/settings/cms-guide') }}
-    {{ csrfInput() }}
+	<input type="hidden"
+		name="action"
+		value="websitedocumentation/settings/save-structure-settings" />
+	{{ redirectInput('websitedocumentation/settings/cms-guide') }}
+	{{ csrfInput() }}
 
-	<h2 class="first">{{ "Guide Settings"|t('websitedocumentation') }}</h2>
+	<h2 class="first">
+		{{ 'Guide Settings'|t('websitedocumentation') }}
+	</h2>
 
 	{% if redactor is not empty %}
 		{% namespace 'settings' %}
@@ -30,11 +32,12 @@
 
 		{% endnamespace %}
 
-		{% if settings.structure %}
+		{% if settings.structureExists %}
 			<p>
 				<strong>Default Entries</strong><br />
-				Now your structure has been created, you can choose whether or not to add some
-				default entries. Please check that the asset index has finished before adding the entries
+				Now your structure has been created, you can choose whether or not
+				to add some default entries. Please check that the asset index has
+				finished before adding the entries
 			</p>
 
 			<a class="btn submit"
@@ -43,7 +46,9 @@
 			</a>
 		{% endif %}
 	{% else %}
-		<p>Please make sure the redactor plugin is installed & enabled before using this plugin.</p>
+		<p>
+			Please make sure the redactor plugin is installed & enabled before
+			using this plugin.
+		</p>
 	{% endif %}
-
 {% endblock %}

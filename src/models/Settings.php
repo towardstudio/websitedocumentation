@@ -17,13 +17,14 @@ class Settings extends Model
 
 	public $name = "Website Docs";
 	public $structure;
+	public $structureExists;
 	public $logo;
 	public $brandBgColor;
 	public $brandTextColor;
 	public $accentBgColor;
 	public $accentTextColor;
-	public $displayStyleGuide = '1';
-	public $displayCmsGuide = '1';
+	public $displayStyleGuide = "1";
+	public $displayCmsGuide = "1";
 
 	// Public Methods
 	// =========================================================================
@@ -35,12 +36,13 @@ class Settings extends Model
 	{
 		return [
 			["structure", "string"],
+			["structureExists", "boolean"],
 			["brandBgColor", "string"],
 			["brandTextColor", "string"],
 			["accentBgColor", "string"],
 			["accentTextColor", "string"],
 			["displayStyleGuide", "string"],
-			["displayCmsGuide", "string"]
+			["displayCmsGuide", "string"],
 		];
 	}
 }

@@ -17,60 +17,65 @@ class CreateVolume extends Component
 {
 	public static function create()
 	{
-
 		// First we need to add a new File System
 		$fileService = Craft::$app->getFs();
 
 		// We need to check this doesn't currently exist
-		$fileServiceCheck = $fileService->getFilesystemByHandle('websiteGuideImages');
+		$fileServiceCheck = $fileService->getFilesystemByHandle(
+			"websiteGuideImages"
+		);
 
 		if (!$fileServiceCheck) {
-
 			// Create the new File Service
 			$newFileService = $fileService->createFilesystem([
-            	'type' => 'craft\fs\Local',
-            	'name' => 'Website Guide Images',
-            	'handle' => 'websiteGuideImages',
-            	'hasUrls' => true,
-            	'url' => '/cms-assets/websiteGuideImages',
-				'settings' => [
-					'path' => "@webroot/cms-assets/websiteGuideImages"
+				"type" => 'craft\fs\Local',
+				"name" => "Website Guide Images",
+				"handle" => "websiteGuideImages",
+				"hasUrls" => true,
+				"url" => "/cms-assets/websiteGuideImages",
+				"settings" => [
+					"path" => "@webroot/cms-assets/websiteGuideImages",
 				],
-        	]);
+			]);
 
 			if (!$fileService->saveFilesystem($newFileService)) {
-            	return $this->asModelFailure($newFileService, Craft::t('app', 'Couldn’t save filesystem.'), 'filesystem');
-				Craft::info('This has Failed', 'DowleyDev');
-        	}
+				return $this->asModelFailure(
+					$newFileService,
+					Craft::t("app", "Couldn’t save filesystem."),
+					"filesystem"
+				);
+				Craft::info("This has Failed", "DowleyDev");
+			}
 		}
 
 		$volumeCheck = Craft::$app
 			->getVolumes()
 			->getVolumeByHandle("websiteGuideImages");
 
-		if (!$volumeCheck && $fileServiceCheck)
-		{
+		if (!$volumeCheck && $fileServiceCheck) {
 			$volumesService = Craft::$app->getVolumes();
 
 			$volume = new Volume([
-				'id' => null,
-        		'uid' => null,
-        		'sortOrder' => null,
-        		'name' => 'Website Guide Images',
-        		'handle' => 'websiteGuideImages',
-        		'fsHandle' => 'websiteGuideImages',
-        		'transformFsHandle' => 'websiteGuideImages',
+				"id" => null,
+				"uid" => null,
+				"sortOrder" => null,
+				"name" => "Website Guide Images",
+				"handle" => "websiteGuideImages",
+				"fsHandle" => "websiteGuideImages",
+				"transformFsHandle" => "websiteGuideImages",
 			]);
 
-    		if (!$volumesService->saveVolume($volume)) {
-        		$this->setFailFlash(Craft::t('app', 'Couldn’t save volume.'));
+			$volumeSuccess = $volumesService->saveVolume($volume);
 
-        		// Send the volume back to the template
-        		Craft::$app->getUrlManager()->setRouteParams([
-            		'volume' => $volume,
-        		]);
-        		return null;
-    		}
+			if (!$volumeSuccess) {
+				$this->setFailFlash(Craft::t("app", "Couldn’t save volume."));
+
+				// Send the volume back to the template
+				Craft::$app->getUrlManager()->setRouteParams([
+					"volume" => $volume,
+				]);
+				return null;
+			}
 
 			// We need to move our files from the plugin to the new volume
 			$filePath = Craft::getAlias(
@@ -79,7 +84,7 @@ class CreateVolume extends Component
 
 			$files = FileHelper::findFiles($filePath);
 
-			$basePath = Craft::getAlias('@webroot') . '/cms-assets';
+			$basePath = Craft::getAlias("@webroot") . "/cms-assets";
 
 			if (!file_exists($basePath)) {
 				mkdir($basePath, 0775, true);
@@ -102,18 +107,17 @@ class CreateVolume extends Component
 					Craft::info($file . " cannot be moved", "WebsiteDocError");
 					return null;
 				}
-
 			}
 
-			$success = $assetIndexerService->startIndexingSession([$volume->id]);
+			$success = $assetIndexerService->startIndexingSession([
+				$volume->id,
+			]);
 
 			if (!$success) {
 				Craft::error("Couldn’t update the asset index", __METHOD__);
 
 				return null;
 			}
-
 		}
-
 	}
 }
