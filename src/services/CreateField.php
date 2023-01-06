@@ -25,11 +25,6 @@ class CreateField extends Component
 			return null;
 		}
 
-		// Get our Volume for this section
-		$volume = Craft::$app
-			->getVolumes()
-			->getVolumeByHandle("websiteGuideImages");
-
 		// Set the config for the field
 		$config = [
 			"buttons" => [
@@ -79,7 +74,7 @@ class CreateField extends Component
 			"searchable" => false,
 			"configSelectionMode" => "manual",
 			"manualConfig" => json_encode($config),
-			"availableVolumes" => !empty($volume) ? $volume->uid : "",
+			"availableVolumes" => "*",
 			"purifyHtml" => "",
 		]);
 

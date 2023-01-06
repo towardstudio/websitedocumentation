@@ -10,31 +10,26 @@
 	</strong> and add one here.
 </p>
 
-{% set retourImage = craft.assets().filename('retour-redirect.png').one() | default() %}
-{% if retourImage is not empty %}
-	<img src="{{ retourImage.url }}" alt="Retour Redirect" />
-{% endif %}
-
 <h3>
 	Options
 </h3>
 
 <ul>
 	<li>
-		<strong>Enabled</strong> - You can choose to disable a redirect if it’s no longer
-		needed from here.
+		<strong>Enabled</strong> - You can choose to disable a redirect if it’s no
+		longer needed from here.
 	</li>
 	<li>
-		<strong>Sites</strong> - This will always be All Sites, as you only have one
-		site on the Craft CMS.
+		<strong>Sites</strong> - This will always be All Sites, as you only have
+		one site on the Craft CMS.
 	</li>
 	<li>
 		<strong>Legacy URL Pattern</strong> - This will be the Url you want to create
 		a redirect from.
 	</li>
 	<li>
-		<strong>Legacy Url Match Type</strong> - You can choose whether to redirect from
-		a path or a full Url (includes the domain name).
+		<strong>Legacy Url Match Type</strong> - You can choose whether to redirect
+		from a path or a full Url (includes the domain name).
 	</li>
 	<li>
 		<strong>Destination Url</strong> - This will be the Url you want to redirect
@@ -46,8 +41,8 @@
 		won’t be needed.
 	</li>
 	<li>
-		<strong>Redirect Type</strong> - You can choose a permanent redirect (301) or
-		a temporary redirect (302).
+		<strong>Redirect Type</strong> - You can choose a permanent redirect (301)
+		or a temporary redirect (302).
 	</li>
 </ul>
 

@@ -3,7 +3,6 @@ namespace bluegg\websitedocumentation\controllers;
 
 use bluegg\websitedocumentation\WebsiteDocumentation;
 use bluegg\websitedocumentation\models\Settings;
-use bluegg\websitedocumentation\services\CreateVolume;
 use bluegg\websitedocumentation\services\CreateField;
 use bluegg\websitedocumentation\services\CreateStructure;
 use bluegg\websitedocumentation\services\UpdateEntryType;
@@ -157,22 +156,6 @@ class SettingsController extends Controller
 				->getSession()
 				->setError(Craft::t("app", "Couldn't save plugin settings."));
 
-			return $guideUrl;
-		}
-
-		// Create Volume if it doesn't exist - This MUST come before the field
-		try {
-			CreateVolume::create();
-		} catch (Exception $e) {
-			Craft::info($e, "WebsiteDocError");
-			Craft::$app
-				->getSession()
-				->setNotice(
-					Craft::t(
-						"app",
-						"There has been a problem creating the default entries. Please check the logs to see why."
-					)
-				);
 			return $guideUrl;
 		}
 

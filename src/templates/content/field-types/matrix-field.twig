@@ -1,31 +1,66 @@
-<p>A <strong>Matrix</strong> field allows you to create a series of sequential ‘blocks’ that represent different content types. Each content type contains its own fields. The CMS leverages this functionality to allow the user to build up a set of content using these blocks.</p>
-
-<p>To explain the benefits of using matrix fields, we'll first illustrate where other CMS’s fall down:</p>
-
-<p>When adding a page, most CMS’s offer a single large field (often referred to as a WYSIWYG editor) where all the content for that page is added. There are usually buttons to alter text formatting and sizes, to insert images, videos, tables, etc.
+<p>
+	A <strong>Matrix</strong> field allows you to create a series of sequential ‘blocks’
+	that represent different content types. Each content type contains its own fields.
+	The CMS leverages this functionality to allow the user to build up a set of content
+	using these blocks.
 </p>
 
-<p>Whilst it may seem more convenient from a user’s point of view to add all this content into one field, from a web developer’s point of view it is an absolute nightmare! Giving the user this much control over spacing/formatting almost invariably leads to content that looks messy and off-brand with the rest of the website.</p>
+<p>
+	To explain the benefits of using matrix fields, we'll first illustrate where
+	other CMS’s fall down:
+</p>
 
-<p>Matrix fields help to eradicate this problem by breaking each type of content into its own ‘block’.</p>
+<p>
+	When adding a page, most CMS’s offer a single large field (often referred to
+	as a WYSIWYG editor) where all the content for that page is added. There are
+	usually buttons to alter text formatting and sizes, to insert images,
+	videos, tables, etc.
+</p>
 
-<p>When you click on one of the available content type options, a block appears containing the relevant fields for that content type.</p>
+<p>
+	Whilst it may seem more convenient from a user’s point of view to add all
+	this content into one field, from a web developer’s point of view it is an
+	absolute nightmare! Giving the user this much control over
+	spacing/formatting almost invariably leads to content that looks messy and
+	off-brand with the rest of the website.
+</p>
 
-<p>For example if I click on the Image type within the Rich Content matrix field, a block appears containing the following fields:</p>
+<p>
+	Matrix fields help to eradicate this problem by breaking each type of
+	content into its own ‘block’.
+</p>
+
+<p>
+	When you click on one of the available content type options, a block appears
+	containing the relevant fields for that content type.
+</p>
+
+<p>
+	For example if I click on the Image type within the Rich Content matrix
+	field, a block appears containing the following fields:
+</p>
 
 <ul>
 	<li>Image (an asset field)</li>
-	<li>Image Caption (plain text field, add a caption to display underneath the image)</li>
+	<li>
+		Image Caption (plain text field, add a caption to display underneath the
+		image)
+	</li>
 </ul>
 
-{% set imageBlock = craft.assets().filename('image-block.png').one() | default() %}
-{% if imageBlock is not empty %}
-	<img src="{{ imageBlock.url }}" alt="Image Block" />
-{% endif %}
-
-<p>Further blocks can be added by clicking the relevant content type buttons. In this way, the user builds up a set of content for the entry organised into convenient chunks, which already have the correct styles defined for them.
+<p>
+	Further blocks can be added by clicking the relevant content type buttons.
+	In this way, the user builds up a set of content for the entry organised
+	into convenient chunks, which already have the correct styles defined for
+	them.
 </p>
 
-<p>Blocks can be dragged into new positions by clicking on the ‘4 dots’ icon at the top right of the block.</p>
+<p>
+	Blocks can be dragged into new positions by clicking on the ‘4 dots’ icon at
+	the top right of the block.
+</p>
 
-<p>Blocks can also be disabled or deleted by clicking the ‘cog’ icon at the top right on the block.</p>
+<p>
+	Blocks can also be disabled or deleted by clicking the ‘cog’ icon at the top
+	right on the block.
+</p>

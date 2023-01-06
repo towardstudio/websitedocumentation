@@ -1,10 +1,19 @@
-<p>The Assets area of the control panel is where you’ll find any uploaded images, documents etc. It’s essentially a repository for all files that have been uploaded elsewhere in the control panel.</p>
+<p>
+	The Assets area of the control panel is where you’ll find any uploaded
+	images, documents etc. It’s essentially a repository for all files that have
+	been uploaded elsewhere in the control panel.
+</p>
 
-<p>Assets can be uploaded directly from this area, but in general you’ll be uploading images/documents as and when you’re adding/editing entries. When you add an image/document to an entry, it will automatically appear in the relevant group in the Assets section.</p>
+<p>
+	Assets can be uploaded directly from this area, but in general you’ll be
+	uploading images/documents as and when you’re adding/editing entries. When
+	you add an image/document to an entry, it will automatically appear in the
+	relevant group in the Assets section.
+</p>
 
-<p>There are also various other actions that you can use in the Assets section. If you check the box next to a specific asset and then click the ‘cog’ menu above the list, you will see a list of actions you can apply to that asset (see below).</p>
-
-{% set assetsDropdown = craft.assets().filename('assets-dropdown.jpg').one() | default() %}
-{% if assetsDropdown is not empty %}
-	<img src="{{ assetsDropdown.url }}" alt="Assets Dropdown" />
-{% endif %}
+<p>
+	There are also various other actions that you can use in the Assets section.
+	If you check the box next to a specific asset and then click the ‘cog’ menu
+	above the list, you will see a list of actions you can apply to that asset
+	(see below).
+</p>

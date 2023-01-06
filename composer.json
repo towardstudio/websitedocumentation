@@ -2,7 +2,7 @@
 	"name": "bluegg/websitedocumentation",
 	"description": "Add Style Guide & CMS Guide to your website",
 	"type": "craft-plugin",
-	"version": "2.4.0",
+	"version": "2.4.1",
 	"license": "MIT",
 	"authors": [
 		{
