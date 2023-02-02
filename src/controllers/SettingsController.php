@@ -45,13 +45,17 @@ class SettingsController extends Controller
 
 		$section = Craft::$app->request->getSegment(3);
 
-		// Check if Structure Exists
-		$sectionRequired = Craft::$app->sections->getSectionByHandle(
-			StringHelper::toCamelCase($settings["structure"])
-		);
+		if ($settings["structure"]) {
+			// Check if Structure Exists
+			$sectionRequired = Craft::$app->sections->getSectionByHandle(
+				StringHelper::toCamelCase($settings["structure"])
+			);
 
-		if ($sectionRequired != null) {
-			$settings["structureExists"] = true;
+			if ($sectionRequired != null) {
+				$settings["structureExists"] = true;
+			} else {
+				$settings["structureExists"] = false;
+			}
 		} else {
 			$settings["structureExists"] = false;
 		}
