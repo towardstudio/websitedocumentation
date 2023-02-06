@@ -8,16 +8,16 @@
 #}
 
 {# Set default values #}
-{% set section = section | default() %}
-{% set guideType = guideType | default('style') %}
-{% set entries = entries | default() %}
+{% set section = section|default %}
+{% set guideType = guideType|default('style') %}
+{% set entries = entries|default %}
 
 {# Set the element's base classes #}
 {% set elementBaseClasses = [] %}
 
 {# Merge custom classes with the base classes #}
 {% if classes is defined and classes is not empty %}
-	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+	{% set elementBaseClasses = elementBaseClasses|merge(classes) %}
 {% endif %}
 
 {# Set the element's base attributes #}
@@ -28,26 +28,31 @@
 
 {# Merge custom attributes with the base attributes #}
 {% if attributes is defined and attributes is not empty %}
-	{% set elementAttributes = elementAttributes | merge(attributes) %}
+	{% set elementAttributes = elementAttributes|merge(attributes) %}
 {% endif %}
 
 {# Get config #}
 {% if section is not empty %}
 	{% set entries =
-		craft.entries.section(section.handle).level(1).all() | default
+		craft.entries.section(section.handle).level(1).all()|default
 	%}
 {% endif %}
 
+{% switch guideType %}
+{% case 'style' %}
+{% set title = 'Style Guide' %}
+{% default %}
+{% set title = 'CMS Guide' %}
+{% endswitch %}
+
 {# Render the HTML #}
 <aside {{ attr(elementAttributes) }}>
-	{% include websitedocumentation.getUrl()
-		~ '/_atoms/_back-link' with {
-		global: global,
+	{% include websitedocumentation.getUrl() ~ '/_atoms/_back-link' with {
+		global: global
 	} only %}
-	{% include websitedocumentation.getUrl()
-		~ '/_atoms/_identity' with {
-		title: 'CMS Guide',
-		global: global,
+	{% include websitedocumentation.getUrl() ~ '/_atoms/_identity' with {
+		title: title,
+		global: global
 	} only %}
 	<div id="sidebar-content"></div>
 </aside>
@@ -60,12 +65,12 @@
 		{% set children = [] %}
 		{% if entry.children is not empty %}
 			{% for item in entry.children.all() %}
-				{% set children = children | merge([item.title]) %}
+				{% set children = children|merge([item.title]) %}
 			{% endfor %}
 		{% endif %}
 
 		{% set entriesStructure =
-			entriesStructure | merge(
+			entriesStructure|merge(
 				[
 					{
 						title: entry.title,
@@ -80,21 +85,17 @@
 <script>
 	{% if guideType == 'style' %}
 		window.styleGuideSections = {{
-			styleGuide.config.sections | json_encode | raw
+			styleGuide.config.sections|json_encode|raw
 		}}
 		window.accentBgColor = {{
-			global.colors.accentBackground | json_encode | raw
+			global.colors.accentBackground|json_encode|raw
 		}}
-		window.accentTextColor = {{
-			global.colors.accentText | json_encode | raw
-		}}
+		window.accentTextColor = {{ global.colors.accentText|json_encode|raw }}
 	{% else %}
-		window.cmsGuideSections = {{ entriesStructure | json_encode | raw }}
+		window.cmsGuideSections = {{ entriesStructure|json_encode|raw }}
 		window.accentBgColor = {{
-			global.colors.accentBackground | json_encode | raw
+			global.colors.accentBackground|json_encode|raw
 		}}
-		window.accentTextColor = {{
-			global.colors.accentText | json_encode | raw
-		}}
+		window.accentTextColor = {{ global.colors.accentText|json_encode|raw }}
 	{% endif %}
 </script>
