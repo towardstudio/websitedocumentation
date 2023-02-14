@@ -4,7 +4,7 @@
 	height: 100vh;
 	line-height: 1.4;
 
-	@media only screen and (min-width: 1024px) {
+	@media only screen and (min-width: 1280px) {
 		flex-direction: row;
 	}
 }
@@ -79,7 +79,7 @@
 	width: 100%;
 	border-top: 1px solid #E7E7E7;
 
-	@media only screen and (min-width: 1024px) {
+	@media only screen and (min-width: 1280px) {
 		background: #E7E7E7;
 		border-top: 0;
 		padding: 1rem;

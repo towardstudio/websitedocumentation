@@ -177,8 +177,6 @@ export default {
 			const itemSubExists = item.hasAttribute("data-sub");
 			const itemSub = item.dataset.sub;
 
-			console.log(item);
-
 			const parentPage = item.hasAttribute("data-parent") ? true : false;
 			let parent = item.hasAttribute("data-parent")
 				? item.dataset.section
@@ -210,6 +208,15 @@ export default {
 					this.openSubMenu(submenu, item);
 				}
 			}
+
+			// Fire Event for Change of Section
+			const eventAwesome = new CustomEvent("section-change", {
+  				bubbles: true,
+  				detail: window.location.hash,
+			});
+
+			document.dispatchEvent(eventAwesome);
+
 		},
 		openSubMenu(submenu, item) {
 			if (item && item.hasAttribute("aria-expanded")) {

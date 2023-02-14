@@ -191,6 +191,7 @@ body {
 			display: flex;
 			align-items: center;
 			gap: .5rem;
+			font-size: 1.125rem;
 
 			&--sub {
 				padding: .8rem 1.5rem .8rem 2.5rem;

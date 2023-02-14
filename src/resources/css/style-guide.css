@@ -3,7 +3,7 @@
 	flex-direction: column;
 	height: 100vh;
 
-	@media only screen and (min-width: 1024px) {
+	@media only screen and (min-width: 1280px) {
 		flex-direction: row;
 	}
 }
@@ -32,7 +32,7 @@
 	width: 100%;
 	border-top: 1px solid #E7E7E7;
 
-	@media only screen and (min-width: 1024px) {
+	@media only screen and (min-width: 1280px) {
 		background: #E7E7E7;
 		border-top: 0;
 		padding: 1rem;
@@ -44,7 +44,7 @@
 		display: none;
 		position: relative;
 
-		@media only screen and (min-width: 1024px) {
+		@media only screen and (min-width: 1280px) {
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -139,6 +139,7 @@
 		> h2 {
 			padding: 0 2.5rem;
 			margin: 2rem 0 0;
+			font-size: 1.7rem;
 
 			@media only screen and (min-width: 640px) {
 				padding: 0 3rem;
