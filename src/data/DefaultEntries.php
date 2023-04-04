@@ -14,22 +14,12 @@ class DefaultEntries
 				"children" => [
 					"Dashboard",
 					"Entries",
-					"Globals",
 					"Assets",
 					"Users",
 				],
 			],
 			[
 				"title" => "Adding/Editing Entries",
-			],
-			[
-				"title" => "Navigation",
-			],
-			[
-				"title" => "Retour",
-			],
-			[
-				"title" => "SEOMatic",
 			],
 			[
 				"title" => "Field Types",
@@ -41,6 +31,14 @@ class DefaultEntries
 			],
 			[
 				"title" => "Entry Sections",
+			],
+            [
+				"title" => "Plugins",
+				"children" => [
+					"Navigation",
+					"Retour",
+					"SEOMatic",
+				],
 			],
 		];
 

@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.6.1 - 2022-04-04
+
+-   Update Default CMS Guide Entries
+
 ## 2.6.0 - 2022-04-04
 
 > {warning} This is a rename of the repo. You will need to change the bluegg handles in website-docs > _layouts > _global.twig if you are using the default folder.
