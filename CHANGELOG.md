@@ -39,3 +39,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## 2.0.2 - 2022-08-19
 
 -   Remove Max Levels for the Structure
+
+## 2.6.0 - 2022-04-04
+
+> {warning} This is a rename of the repo. You will need to change the bluegg handles in website-docs > _layouts > _global.twig if you are using the default folder.
+
+-   Change Bluegg to Toward
+-   Change CMS Guide default entries to remove globals & categories

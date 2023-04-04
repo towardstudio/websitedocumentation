@@ -1,12 +1,12 @@
 <?php
-namespace bluegg\websitedocumentation\controllers;
+namespace towardstudio\websitedocumentation\controllers;
 
-use bluegg\websitedocumentation\WebsiteDocumentation;
-use bluegg\websitedocumentation\models\Settings;
-use bluegg\websitedocumentation\services\CreateField;
-use bluegg\websitedocumentation\services\CreateStructure;
-use bluegg\websitedocumentation\services\UpdateEntryType;
-use bluegg\websitedocumentation\services\CreateEntries;
+use towardstudio\websitedocumentation\WebsiteDocumentation;
+use towardstudio\websitedocumentation\models\Settings;
+use towardstudio\websitedocumentation\services\CreateField;
+use towardstudio\websitedocumentation\services\CreateStructure;
+use towardstudio\websitedocumentation\services\UpdateEntryType;
+use towardstudio\websitedocumentation\services\CreateEntries;
 
 use Craft;
 use craft\helpers\UrlHelper;

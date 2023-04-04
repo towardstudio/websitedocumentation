@@ -1,5 +1,5 @@
 <?php
-namespace bluegg\websitedocumentation\services;
+namespace towardstudio\websitedocumentation\services;
 
 use yii\base\Component;
 

@@ -1,10 +1,10 @@
 <?php
-namespace bluegg\websitedocumentation\services;
+namespace towardstudio\websitedocumentation\services;
 
 use yii\base\Component;
 
 use Craft;
-use bluegg\websitedocumentation\WebsiteDocumentation;
+use towardstudio\websitedocumentation\WebsiteDocumentation;
 
 class ReturnSettings extends Component
 {

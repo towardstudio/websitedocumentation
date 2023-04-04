@@ -1,5 +1,5 @@
 <?php
-namespace bluegg\websitedocumentation\assetbundles;
+namespace towardstudio\websitedocumentation\assetbundles;
 
 use Craft;
 use craft\web\AssetBundle;
@@ -12,7 +12,7 @@ class DocumentationAsset extends AssetBundle
 
     public function init()
     {
-        $this->sourcePath = "@bluegg/websitedocumentation/resources";
+        $this->sourcePath = "@towardstudio/websitedocumentation/resources";
 
 		$this->css = [
             'css/dist/index.min.css',

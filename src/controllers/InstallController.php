@@ -1,7 +1,7 @@
 <?php
-namespace bluegg\websitedocumentation\controllers;
+namespace towardstudio\websitedocumentation\controllers;
 
-use bluegg\websitedocumentation\WebsiteDocumentation;
+use towardstudio\websitedocumentation\WebsiteDocumentation;
 
 use Craft;
 use craft\web\Controller;

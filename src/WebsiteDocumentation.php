@@ -1,5 +1,5 @@
 <?php
-namespace bluegg\websitedocumentation;
+namespace towardstudio\websitedocumentation;
 
 use Craft;
 use craft\base\Plugin;
@@ -21,17 +21,17 @@ use craft\services\Dashboard;
 use craft\events\ElementEvent;
 use craft\elements\Entry;
 
-use bluegg\websitedocumentation\models\Settings;
-use bluegg\websitedocumentation\assetbundles\DocumentationAsset;
-use bluegg\websitedocumentation\services\ReturnSettings;
-use bluegg\websitedocumentation\twigextensions\DocumentationTwigExtension;
-use bluegg\websitedocumentation\widgets\DocumentationWidget;
-use bluegg\websitedocumentation\variables\DocumentationVariable;
+use towardstudio\websitedocumentation\models\Settings;
+use towardstudio\websitedocumentation\assetbundles\DocumentationAsset;
+use towardstudio\websitedocumentation\services\ReturnSettings;
+use towardstudio\websitedocumentation\twigextensions\DocumentationTwigExtension;
+use towardstudio\websitedocumentation\widgets\DocumentationWidget;
+use towardstudio\websitedocumentation\variables\DocumentationVariable;
 
 use yii\base\Event;
 
 /**
- * @author    bluegg
+ * @author    towardstudio
  * @package   WebsiteDocumentation
  * @since     1.0.0
  *

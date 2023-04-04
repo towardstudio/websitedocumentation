@@ -1,5 +1,5 @@
 <?php
-namespace bluegg\websitedocumentation\services;
+namespace towardstudio\websitedocumentation\services;
 
 use yii\base\Component;
 
@@ -11,7 +11,7 @@ use craft\redactor\FieldData;
 
 use craft\redactor\Field as RedactorField;
 
-use bluegg\websitedocumentation\data\DefaultEntries;
+use towardstudio\websitedocumentation\data\DefaultEntries;
 
 class CreateEntries extends Component
 {

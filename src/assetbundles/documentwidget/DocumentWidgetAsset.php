@@ -1,5 +1,5 @@
 <?php
-namespace bluegg\websitedocumentation\assetbundles\documentwidget;
+namespace towardstudio\websitedocumentation\assetbundles\documentwidget;
 
 use Craft;
 use craft\web\AssetBundle;
@@ -17,7 +17,7 @@ class DocumentWidgetAsset extends AssetBundle
     {
         // define the path that your publishable resources live
         $this->sourcePath =
-            "@bluegg/websitedocumentation/assetbundles/documentwidget/dist";
+            "@towardstudio/websitedocumentation/assetbundles/documentwidget/dist";
 
         // define the dependencies
         $this->depends = [CpAsset::class];

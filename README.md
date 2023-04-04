@@ -19,7 +19,7 @@ cd /path/to/project/craft
 2. Then tell Composer to load the plugin:
 
 ```
-composer require bluegg/websitedocumentation
+composer require towardstudio/websitedocumentation
 ```
 
 3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Website Documentation.
@@ -50,6 +50,6 @@ If you're using the demo templates, you can add a new section by opening up the 
 
 The naming of these items are used in kebab case for the file in the sections folder. For example if you call a section **Heroes** you'll name your file **heroes.twig**.
 
-[Bluegg Disclaimer](https://github.com/Bluegg/bluegg-open-source-disclaimer)
+[Toward Disclaimer](https://github.com/towardstudio/toward-open-source-disclaimer)
 
-Brought to you by [Bluegg](https://bluegg.co.uk)
+Brought to you by [Toward](https://toward.studio)

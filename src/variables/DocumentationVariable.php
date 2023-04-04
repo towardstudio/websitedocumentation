@@ -1,7 +1,7 @@
 <?php
-namespace bluegg\websitedocumentation\variables;
+namespace towardstudio\websitedocumentation\variables;
 
-use bluegg\websitedocumentation\WebsiteDocumentation;
+use towardstudio\websitedocumentation\WebsiteDocumentation;
 
 use Craft;
 use craft\helpers\UrlHelper;

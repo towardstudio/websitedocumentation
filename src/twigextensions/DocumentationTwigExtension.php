@@ -1,7 +1,7 @@
 <?php
-namespace bluegg\websitedocumentation\twigextensions;
+namespace towardstudio\websitedocumentation\twigextensions;
 
-use bluegg\websitedocumentation\WebsiteDocumentation;
+use towardstudio\websitedocumentation\WebsiteDocumentation;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 use Twig\TwigFunction;

@@ -1,8 +1,8 @@
 <?php
-namespace bluegg\websitedocumentation\widgets;
+namespace towardstudio\websitedocumentation\widgets;
 
-use bluegg\websitedocumentation\WebsiteDocumentation;
-use bluegg\websitedocumentation\assetbundles\documentwidget\DocumentWidgetAsset;
+use towardstudio\websitedocumentation\WebsiteDocumentation;
+use towardstudio\websitedocumentation\assetbundles\documentwidget\DocumentWidgetAsset;
 
 
 use Craft;

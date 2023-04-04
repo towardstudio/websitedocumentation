@@ -1,5 +1,5 @@
 <?php
-namespace bluegg\websitedocumentation\data;
+namespace towardstudio\websitedocumentation\data;
 
 class DefaultEntries
 {

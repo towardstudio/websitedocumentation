@@ -1,7 +1,7 @@
 <?php
-namespace bluegg\websitedocumentation\models;
+namespace towardstudio\websitedocumentation\models;
 
-use bluegg\websitedocumentation\WebsiteDocumentation;
+use towardstudio\websitedocumentation\WebsiteDocumentation;
 
 use Craft;
 use craft\base\Model;

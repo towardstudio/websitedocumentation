@@ -1,10 +1,6 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/Bluegg/craft-template">
-    <img src="https://bluegg.co.uk/images/logo.svg" alt="Bluegg's Logo" width="160" style="background: white; padding: 1rem; border-radius: 1rem;">
-  </a>
-
   <h3 align="center">Styleguide</h3>
   <p align="center">Our styleguide for Craft CMS projects. 🔥</p>
   <br />

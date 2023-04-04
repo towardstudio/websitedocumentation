@@ -1,13 +1,13 @@
 {
-	"name": "bluegg/websitedocumentation",
+	"name": "towardstudio/websitedocumentation",
 	"description": "Add Style Guide & CMS Guide to your website",
 	"type": "craft-plugin",
-	"version": "2.5.1",
+	"version": "2.6.0",
 	"license": "MIT",
 	"authors": [
 		{
-			"name": "Bluegg",
-			"homepage": "https://bluegg.co.uk"
+			"name": "Toward Studio",
+			"homepage": "https://toward.studio"
 		}
 	],
 	"require": {
@@ -16,16 +16,16 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"bluegg\\websitedocumentation\\": "src/"
+			"towardstudio\\websitedocumentation\\": "src/"
 		}
 	},
 	"extra": {
 		"name": "Website Documentation",
 		"handle": "websitedocumentation",
-		"developer": "Bluegg",
-		"developerUrl": "https://bluegg.co.uk",
-		"documentationUrl": "https://github.com/bluegg/websitedocumentation/blob/main/README.md",
-		"changelogUrl": "https://raw.githubusercontent.com/bluegg/websitedocumentation/main/CHANGELOG.md",
-		"class": "bluegg\\websitedocumentation\\WebsiteDocumentation"
+		"developer": "Toward Studio",
+		"developerUrl": "https://toward.studio",
+		"documentationUrl": "https://github.com/towardstudio/websitedocumentation/blob/main/README.md",
+		"changelogUrl": "https://raw.githubusercontent.com/towardstudio/websitedocumentation/main/CHANGELOG.md",
+		"class": "towardstudio\\websitedocumentation\\WebsiteDocumentation"
 	}
 }
