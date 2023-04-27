@@ -22,6 +22,10 @@
 	cursor: pointer;
 }
 
+.widget.towardstudio\\websitedocumentation\\widgets\\documentationwidget .front .pane .cs-screen .icons .cs-opt {
+	width: 50%;
+}
+
 .widget.towardstudio\\websitedocumentation\\widgets\\documentationwidget .front .pane .cs-screen .icons .cs-opt h2 {
 	font-size: 14px;
 }
