@@ -124,11 +124,6 @@ class SettingsController extends Controller
 			'sites' => array_merge($currentSettings, $savedSettings),
 		];
 
-		// echo '<pre>';
-		// 	var_dump($settings);
-		// echo '</pre>';
-		// die();
-
 		if (!Craft::$app->getPlugins()->savePluginSettings($plugin, $settings)) {
 			Craft::$app
 				->getSession()
