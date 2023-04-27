@@ -1,0 +1,36 @@
+{#
+	Atom: Ordered List
+	========================================
+	* list: ARRAY - An array of strings to list | Default: []
+	* attributes: OBJECT - Custom attributes to be added to the component | Default: null
+	* debug: BOOLEAN - Whether or not the component's debug mode should be enabled | Default: false
+#}
+
+{# Set the component's debug mode state #}
+{% set debug = debug ?? blueprint.config.debug ?? false %}
+
+{# Set the component's default properties #}
+{% set list = list | default(debug ? blueprint.config.placeholders.list : []) %}
+
+{# Set the component's default attributes #}
+{% set defaultAttributes = {
+	list: {
+		class: ['list']
+	},
+	item: {}
+} %}
+
+{# Merge the custom attributes with the default attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set defaultAttributes = defaultAttributes | merge(attributes, true) %}
+	{% set attributes = null %}
+{% endif %}
+
+{# Render the component's HTML #}
+{% if list is not empty %}
+	<ol {{ attr(defaultAttributes.list) }}>
+		{% for item in list %}
+			<li {{ attr(defaultAttributes.item) }}>{{- item -}}</li>
+		{% endfor %}
+	</ol>
+{% endif %}

@@ -5,18 +5,15 @@
 #}
 
 {# Inherit the blocks and their content from the styleguide layout. #}
-{% extends 'website-docs/_layouts/_style-guide.twig' %}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_style-guide.twig' %}
 
 {% block body %}
 	{# Render the HTML #}
 	<section>
-		{% embed websitedocumentation.getUrl(currentSite.handle)
-			~ '/style-guide/_embeds/_container'
+		{% embed websitedocumentation.getUrl(currentSite.handle) ~ '/style-guide/_embeds/_container'
 		%}
 			{% block content %}
-
 				{# Add in button component #}
-
 			{% endblock %}
 		{% endembed %}
 	</section>
