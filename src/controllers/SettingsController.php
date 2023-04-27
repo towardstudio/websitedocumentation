@@ -36,8 +36,10 @@ class SettingsController extends Controller
 	 * @return Response The rendered result
 	 * @throws \yii\web\ForbiddenHttpException
 	 */
-	public function actionPluginSettings(string $siteHandle = null, $settings = null): Response
-	{
+	public function actionPluginSettings(
+		string $siteHandle = null,
+		$settings = null
+	): Response {
 		if ($settings === null) {
 			$settings = WebsiteDocumentation::$settings;
 		}
@@ -69,14 +71,14 @@ class SettingsController extends Controller
 		$variables["selectedSubnavItem"] = "settings";
 		$variables["settings"] = $settings;
 
-		$variables['controllerHandle'] = 'settings' . '/' . $section;
+		$variables["controllerHandle"] = "settings" . "/" . $section;
 		$this->setMultiSiteVariables($siteHandle, $siteId, $variables);
 
 		// Logo
 		$logo = null;
 
-		if ($settings->sites[$siteHandle]['logo']) {
-			foreach ($settings->sites[$siteHandle]['logo'] as $item) {
+		if (!empty($settings->sites[$siteHandle]["logo"])) {
+			foreach ($settings->sites[$siteHandle]["logo"] as $item) {
 				$logo = Craft::$app->elements->getElementById($item);
 			}
 		}
@@ -106,25 +108,27 @@ class SettingsController extends Controller
 		$plugin = Craft::$app->getPlugins()->getPlugin("websitedocumentation");
 		$savedSettings = $plugin->settings->sites;
 
-		unset($savedSettings[$updates['siteHandle']]);
+		unset($savedSettings[$updates["siteHandle"]]);
 
 		$currentSettings = [
-			($updates['siteHandle']) => [
-				'logo' 				=> $updates['logo'],
-				'brandBgColor'		=> $updates['brandBgColor'],
-				'brandTextColor'	=> $updates['brandTextColor'],
-				'accentBgColor'		=> $updates['accentBgColor'],
-				'accentTextColor'	=> $updates['accentTextColor'],
-				'displayStyleGuide'	=> $updates['displayStyleGuide'],
-				'displayCmsGuide'	=> $updates['displayCmsGuide'],
-			]
+			$updates["siteHandle"] => [
+				"logo" => $updates["logo"],
+				"brandBgColor" => $updates["brandBgColor"],
+				"brandTextColor" => $updates["brandTextColor"],
+				"accentBgColor" => $updates["accentBgColor"],
+				"accentTextColor" => $updates["accentTextColor"],
+				"displayStyleGuide" => $updates["displayStyleGuide"],
+				"displayCmsGuide" => $updates["displayCmsGuide"],
+			],
 		];
 
 		$settings = [
-			'sites' => array_merge($currentSettings, $savedSettings),
+			"sites" => array_merge($currentSettings, $savedSettings),
 		];
 
-		if (!Craft::$app->getPlugins()->savePluginSettings($plugin, $settings)) {
+		if (
+			!Craft::$app->getPlugins()->savePluginSettings($plugin, $settings)
+		) {
 			Craft::$app
 				->getSession()
 				->setError(Craft::t("app", "Couldn't save plugin settings."));
@@ -297,90 +301,96 @@ class SettingsController extends Controller
 	}
 
 	// Protected Methods
-    // =========================================================================
-
-    /**
-     * Return a siteId from a siteHandle
-     *
-     * @param string $siteHandle
-     *
-     * @return int|null
-     * @throws NotFoundHttpException
-     */
-    protected function getSiteIdFromHandle($siteHandle)
-    {
-        // Get the site to edit
-        if ($siteHandle !== null) {
-            $site = Craft::$app->getSites()->getSiteByHandle($siteHandle);
-            if (!$site) {
-                throw new NotFoundHttpException('Invalid site handle: ' . $siteHandle);
-            }
-            $siteId = $site->id;
-        } else {
-            $siteId = Craft::$app->getSites()->currentSite->id;
-        }
-
-        return $siteId;
-    }
+	// =========================================================================
 
 	/**
-     * @param string $siteHandle
-     * @param        $siteId
-     * @param        $variables
-     *
-     * @throws ForbiddenHttpException
-     */
-    protected function setMultiSiteVariables($siteHandle, &$siteId, array &$variables, $element = null)
-    {
-        // Enabled sites
-        $sites = Craft::$app->getSites();
-        if (Craft::$app->getIsMultiSite()) {
-            // Set defaults based on the section settings
-            $variables['enabledSiteIds'] = [];
-            $variables['siteIds'] = [];
-			$variables['sites'] = (object) [];
+	 * Return a siteId from a siteHandle
+	 *
+	 * @param string $siteHandle
+	 *
+	 * @return int|null
+	 * @throws NotFoundHttpException
+	 */
+	protected function getSiteIdFromHandle($siteHandle)
+	{
+		// Get the site to edit
+		if ($siteHandle !== null) {
+			$site = Craft::$app->getSites()->getSiteByHandle($siteHandle);
+			if (!$site) {
+				throw new NotFoundHttpException(
+					"Invalid site handle: " . $siteHandle
+				);
+			}
+			$siteId = $site->id;
+		} else {
+			$siteId = Craft::$app->getSites()->currentSite->id;
+		}
 
-            /** @var Site $site */
-            foreach ($sites->getEditableSiteIds() as $editableSiteId) {
-                $variables['enabledSiteIds'][] = $editableSiteId;
-                $variables['siteIds'][] = $editableSiteId;
-            }
+		return $siteId;
+	}
+
+	/**
+	 * @param string $siteHandle
+	 * @param        $siteId
+	 * @param        $variables
+	 *
+	 * @throws ForbiddenHttpException
+	 */
+	protected function setMultiSiteVariables(
+		$siteHandle,
+		&$siteId,
+		array &$variables,
+		$element = null
+	) {
+		// Enabled sites
+		$sites = Craft::$app->getSites();
+		if (Craft::$app->getIsMultiSite()) {
+			// Set defaults based on the section settings
+			$variables["enabledSiteIds"] = [];
+			$variables["siteIds"] = [];
+			$variables["sites"] = (object) [];
+
+			/** @var Site $site */
+			foreach ($sites->getEditableSiteIds() as $editableSiteId) {
+				$variables["enabledSiteIds"][] = $editableSiteId;
+				$variables["siteIds"][] = $editableSiteId;
+			}
 
 			foreach ($sites->getEditableSites() as $editableSite) {
 				$handle = $editableSite->handle;
-				$variables['sites']->$handle = (object) [];
-            }
+				$variables["sites"]->$handle = (object) [];
+			}
 
-            // Make sure the $siteId they are trying to edit is in our array of editable sites
-            if (!in_array($siteId, $variables['enabledSiteIds'], false)) {
-                if (!empty($variables['enabledSiteIds'])) {
-                    $siteId = reset($variables['enabledSiteIds']);
-                } else {
-                    $this->requirePermission('editSite:' . $siteId);
-                }
-            }
-        }
+			// Make sure the $siteId they are trying to edit is in our array of editable sites
+			if (!in_array($siteId, $variables["enabledSiteIds"], false)) {
+				if (!empty($variables["enabledSiteIds"])) {
+					$siteId = reset($variables["enabledSiteIds"]);
+				} else {
+					$this->requirePermission("editSite:" . $siteId);
+				}
+			}
+		}
 
-        // Set the currentSiteId and currentSiteHandle
-        $variables['currentSiteId'] = empty($siteId) ? Craft::$app->getSites()->currentSite->id : $siteId;
-        $variables['currentSiteHandle'] = empty($siteHandle)
-            ? Craft::$app->getSites()->currentSite->handle
-            : $siteHandle;
+		// Set the currentSiteId and currentSiteHandle
+		$variables["currentSiteId"] = empty($siteId)
+			? Craft::$app->getSites()->currentSite->id
+			: $siteId;
+		$variables["currentSiteHandle"] = empty($siteHandle)
+			? Craft::$app->getSites()->currentSite->handle
+			: $siteHandle;
 
-        // Page title
-        $variables['showSites'] = (
-            Craft::$app->getIsMultiSite() &&
-            count($variables['enabledSiteIds'])
-        );
+		// Page title
+		$variables["showSites"] =
+			Craft::$app->getIsMultiSite() &&
+			count($variables["enabledSiteIds"]);
 
-        if ($variables['showSites']) {
-            $variables['sitesMenuLabel'] = Craft::t(
-                'site',
-                $sites->getSiteById((int)$variables['currentSiteId'])->name
-            );
-        } else {
-            $variables['sitesMenuLabel'] = '';
-        }
-    }
-
+		if ($variables["showSites"]) {
+			$variables["sitesMenuLabel"] = Craft::t(
+				"site",
+				$sites->getSiteById((int) $variables["currentSiteId"])->name
+			);
+		} else {
+			$variables["sitesMenuLabel"] = "";
+		}
+	}
 }

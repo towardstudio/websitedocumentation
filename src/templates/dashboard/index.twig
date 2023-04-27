@@ -18,7 +18,8 @@
 						label: 'Style Guide',
 						url: site.baseUrl ~ url ~ '/style-guide',
 						icon: 'photo',
-						display: settings.sites[site.handle].displayStyleGuide != '1'
+						display: settings.sites[site.handle] is defined
+							and settings.sites[site.handle].displayStyleGuide != '1'
 							? false
 							: true
 					},
@@ -26,7 +27,8 @@
 						label: 'CMS Guide',
 						url: site.baseUrl ~ url ~ '/style-guide',
 						icon: 'book',
-						display: settings.sites[site.handle].displayCmsGuide != '1'
+						display: settings.sites[site.handle] is defined
+							and settings.sites[site.handle].displayCmsGuide != '1'
 							? false
 							: true
 					}
