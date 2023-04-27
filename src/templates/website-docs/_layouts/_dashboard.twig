@@ -5,7 +5,7 @@
 #}
 
 {# Inherit the blocks and their content from the master layout. #}
-{% extends websitedocumentation.getUrl() ~ '/_layouts/_master' %}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_master' %}
 
 {% block head %}
 	{{ parent() }}

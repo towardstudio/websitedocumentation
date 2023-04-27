@@ -32,14 +32,14 @@ Main
 
 {% set indexBlocks = [
 	{
-		url: '/' ~ websitedocumentation.getUrl() ~ '/style-guide',
-		icon: websitedocumentation.getUrl() ~ '/_atoms/_icons/_style-guide',
+		url: '/' ~ websitedocumentation.getUrl(currentSite.handle) ~ '/style-guide',
+		icon: websitedocumentation.getUrl(currentSite.handle) ~ '/_atoms/_icons/_style-guide',
 		title: 'Style Guide' | t,
 		display: global.settings.displayStyleGuide == '1' ? true : false,
 	},
 	{
-		url: '/' ~ websitedocumentation.getUrl() ~ '/cms-guide',
-		icon: websitedocumentation.getUrl() ~ '/_atoms/_icons/_cms-guide',
+		url: '/' ~ websitedocumentation.getUrl(currentSite.handle) ~ '/cms-guide',
+		icon: websitedocumentation.getUrl(currentSite.handle) ~ '/_atoms/_icons/_cms-guide',
 		title: 'CMS Guide' | t,
 		display: global.settings.displayCmsGuide == '1' ? true : false,
 	}

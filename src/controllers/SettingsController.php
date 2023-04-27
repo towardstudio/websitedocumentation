@@ -122,6 +122,10 @@ class SettingsController extends Controller
 			],
 		];
 
+		if ($savedSettings == null) {
+			$savedSettings = [];
+		}
+
 		$settings = [
 			"sites" => array_merge($currentSettings, $savedSettings),
 		];

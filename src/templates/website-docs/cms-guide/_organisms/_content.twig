@@ -36,7 +36,7 @@
 {# Render the HTML #}
 {% if section and content %}
 	<div {{ attr(elementAttributes) }}>
-		{% include websitedocumentation.getUrl()
+		{% include websitedocumentation.getUrl(currentSite.handle)
 			~ '/cms-guide/_atoms/_heading' with {
 			level: 2,
 			text: section,
