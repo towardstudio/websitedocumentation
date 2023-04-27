@@ -6,7 +6,7 @@ use towardstudio\websitedocumentation\WebsiteDocumentation;
 use Craft;
 use craft\base\Model;
 
-class Settings extends Model
+class SiteSettings extends Model
 {
 	// Public Properties
 	// =========================================================================
@@ -15,10 +15,13 @@ class Settings extends Model
 	 * @var string
 	 */
 
-	public $name = "Website Docs";
-	public $structure;
-	public $structureExists;
-	public $sites;
+	public $logo;
+	public $brandBgColor;
+	public $brandTextColor;
+	public $accentBgColor;
+	public $accentTextColor;
+	public $displayStyleGuide = "1";
+	public $displayCmsGuide = "1";
 
 	// Public Methods
 	// =========================================================================
@@ -29,8 +32,12 @@ class Settings extends Model
 	public function rules(): array
 	{
 		return [
-			["structure", "string"],
-			["structureExists", "boolean"],
+			["brandBgColor", "string"],
+			["brandTextColor", "string"],
+			["accentBgColor", "string"],
+			["accentTextColor", "string"],
+			["displayStyleGuide", "string"],
+			["displayCmsGuide", "string"],
 		];
 	}
 }

@@ -142,21 +142,13 @@ class WebsiteDocumentation extends Plugin
 	// Rename the Control Panel Item & Add Sub Menu
 	public function getCpNavItem(): ?array
 	{
-		// Get the site Url
+		// Get the site info
+		$handle = Craft::$app->sites->currentSite->handle;
 		$url = Craft::$app->sites->currentSite->baseUrl;
 
 		// Get the documentation url
 		$config = WebsiteDocumentation::customConfig();
-		if (empty($config))
-		{
-			$docUrl = 'website-docs';
-		} else {
-			if ($config['documentationUrl']) {
-				$docUrl = $config['documentationUrl'];
-			} else {
-				$docUrl = 'website-docs';
-			}
-		}
+		$docUrl = $this->getDocUrl($config, $handle);
 
 		// Set additional information on the nav item
 		$item = parent::getCpNavItem();
@@ -170,29 +162,37 @@ class WebsiteDocumentation extends Plugin
 		// Get Documentation Settings
 		$settings = $this->getSettings();
 
+		// Check for Multi-Site
+		$request = Craft::$app->getRequest();
+        $siteHandle = '';
+        if ($request->getSegment(1) === 'seomatic') {
+            $segments = $request->getSegments();
+            $lastSegment = end($segments);
+            $site = Craft::$app->getSites()->getSiteByHandle($lastSegment);
+            if ($site !== null) {
+                $siteHandle = '/' . $lastSegment;
+            }
+        }
+
 		// Add Dashboard Sub Nav Item
 		$subNavs["dashboard"] = [
 			"label" => "Dashboard",
-			"url" => "websitedocumentation/dashboard",
+			"url" => "websitedocumentation/dashboard" . $siteHandle,
 		];
 
-		// Add Styleguide External Sub Nav Item
-		if ($settings->displayStyleGuide == '1') {
-			$subNavs["styleguide"] = [
-				"label" => "Style Guide",
-				"url" => $url . $docUrl . "/style-guide",
-				"external" => true,
-			];
-		}
+ 		// Add Styleguide External Sub Nav Item
+		$subNavs["styleguide"] = [
+			"label" => "Style Guide",
+			"url" => $url . $docUrl . "/style-guide",
+			"external" => true,
+		];
 
 		// Add Guide External Sub Nav Item
-		if ($settings->displayCmsGuide == '1') {
-			$subNavs["guide"] = [
-				"label" => "CMS Guide",
-				"url" => $url . $docUrl . "/cms-guide",
-				"external" => true,
-			];
-		}
+		$subNavs["guide"] = [
+			"label" => "CMS Guide",
+			"url" => $url . $docUrl . "/cms-guide",
+			"external" => true,
+		];
 
 		// Add Settings on dev environment
 		$editableSettings = true;
@@ -203,7 +203,7 @@ class WebsiteDocumentation extends Plugin
 		if ($editableSettings) {
 			$subNavs["settings"] = [
 				"label" => "Plugin Settings",
-				"url" => "websitedocumentation/settings",
+				"url" => "websitedocumentation/settings" . $siteHandle,
 			];
 		}
 
@@ -221,6 +221,26 @@ class WebsiteDocumentation extends Plugin
 		if ($config) {
 			return $config;
 		}
+
+	}
+
+	// Rename the Control Panel Item & Add Sub Menu
+	public static function getDocUrl($config, $handle): ?string
+	{
+		if (empty($config))
+		{
+			$docUrl = 'website-docs';
+		} else {
+			if (isset($config['documentationUrl']) || isset($config['url'])) {
+				$docUrl = isset($config['documentationUrl']) ? $config['documentationUrl'] : $config['url'] ;
+			}  elseif(isset($config[$handle]['documentationUrl']) || isset($config[$handle]['url'])) {
+				$docUrl = isset($config[$handle]['documentationUrl']) ? $config[$handle]['documentationUrl'] : $config[$handle]['url'];
+			} else {
+				$docUrl = 'website-docs';
+			}
+		}
+
+		return $docUrl;
 
 	}
 
@@ -252,6 +272,8 @@ class WebsiteDocumentation extends Plugin
 			],
 			"websitedocumentation/settings" =>
 				"websitedocumentation/settings/plugin-settings",
+			'websitedocumentation/settings/<subSection:{handle}>/<siteHandle:{handle}>' =>
+                "websitedocumentation/settings/plugin-settings",
 		];
 	}
 

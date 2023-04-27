@@ -10,11 +10,20 @@
 	text-decoration: none;
 }
 
+.widget.towardstudio\\websitedocumentation\\widgets\\documentationwidget .front .pane .icons > h2 {
+	margin: 0 0 15px;
+	font-weight: bold;
+}
+
 .widget.towardstudio\\websitedocumentation\\widgets\\documentationwidget .front .pane .cs-screen .cs-opt {
 	display: block;
 	padding: 24px;
 	text-align: center;
 	cursor: pointer;
+}
+
+.widget.towardstudio\\websitedocumentation\\widgets\\documentationwidget .front .pane .cs-screen .icons .cs-opt h2 {
+	font-size: 14px;
 }
 
 .widget.towardstudio\\websitedocumentation\\widgets\\documentationwidget .front .pane .cs-screen .cs-opt:hover {

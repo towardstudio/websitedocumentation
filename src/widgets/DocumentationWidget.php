@@ -57,36 +57,54 @@ class DocumentationWidget extends Widget
 
 	public function getBodyHtml(): string
     {
-
+		// Register Assets
 		Craft::$app->getView()->registerAssetBundle(DocumentWidgetAsset::class);
 
-		// Get the site Url
-		$url = Craft::$app->sites->currentSite->baseUrl;
+		// Get all Editable Sites
+		$sites = Craft::$app->sites->getEditableSites();
 
 		// Get Settings
 		$settings = WebsiteDocumentation::$settings;
 
-		// Get the documentation url
-		$docUrl = getenv("DOCS_URL") ? getenv("DOCS_URL") : "website-docs";
-
 		// Icon Directory
 		$iconsDirectory = Craft::getAlias('@appicons');
 
+		// Set up settings array
+		$config = WebsiteDocumentation::customConfig();
+		$array = [];
+
+		foreach($sites as $site) {
+			$handle = $site->handle;
+			$url = WebsiteDocumentation::getDocUrl($config,$handle);
+
+			$item = [
+				"title" => $site->name,
+				"guides" => [
+					"styleguide" => [
+						"label" => "Style Guide",
+						"url" => $site->baseUrl . $url . "/style-guide",
+						"icon"	=> file_get_contents($iconsDirectory . "/photo.svg"),
+						"display" => $settings->sites[$handle]['displayStyleGuide'] != '1' ? false : true,
+					],
+					"guide" => [
+						"label" => "CMS Guide",
+						"url" => $site->baseUrl . $url . "/cms-guide",
+						"icon"	=> file_get_contents($iconsDirectory . "/book.svg"),
+						"display" => $settings->sites[$handle]['displayCmsGuide'] != '1' ? false : true,
+					],
+				]
+			];
+
+			$array[$handle] = $item;
+
+		};
+
+		// Get the documentation url
+		$docUrl = getenv("DOCS_URL") ? getenv("DOCS_URL") : "website-docs";
+
+
         return Craft::$app->getView()->renderTemplate('websitedocumentation/_components/widgets/body', [
-			'settings' => [
-				"styleguide" => [
-					"label" => "Style Guide",
-					"url" => $url . $docUrl . "/style-guide",
-					"icon"	=> file_get_contents($iconsDirectory . "/photo.svg"),
-					"display" => $settings->displayStyleGuide != '1' ? false : true,
-				],
-				"guide" => [
-					"label" => "CMS Guide",
-					"url" => $url . $docUrl . "/cms-guide",
-					"icon"	=> file_get_contents($iconsDirectory . "/book.svg"),
-					"display" => $settings->displayCmsGuide != '1' ? false : true,
-				],
-			],
+			'settings' => $array,
         ]);
     }
 

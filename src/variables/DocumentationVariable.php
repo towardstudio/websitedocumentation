@@ -9,23 +9,34 @@ use yii\di\ServiceLocator;
 
 class DocumentationVariable extends ServiceLocator
 {
-	public function getUrl()
+	public function getUrl(string $siteHandle = null)
 	{
+		// Get the Config File
 		$config = WebsiteDocumentation::customConfig();
+
 		if (empty($config))
 		{
 			return 'website-docs';
-		} else {
-			if ($config['documentationUrl']) {
-				return $config['documentationUrl'];
-			} else {
-				return 'website-docs';
-			}
 		}
+
+		if (isset($config['documentationUrl']) || isset($config['url'])) {
+			$docUrl = isset($config['documentationUrl']) ? $config['documentationUrl'] : $config['url'];
+		} elseif(isset($config[$siteHandle]['documentationUrl']) || isset($config[$siteHandle]['url'])) {
+			$docUrl = isset($config[$siteHandle]['documentationUrl']) ? $config[$siteHandle]['documentationUrl'] : $config[$siteHandle]['url'];
+		} else {
+			$docUrl = 'website-docs';
+		}
+
+		return $docUrl;
+
 	}
 
-	public function getSettings()
+	public function getSettings(string $siteHandle = null)
 	{
-		return WebsiteDocumentation::$settings;
+		if ($siteHandle) {
+			return WebsiteDocumentation::$settings->sites[$siteHandle];
+		} else {
+			return WebsiteDocumentation::$settings;
+		}
 	}
 }

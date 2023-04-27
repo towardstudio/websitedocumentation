@@ -138,15 +138,15 @@
 
 		> h2 {
 			padding: 0 2.5rem;
-			margin: 2rem 0 0;
-			font-size: 1.7rem;
+			margin: 1.5rem 0 0;
+			font-size: 1.2rem;
 
 			@media only screen and (min-width: 640px) {
-				padding: 0 3rem;
+				padding: 0 3.5rem;
 			}
 
 			@media only screen and (min-width: 768px) {
-				padding: 0 4rem;
+				padding: 0 4.5rem;
 			}
 
 		}
@@ -156,11 +156,11 @@
 		background-position: -1px -1px,-1px -1px,-1px -1px,-1px -1px;
 		border: 0;
 		box-sizing: content-box;
-		height: calc(100% - 7rem);
+		height: calc(100% - 5rem);
 		left: 50%;
 		transform: translateX(-50%);
 		position: absolute;
-		top: 7rem;
+		top: 5rem;
 		transition: all .3s ease 0s,background-position 0s ease 0s,visibility 0s ease 0s;
 		width: 100%;
 		display: none;

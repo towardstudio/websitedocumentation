@@ -5,15 +5,16 @@
 #}
 
 {# Set an object containing data inherited by all layouts and templates. #}
+{% set handle = currentSite.handle %}
 {% set global = {
-	settings: websitedocumentation.getSettings(),
-	url: websitedocumentation.getUrl(),
-	logo: websitedocumentation.getSettings().logo[0] | default(null),
+	settings: websitedocumentation.getSettings(handle),
+	url: websitedocumentation.getUrl(handle),
+	logo: websitedocumentation.getSettings(handle).logo[0] | default(null),
 	colors: {
-		brandBackground: websitedocumentation.getSettings().brandBgColor | default('fff'),
-		brandText: websitedocumentation.getSettings().brandTextColor | default('000'),
-		accentBackground: websitedocumentation.getSettings().accentBgColor | default('000'),
-		accentText: websitedocumentation.getSettings().accentTextColor | default('fff')
+		brandBackground: websitedocumentation.getSettings(handle).brandBgColor | default('fff'),
+		brandText: websitedocumentation.getSettings(handle).brandTextColor | default('000'),
+		accentBackground: websitedocumentation.getSettings(handle).accentBgColor | default('000'),
+		accentText: websitedocumentation.getSettings(handle).accentTextColor | default('fff')
 	},
 	bundles: {
 		websiteDocumentation: 'towardstudio\\websitedocumentation\\assetbundles\\DocumentationAsset',

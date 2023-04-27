@@ -15,6 +15,7 @@ createApp(Sidebar, {
 // Components
 const websiteUrl = new URL(location.href);
 const canvases = document.querySelectorAll("#canvas");
+const headings = document.querySelectorAll("#canvas-wrapper > h2");
 const sidebar = document.getElementById("aside");
 const menuTrigger = document.querySelector("[data-burger]");
 const menuWrapper = document.getElementById("sidebar-content");
@@ -54,6 +55,10 @@ if (queryStrings) {
 			const fullscreenControl = document.querySelector('[data-controls] [data-fullscreen]');
 			fullscreenControl.classList.add('active');
 			fullSize = true;
+
+			headings.forEach(function (heading) {
+				heading.style.opacity = 0;
+			});
 
 			// Hacky, but need to remove the display none
 			setTimeout(function() {
@@ -122,7 +127,7 @@ fullScreen.addEventListener("click", function (e) {
 	} else {
 		hideSidebar();
 		fullScreen.classList.add('active');
-		fullSize = true
+		fullSize = true;
 	}
 });
 
@@ -141,6 +146,15 @@ function hideSidebar() {
 	sidebar.style.left = "-300px";
 	defaultSize.style.display = 'flex';
 
+	headings.forEach(function (heading) {
+		heading.style.opacity = 0;
+	});
+
+	canvases.forEach(function (canvas) {
+		canvas.style.top = '1rem';
+		canvas.style.height = 'calc(100%-1rem)';
+	});
+
 	websiteUrl.searchParams.set('fullscreen', 'true');
 	history.pushState(null, '', websiteUrl);
 }
@@ -149,6 +163,15 @@ function showSidebar() {
 	sidebar.style.marginLeft = "0";
 	sidebar.style.left = "0";
 	defaultSize.style.display = 'none';
+
+	headings.forEach(function (heading) {
+		heading.style.opacity = 1;
+	});
+
+	canvases.forEach(function (canvas) {
+		canvas.style.top = '5rem';
+		canvas.style.height = 'calc(100%-5rem)';
+	});
 
 	websiteUrl.searchParams.delete('fullscreen');
 	history.pushState(null, '', websiteUrl);
