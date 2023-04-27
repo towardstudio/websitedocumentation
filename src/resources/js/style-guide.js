@@ -152,7 +152,7 @@ function hideSidebar() {
 
 	canvases.forEach(function (canvas) {
 		canvas.style.top = '1rem';
-		canvas.style.height = 'calc(100%-1rem)';
+		canvas.style.height = 'calc(100% - 1rem)';
 	});
 
 	websiteUrl.searchParams.set('fullscreen', 'true');
@@ -170,7 +170,7 @@ function showSidebar() {
 
 	canvases.forEach(function (canvas) {
 		canvas.style.top = '5rem';
-		canvas.style.height = 'calc(100%-5rem)';
+		canvas.style.height = 'calc(100% - 5rem)';
 	});
 
 	websiteUrl.searchParams.delete('fullscreen');
