@@ -19,6 +19,14 @@ class Settings extends Model
 	public $structure;
 	public $structureExists;
 	public $sites;
+	public $logo;
+	public $brandBgColor;
+	public $brandTextColor;
+	public $accentBgColor;
+	public $accentTextColor;
+	public $displayStyleGuide = "1";
+	public $displayCmsGuide = "1";
+
 
 	// Public Methods
 	// =========================================================================

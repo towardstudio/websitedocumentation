@@ -21,6 +21,10 @@
 
 {% block content %}
 
+	<pre>
+		{{ dump(settings) }}
+	</pre>
+
 	<input type="hidden" name="action" value="websitedocumentation/settings/save-general-settings">
 	{{ redirectInput('websitedocumentation/settings') }}
 	{{ csrfInput() }}
