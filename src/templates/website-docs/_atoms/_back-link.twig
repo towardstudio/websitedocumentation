@@ -37,7 +37,7 @@
 	{# Render the HTML #}
 	<a {{ attr(elementAttributes) }}>
 		<span class="icon">
-			{% include websitedocumentation.getUrl() ~ '/_atoms/_icons/_arrow' with {
+			{% include websitedocumentation.getUrl(currentSite.handle) ~ '/_atoms/_icons/_arrow' with {
 				attributes: {
 					style: 'fill: #' ~ global.colors.brandText,
 				}

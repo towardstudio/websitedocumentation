@@ -5,13 +5,13 @@
 #}
 
 {# Inherit the blocks and their content from the master layout. #}
-{% extends websitedocumentation.getUrl() ~ '/_layouts/_master' %}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_master' %}
 
 {# Import the `config()` and `data()` macros containing JSON-encoded strings.
 These string will need to be transformed into valid JSON objects before they can
 be referenced by all templates inheriting this layout. #}
-{% import websitedocumentation.getUrl() ~ '/style-guide/_config' as config %}
-{% import websitedocumentation.getUrl() ~ '/style-guide/_data' as data %}
+{% import websitedocumentation.getUrl(currentSite.handle) ~ '/style-guide/_config' as config %}
+{% import websitedocumentation.getUrl(currentSite.handle) ~ '/style-guide/_data' as data %}
 
 {# Set an object containing data inherited by the style guide site ONLY. #}
 {% set styleGuide = {

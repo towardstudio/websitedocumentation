@@ -5,12 +5,12 @@
 #}
 
 {# Inherit the blocks and their content from the master layout. #}
-{% extends websitedocumentation.getUrl() ~ '/_layouts/_master' %}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_master' %}
 
 {# Import the `config()` and `data()` macros containing JSON-encoded strings.
 These string will need to be transformed into valid JSON objects before they can
 be referenced by all templates inheriting this layout. #}
-{% import websitedocumentation.getUrl() ~ '/cms-guide/_config.twig' as config %}
+{% import websitedocumentation.getUrl(currentSite.handle) ~ '/cms-guide/_config.twig' as config %}
 
 {# Set an object containing data inherited by the CMS guide site ONLY. #}
 {% set cmsGuide = {

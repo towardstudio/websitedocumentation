@@ -7,7 +7,7 @@
 {% set name = name | default('style-guide') %}
 
 {# Inherit the blocks and their content from the master layout. #}
-{% extends websitedocumentation.getUrl() ~ '/_layouts/_style-guide' %}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_style-guide' %}
 
 {% block head %}
 	{{ parent() }}

@@ -47,10 +47,10 @@
 
 {# Render the HTML #}
 <aside {{ attr(elementAttributes) }}>
-	{% include websitedocumentation.getUrl() ~ '/_atoms/_back-link' with {
+	{% include websitedocumentation.getUrl(currentSite.handle) ~ '/_atoms/_back-link' with {
 		global: global
 	} only %}
-	{% include websitedocumentation.getUrl() ~ '/_atoms/_identity' with {
+	{% include websitedocumentation.getUrl(currentSite.handle) ~ '/_atoms/_identity' with {
 		title: title,
 		global: global
 	} only %}

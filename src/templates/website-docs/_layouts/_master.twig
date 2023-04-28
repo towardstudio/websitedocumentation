@@ -5,7 +5,7 @@
 #}
 
 {# Inherit the blocks and their content from the globals file. #}
-{% extends websitedocumentation.getUrl() ~ '/_layouts/_global' %}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_global' %}
 
 {# The basic essentials of all webpages served across the project. #}
 {% block html %}

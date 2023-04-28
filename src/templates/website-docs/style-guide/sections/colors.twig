@@ -5,7 +5,7 @@
 #}
 
 {# Inherit the blocks and their content from the styleguide layout. #}
-{% extends websitedocumentation.getUrl() ~ '/_layouts/_section.twig' %}
+{% extends websitedocumentation.getUrl(currentSite.handle) ~ '/_layouts/_section.twig' %}
 
 {% block head %}
 	{{ parent() }}
@@ -20,7 +20,7 @@
 
 	{# Render the HTML #}
 	<section>
-		{% embed websitedocumentation.getUrl() ~ '/style-guide/_embeds/_container' with {
+		{% embed websitedocumentation.getUrl(currentSite.handle) ~ '/style-guide/_embeds/_container' with {
 			contentClasses: [
 				'container-padding',
 			]
