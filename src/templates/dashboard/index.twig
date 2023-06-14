@@ -10,7 +10,7 @@
 {% for site in sites.editableSites %}
 	{% set url = websitedocumentation.getUrl(site.handle) %}
 	{% set blocks =
-		blocks | merge({
+		blocks|merge({
 			(site.handle): {
 				title: site.name,
 				guides: {
@@ -19,16 +19,18 @@
 						url: site.baseUrl ~ url ~ '/style-guide',
 						icon: 'photo',
 						display: settings.sites[site.handle] is defined
-							and settings.sites[site.handle].displayStyleGuide != '1'
+							and settings.sites[site.handle].displayStyleGuide
+								!= '1'
 							? false
 							: true
 					},
 					guide: {
 						label: 'CMS Guide',
-						url: site.baseUrl ~ url ~ '/style-guide',
+						url: site.baseUrl ~ url ~ '/cms-guide',
 						icon: 'book',
 						display: settings.sites[site.handle] is defined
-							and settings.sites[site.handle].displayCmsGuide != '1'
+							and settings.sites[site.handle].displayCmsGuide
+								!= '1'
 							? false
 							: true
 					}
@@ -41,7 +43,7 @@
 {% block content %}
 	{% for key, item in blocks %}
 		<ul class="icons">
-			{% if (blocks | length) > 1 %}
+			{% if (blocks|length) > 1 %}
 				<h2 style="width:100%; margin-left:1.1rem">
 					{{ item.title }}
 				</h2>
