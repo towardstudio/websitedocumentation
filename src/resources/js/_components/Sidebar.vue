@@ -65,7 +65,7 @@
 							:key="child.title"
 							@click="switchSection($event.target)"
 							:data-sub="[child.sub ? true : false]"
-							:data-section="kebabCase(child.title)"
+							:data-section="kebabCase(item.title) + '-' + kebabCase(child.title)"
 						>
 							<span class="icon">
 								<svg

@@ -1,13 +1,15 @@
 {#
 	Content
 	==============================
-	* section: STRING - The name of the style guide section | Default: null
-	* template: STRING - The path of the style guide section's template | Default: null
-	* classes: ARRAY (optional) - Custom classes
-	* attributes OBJECT (optional) - Custom attributes
+    * id:          STRING - The id of the style guide section | Default: null
+	* section:     STRING - The name of the style guide section | Default: null
+	* template:    STRING - The path of the style guide section's template | Default: null
+	* classes:     ARRAY (optional) - Custom classes
+	* attributes:  OBJECT (optional) - Custom attributes
 #}
 
 {# Set the element's default properties #}
+{% set id = id | default(null) %}
 {% set section = section | default(null) %}
 {% set template = template | default(null) %}
 
@@ -23,8 +25,8 @@
 {% set elementAttributes = {
 	id: 'content',
 	class: elementBaseClasses,
-	'data-content': section | kebab,
-	'aria-labelledby': section | kebab,
+	'data-content': id | kebab,
+	'aria-labelledby': id | kebab,
 	tabindex: '0',
 	role: 'tabpanel'
 } %}

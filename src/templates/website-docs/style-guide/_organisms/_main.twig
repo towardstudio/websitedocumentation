@@ -104,7 +104,8 @@
 												~ itemKey
 												~ '/'
 												~ (item|kebab),
-											section: item
+											section: item,
+                                            id: itemKey ~ '-' ~ item|kebab
 										}
 									]
 								)
@@ -120,7 +121,8 @@
 											~ sectionKey
 											~ '/'
 											~ (items|kebab),
-										section: items
+										section: items,
+                                        id: items|kebab,
 									}
 								]
 							)
@@ -134,7 +136,8 @@
 							{
 								template: global.url ~ '/style-guide/sections/'
 									~ (section|kebab),
-								section: section
+								section: section,
+                                id: section|kebab,
 							}
 						]
 					)
@@ -151,6 +154,7 @@
 				) is not empty %}
 				{% include global.url
 					~ '/style-guide/_organisms/_content' with {
+                    id: container.id,
 					section: container.section,
 					template: container.template
 				} %}

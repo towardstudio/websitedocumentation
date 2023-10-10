@@ -3,45 +3,50 @@
 	==============================
 	* name: 		STRING - The colors name | Default: null
 	* hex: 			STRING - The colors hex value | Default: null
-	* classes: 		ARRAY (optional) - Custom classes
 	* attributes: 	OBJECT (optional) - Custom attributes
 #}
 
 {# Set the element's default properties #}
-{% set name = name | default() %}
-{% set hex = hex | default() %}
-{% set classes = classes | default() %}
-{% set attributes = attributes | default() %}
+{% set name = name | default(null) %}
+{% set hex = hex | default(null) %}
+{% set children = children | default([]) %}
+{% set attributes = attributes | default(null) %}
 
-{# Set the element's base classes #}
-{% set elementBaseClasses = [
-	'color-block'
-] %}
-
-{# Merge custom classes with the base classes #}
-{% if classes is not empty %}
-	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
-{% endif %}
-
-{# Set the element's base attributes #}
-{% set elementAttributes = {
-	class: elementBaseClasses
+{# Set the component's default attributes #}
+{% set defaultAttributes = {
+	wrapper: {
+		class: ['color-block', 'self-start']
+	}
 } %}
 
-{# Merge custom attributes with the base attributes #}
-{% if attributes is not empty %}
-	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{# Merge the custom attributes with the default attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set defaultAttributes = defaultAttributes | merge(attributes, true) %}
+	{% set attributes = null %}
 {% endif %}
 
 {# Render the HTML #}
 {% if hex is not empty %}
-	<div {{ attr(elementAttributes) }}>
-		<div class="color-block__color" style="background: {{ hex }}"></div>
+	<div {{ attr(defaultAttributes.wrapper) }}>
 		<div class="color-block__content">
 			<p class="color-block__heading">
 				{{ name }}
 			</p>
 			<code class="color-block__hex">{{ hex }}</code>
 		</div>
+		<div class="aspect-[16/7] border-t border-[#e8e8e8] rounded-b-[20px] relative z-10"
+			style="background: {{ hex }}"></div>
+		{% if children is not empty %}
+			{% for child in children %}
+                {% set text = websitedocumentation.getContrastColor(child.hex) %}
+				<div class="rounded-b-[20px] -mt-4 px-6 pt-8 pb-4 flex items-center gap-6 relative"
+					style="background: {{ child.hex }}; color: {{ text }}; z-index: {{ (children | length) - loop.index }}">
+					<p class="mb-0">
+						{{ child.name }}
+					</p>
+					<code class="">{{ child.hex }}</code>
+				</div>
+			{% endfor %}
+		{% endif %}
 	</div>
 {% endif %}

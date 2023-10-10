@@ -20,20 +20,20 @@
 
 	{# Render the HTML #}
 	<section>
-		{% embed websitedocumentation.getUrl(currentSite.handle) ~ '/style-guide/_embeds/_container' with {
-			contentClasses: [
-				'container-padding',
-			]
-		} %}
+		{% embed websitedocumentation.getUrl(currentSite.handle) ~ '/style-guide/_embeds/_container'
+			with {
+				contentClasses: ['container-padding']
+			}
+		%}
 			{% block content %}
-				<div id="color-grid">
+				<div id="color-grid" class="mb-20">
 					{% for colors in colorArray %}
-						{% for color in colors %}
-							{% include global.url ~ '/style-guide/_atoms/_color' with {
-								name: color.name,
-								hex: color.hex
-							} %}
-						{% endfor %}
+						{# Parent Colour #}
+						{% include global.url ~ '/style-guide/_atoms/_color' with {
+							name: colors[0].name,
+							hex: colors[0].hex,
+							children: colors | slice(1)
+						} %}
 					{% endfor %}
 				</div>
 			{% endblock %}
