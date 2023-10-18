@@ -4,12 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.1.1 - 2023-10-18
+
+-   Fixed Vulnerability in PostCSS
+
+## 3.1.0 - 2023-10-10
+
+-   Updated Colour Settings on the Style Guide
+
 ## 3.0.0 - 2022-04-27
 
-> {warning} This is a big update to fix Multi-Site Issues. You will need to re-do the general settings for each site. You will also need to update all instances of `websitedocumentation.getUrl()` to `websitedocumentation.getUrl(currentSite.handle)` within your website-docs folder. You will also need to update /website-docs/_layouts/_global/ so that `websitedocumentation.getUrl()` contains the site handle: ` websitedocumentation.getUrl(currentSite.handle)`
+> {warning} This is a big update to fix Multi-Site Issues. You will need to re-do the general settings for each site. You will also need to update all instances of `websitedocumentation.getUrl()` to `websitedocumentation.getUrl(currentSite.handle)` within your website-docs folder. You will also need to update /website-docs/\_layouts/\_global/ so that `websitedocumentation.getUrl()` contains the site handle: ` websitedocumentation.getUrl(currentSite.handle)`
 
-- Updated Settings to work per-site
-- Added Multi-Site Support
+-   Updated Settings to work per-site
+-   Added Multi-Site Support
 
 ## 2.6.1 - 2022-04-04
 
@@ -17,7 +25,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## 2.6.0 - 2022-04-04
 
-> {warning} This is a rename of the repo. You will need to change the bluegg handles in website-docs > _layouts > _global.twig if you are using the default folder.
+> {warning} This is a rename of the repo. You will need to change the bluegg handles in website-docs > \_layouts > \_global.twig if you are using the default folder.
 
 -   Change Bluegg to Toward
 -   Change CMS Guide default entries to remove globals & categories
