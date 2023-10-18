@@ -10,7 +10,7 @@
 
 {# Merge custom classes with the base classes #}
 {% if classes is defined and classes is not empty %}
-	{% set elementBaseClasses = elementBaseClasses|merge(classes) %}
+	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
 {% endif %}
 
 {# Set the element's base attributes #}
@@ -21,53 +21,51 @@
 
 {# Merge custom attributes with the base attributes #}
 {% if attributes is defined and attributes is not empty %}
-	{% set elementAttributes = elementAttributes|merge(attributes) %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
 {% endif %}
 
 {# Get all sections from the style guide configuration #}
 {% set sections = [] %}
 {% for section in styleGuide.config.sections %}
-	{% if section.sub|default(null) %}
+	{% if section.sub | default(null) %}
 		{% for levelOne in section.sub %}
-			{% if levelOne.sub|default(null) %}
-				{% set sectionArray =
-					sections[section.title|kebab]|default(null)
-				%}
+			{% if levelOne.sub | default(null) %}
+				{% set sectionArray = sections[section.title | kebab] | default(null) %}
 
 				{% if sectionArray == null %}
 					{# If a sub menu exists, we need to create an array of it #}
 					{% set sections =
-						sections|merge({
-							(section.title|kebab): {}
+						sections | merge({
+							(section.title | kebab): {}
 						})
 					%}
 				{% endif %}
 
 				{# Create an array with the title as key #}
 				{% set sections =
-					sections|merge({
-						(section.title|kebab): sections[section.title|kebab]|merge({
-							(levelOne.title|kebab): []
+					sections | merge({
+						(section.title | kebab): sections[section.title | kebab] | merge({
+							(levelOne.title | kebab): []
 						})
 					})
 				%}
 			{% else %}
 				{% set sections =
-					sections|merge(
+					sections | merge(
 						{
-							(section.title|kebab): [levelOne.title]
+							(section.title | kebab): [levelOne.title]
 						},
 						true
 					)
 				%}
 			{% endif %}
 
-			{% if levelOne.sub|default(null) %}
+			{% if levelOne.sub | default(null) %}
 				{% for levelTwo in levelOne.sub %}
 					{% set sections =
-						sections|merge({
-							(section.title|kebab): sections[section.title|kebab]|merge({
-								(levelOne.title|kebab): sections[section.title|kebab][levelOne.title|kebab]|merge(
+						sections | merge({
+							(section.title | kebab): sections[section.title | kebab] | merge({
+								(levelOne.title | kebab): sections[section.title | kebab][levelOne.title | kebab] | merge(
 									[levelTwo.title]
 								)
 							})
@@ -77,7 +75,7 @@
 			{% endif %}
 		{% endfor %}
 	{% else %}
-		{% set sections = sections|merge([section.title]) %}
+		{% set sections = sections | merge([section.title]) %}
 	{% endif %}
 {% endfor %}
 
@@ -94,18 +92,14 @@
 					{% if items is iterable %}
 						{% for item in items %}
 							{% set containers =
-								containers|merge(
+								containers | merge(
 									[
 										{
-											template: global.url
-												~ '/style-guide/sections/'
-												~ sectionKey
+											template: global.url ~ '/style-guide/sections/' ~ sectionKey ~ '/' ~ itemKey
 												~ '/'
-												~ itemKey
-												~ '/'
-												~ (item|kebab),
+												~ (item | lower | kebab),
 											section: item,
-                                            id: itemKey ~ '-' ~ item|kebab
+											id: itemKey ~ '-' ~ (item | lower | kebab)
 										}
 									]
 								)
@@ -113,16 +107,13 @@
 						{% endfor %}
 					{% else %}
 						{% set containers =
-							containers|merge(
+							containers | merge(
 								[
 									{
-										template: global.url
-											~ '/style-guide/sections/'
-											~ sectionKey
-											~ '/'
-											~ (items|kebab),
+										template: global.url ~ '/style-guide/sections/' ~ sectionKey ~ '/'
+											~ (items | lower | kebab),
 										section: items,
-                                        id: items|kebab,
+										id: items | lower | kebab
 									}
 								]
 							)
@@ -131,13 +122,12 @@
 				{% endfor %}
 			{% else %}
 				{% set containers =
-					containers|merge(
+					containers | merge(
 						[
 							{
-								template: global.url ~ '/style-guide/sections/'
-									~ (section|kebab),
+								template: global.url ~ '/style-guide/sections/' ~ (section | kebab),
 								section: section,
-                                id: section|kebab,
+								id: section | kebab
 							}
 						]
 					)
@@ -147,14 +137,9 @@
 
 		{# Include the templates #}
 		{% for container in containers %}
-			{% if
-				include(
-					container.template,
-					ignore_missing = true
-				) is not empty %}
-				{% include global.url
-					~ '/style-guide/_organisms/_content' with {
-                    id: container.id,
+			{% if include(container.template, ignore_missing = true) is not empty %}
+				{% include global.url ~ '/style-guide/_organisms/_content' with {
+					id: container.id,
 					section: container.section,
 					template: container.template
 				} %}

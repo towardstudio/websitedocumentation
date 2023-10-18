@@ -256,27 +256,29 @@ export default {
 		hashtagActive(hash, section) {
 			this.hashtagActive = function () {}; // kill it as soon as it was called
 			section = document.querySelector('[data-section="' + hash + '"]');
-			let parentSub = section.closest("[data-submenu]");
-			const sidebar = document.getElementById("aside");
+            if (section) {
+			    let parentSub = section.closest("[data-submenu]");
+			    const sidebar = document.getElementById("aside");
 
-			if (parentSub) {
-				this.openSubMenu(parentSub, parentSub.previousElementSibling);
-				const parentItem = document.querySelector(
-					'[data-section="' + parentSub.dataset.submenu + '"]',
-				);
-				this.toggleActiveSection(parentItem, section);
+			    if (parentSub) {
+				    this.openSubMenu(parentSub, parentSub.previousElementSibling);
+				    const parentItem = document.querySelector(
+					    '[data-section="' + parentSub.dataset.submenu + '"]',
+				    );
+				    this.toggleActiveSection(parentItem, section);
 
-				sidebar.scrollTop = section.offsetTop + 50;
+				    sidebar.scrollTop = section.offsetTop + 50;
 
-				if (parentSub.hasAttribute("data-child-sub")) {
-					this.openSubMenu(parentSub.parentNode.closest("[data-submenu]"));
-				}
-			} else {
-				this.toggleActiveSection(section);
-				sidebar.scrollTop = section.offsetTop + 50;
-			}
+				    if (parentSub.hasAttribute("data-child-sub")) {
+					    this.openSubMenu(parentSub.parentNode.closest("[data-submenu]"));
+				    }
+			    } else {
+				    this.toggleActiveSection(section);
+				    sidebar.scrollTop = section.offsetTop + 50;
+			    }
 
-			this.findActiveContent(section);
+			    this.findActiveContent(section);
+            }
 
 			this.execute = true;
 		},
@@ -389,16 +391,12 @@ export default {
 	},
 	computed: {
 		kebabCase(string) {
-			const toKebabCase = (string) =>
-				string &&
-				string
-					.match(
-						/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g,
-					)
-					.map((x) => x.toLowerCase())
-					.join("-");
+            const newString = string => string
+                .replace(/([a-z])([A-Z])/g, "$1-$2")
+                .replace(/[\s_]+/g, '-')
+                .toLowerCase();
 
-			return toKebabCase;
+			return newString;
 		},
 	},
 };
