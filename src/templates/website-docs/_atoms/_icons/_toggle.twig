@@ -1,0 +1,41 @@
+{#
+	Toggle Sidebar Icon
+	==============================
+	* classes: ARRAY (optional) - Custom classes
+	* attributes OBJECT (optional) - Custom attributes
+#}
+
+{# Set the element's base classes #}
+{% set elementBaseClasses = [] %}
+
+{# Merge custom classes with the base classes #}
+{% if classes is defined and classes is not empty %}
+	{% set elementBaseClasses = elementBaseClasses | merge(classes) %}
+{% endif %}
+
+{# Set the element's base attributes #}
+{% set elementAttributes = {
+	xmlns: 'http://www.w3.org/2000/svg',
+	viewBox: '0 0 88.67 88.93',
+	class: elementBaseClasses
+} %}
+
+{# Merge custom attributes with the base attributes #}
+{% if attributes is defined and attributes is not empty %}
+	{% set elementAttributes = elementAttributes | merge(attributes) %}
+{% endif %}
+
+{# Render the HTML #}
+<svg {{ attr(elementAttributes) }}>
+	<path d="M88.8,20.2v48.6c0,6.6-5.3,11.9-11.9,11.9H11.8c-6.6,0-11.9-5.4-11.9-11.9V20.2c0-6.6,5.3-11.9,11.9-11.9h65.1
+	C83.5,8.2,88.8,13.6,88.8,20.2z M6.4,68.8c0,3,2.4,5.4,5.4,5.4h65.1c3,0,5.4-2.4,5.4-5.4V20.2c0-3-2.4-5.4-5.4-5.4H11.8
+	c-3,0-5.4,2.4-5.4,5.4V68.8z" />
+	<rect x="-1.1"
+		y="41.2"
+		transform="matrix(-1.836970e-16 1 -1 -1.836970e-16 74.5639 14.4322)"
+		width="62.3"
+		height="6.5" />
+	<path d="M9.9,22H24c0.6,0,1,0.4,1,1v0c0,0.6-0.4,1-1,1H9.9c-0.6,0-1-0.4-1-1v0C8.9,22.4,9.3,22,9.9,22z" />
+	<path d="M9.9,26.1H24c0.6,0,1,0.4,1,1v0c0,0.6-0.4,1-1,1H9.9c-0.6,0-1-0.4-1-1v0C8.9,26.6,9.3,26.1,9.9,26.1z" />
+	<path d="M9.9,30.3H24c0.6,0,1,0.4,1,1v0c0,0.6-0.4,1-1,1H9.9c-0.6,0-1-0.4-1-1v0C8.9,30.7,9.3,30.3,9.9,30.3z" />
+</svg>
