@@ -393,6 +393,9 @@ export default {
 		kebabCase(string) {
             const newString = string => string
                 .replace(/([a-z])([A-Z])/g, "$1-$2")
+                .replace('&', '')
+                .replace('+', '')
+                .replace('/', '-')
                 .replace(/[\s_]+/g, '-')
                 .toLowerCase();
 

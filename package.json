@@ -27,6 +27,7 @@
         "build": "npm run scripts && npm run styles"
     },
     "devDependencies": {
+        "autoprefixer": "^10.4.13",
         "@rollup/plugin-alias": "^3.1.9",
         "@rollup/plugin-commonjs": "^21.0.2",
         "@rollup/plugin-json": "^4.1.0",

@@ -27,5 +27,11 @@
 		"documentationUrl": "https://github.com/towardstudio/websitedocumentation/blob/main/README.md",
 		"changelogUrl": "https://raw.githubusercontent.com/towardstudio/websitedocumentation/main/CHANGELOG.md",
 		"class": "towardstudio\\websitedocumentation\\WebsiteDocumentation"
+	},
+	"config": {
+		"allow-plugins": {
+			"yiisoft/yii2-composer": true,
+			"craftcms/plugin-installer": true
+		}
 	}
 }
