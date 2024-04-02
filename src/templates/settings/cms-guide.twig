@@ -5,7 +5,7 @@
 {% set title = 'Guide Settings'|t('websitedocumentation') %}
 
 {# Check if Document Plugin is installed #}
-{% set redactor = craft.app.plugins.getPlugin('redactor', false) %}
+{% set plugin = craft.app.plugins.getPlugin('ckeditor', false) %}
 
 {% block content %}
 	<input type="hidden"
@@ -18,7 +18,7 @@
 		{{ 'Guide Settings'|t('websitedocumentation') }}
 	</h2>
 
-	{% if redactor is not empty %}
+	{% if plugin is not empty %}
 		{% namespace 'settings' %}
 		{{
 			forms.textField({
@@ -47,7 +47,7 @@
 		{% endif %}
 	{% else %}
 		<p>
-			Please make sure the redactor plugin is installed & enabled before
+			Please make sure the CKEditor plugin is installed & enabled before
 			using this plugin.
 		</p>
 	{% endif %}
