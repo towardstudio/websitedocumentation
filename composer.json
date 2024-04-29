@@ -2,7 +2,7 @@
 	"name": "towardstudio/websitedocumentation",
 	"description": "Add Style Guide & CMS Guide to your website",
 	"type": "craft-plugin",
-	"version": "3.1.4",
+	"version": "3.5.0",
 	"license": "MIT",
 	"authors": [
 		{
@@ -12,7 +12,7 @@
 	],
 	"require": {
 		"craftcms/cms": "^4.0.0",
-		"craftcms/redactor": "^3"
+		"craftcms/ckeditor": "^3"
 	},
 	"autoload": {
 		"psr-4": {

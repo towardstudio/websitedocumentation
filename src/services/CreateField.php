@@ -5,9 +5,14 @@ use yii\base\Component;
 
 use Craft;
 use craft\elements\Entry;
+use craft\helpers\StringHelper;
 use craft\models\FieldGroup;
 
-use craft\redactor\Field as Redactor;
+use craft\ckeditor\Plugin as CkEditor;
+use craft\ckeditor\Field as CkEditorField;
+use craft\ckeditor\CkeConfig;
+
+use Exception;
 
 class CreateField extends Component
 {
@@ -16,71 +21,73 @@ class CreateField extends Component
 		// Get all the fields
 		$fieldsService = Craft::$app->getFields();
 
+		// Check the Fields Group doesn't exist
+		$fieldGroups = $fieldsService->getAllGroups();
+		$groupExists = array_filter($fieldGroups, function ($key) {
+			return $key['name'] == 'Document Body Content';
+		});
+
 		// Create a new Fields Group
-		$group = new FieldGroup();
-		$group->name = "Document Body Content";
+		if (empty($groupExists)) {
+			$group = new FieldGroup();
+			$group->name = 'Document Body Content';
+		} else {
+			$groupExists = reset($groupExists);
+			$group = $fieldsService->getGroupById($groupExists->id);
+		}
 
 		// Return error if the field group cannot be saved
 		if (!$fieldsService->saveGroup($group)) {
-			return null;
+			throw new Exception('Missing Group');
 		}
 
 		// Set the config for the field
 		$config = [
-			"buttons" => [
-				"html",
-				"formatting",
-				"bold",
-				"italic",
-				"unorderedlist",
-				"orderedlist",
-				"link",
-				"image",
-				"video",
+			'uid' => StringHelper::UUID(),
+			'name' => 'Document Body Content',
+			'toolbar' => [
+				'sourceEditing',
+				'heading',
+				'bold',
+				'italic',
+				'|',
+				'bulletedList',
+				'numberedList',
+				'|',
+				'insertImage',
+				'mediaEmbed',
+				'|',
+				'undo',
+				'redo',
 			],
-			"formatting" => ["p"],
-			"formattingAdd" => [
-				"subheading" => [
-					"title" => "Subheading",
-					"api" => "module.block.format",
-					"args" => [
-						"tag" => "h3",
-					],
-				],
-				"tab-button" => [
-					"title" => "Tab Button",
-					"api" => "module.block.format",
-					"args" => [
-						"tag" => "p",
-						"class" => "tab-button",
-					],
-				],
-			],
-			"plugins" => ["video"],
-			"linkNewTab" => true,
-			"toolbarFixed" => true,
+			'headingLevels' => [2, 3],
 		];
 
-		// Create a new redactor field
+		$ckeConfig = new CkeConfig($config);
+		$success = CkEditor::getInstance()
+			->getCkeConfigs()
+			->save($ckeConfig);
+		$ckeConfigUid = $ckeConfig->uid;
+
+		// Create a new CKEditor field
 		$field = $fieldsService->createField([
-			"type" => Redactor::class,
-			"id" => null,
-			"uid" => null,
-			"groupId" => $group->id,
-			"name" => "Document Body Field",
-			"handle" => "documentBodyField",
-			"columnSuffix" => null,
-			"instructions" => "",
-			"searchable" => false,
-			"configSelectionMode" => "manual",
-			"manualConfig" => json_encode($config),
-			"availableVolumes" => "*",
-			"purifyHtml" => "",
+			'type' => CkEditorField::class,
+			'id' => null,
+			'uid' => null,
+			'groupId' => $group->id,
+			'name' => 'Document Body Field',
+			'handle' => 'documentBodyField',
+			'columnSuffix' => null,
+			'instructions' => '',
+			'searchable' => false,
+			'ckeConfig' => $ckeConfigUid,
+			'availableVolumes' => '*',
+			'purifyHtml' => '',
 		]);
 
 		// Return false if the field cannot be saved
 		if (!$fieldsService->saveField($field)) {
-			return false;
+			throw new Exception("Couldn't save field");
 		}
 	}
 }
