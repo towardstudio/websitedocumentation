@@ -4,7 +4,7 @@ Creates two links within admin for Style Guide and CMS Guide
 
 ## Requirements
 
-This plugin requires Craft CMS 4.
+This plugin requires Craft CMS 5+.
 
 ## Installation
 
