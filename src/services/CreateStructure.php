@@ -8,29 +8,13 @@ use craft\models\Section;
 use craft\models\Section_SiteSettings;
 use craft\helpers\StringHelper;
 
+use Exception;
+
 class CreateStructure extends Component
 {
 	public static function create($name)
 	{
-		// Create a new section for the Model
-		$section = new Section();
-
-		// Set the new section Name
-		$section->name = $name;
-
-		// Set the new section handle
-		$section->handle = StringHelper::toCamelCase($name);
-
-		// Set the section type to Stucture
-		$section->type = Section::TYPE_STRUCTURE;
-
-		// Enable versioning on the structure
-		$section->enableVersioning = 1;
-
-		// Hide previews for the structure as we won't have urls
-		$section->previewTargets = [];
-
-		// Set the settings for all sites, this is in case of a multisite install.
+        // Set the settings for all sites, this is in case of a multisite install.
 		$allSiteSettings = [];
 
 		foreach (Craft::$app->getSites()->getAllSites() as $site) {
@@ -45,18 +29,27 @@ class CreateStructure extends Component
 			$allSiteSettings[$site->id] = $siteSettings;
 		}
 
-		// Save the Settings to the new section
-		$section->setSiteSettings($allSiteSettings);
+        // Create new Section
+        $section = new Section([
+            'name' => $name,
+            'handle' => StringHelper::toCamelCase($name),
+            'type' => Section::TYPE_STRUCTURE,
+            'enableVersioning' => true,
+            'previewTargets' => [],
+            'siteSettings' => $allSiteSettings,
+        ]);
 
-		$success = Craft::$app->sections->saveSection($section);
+        // Add our entry type
+        $sectionsService = Craft::$app->getEntries();
+        $entryType = $sectionsService->getEntryTypeByHandle("websiteDocumentationContent");
+        $section->setEntryTypes([$entryType]);
+
+		$success = Craft::$app->entries->saveSection($section);
 
 		if (!$success) {
-			Craft::error(
-				'Couldn’t save the section "' . $name . '"',
-				__METHOD__
-			);
-
+			throw new Exception("Couldn't save Structure");
 			return false;
 		}
+
 	}
 }

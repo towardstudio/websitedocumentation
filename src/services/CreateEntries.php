@@ -10,6 +10,8 @@ use craft\web\View;
 
 use towardstudio\websitedocumentation\data\DefaultEntries;
 
+use Exception;
+
 class CreateEntries extends Component
 {
 	public static function create($structure)
@@ -54,7 +56,7 @@ class CreateEntries extends Component
 
 					// If the data exists, lets add it to the field
 					$entry->setFieldValues([
-						'documentBodyField' => $defaultContent,
+						'websiteDocumentationText' => $defaultContent,
 					]);
 				}
 
@@ -63,7 +65,7 @@ class CreateEntries extends Component
 
 				// If the save fails, lets throw an error
 				if (!$success) {
-					Craft::error('Couldn’t save the entry "' . $entry->title . '"', __METHOD__);
+                    throw new Exception('Couldn’t save the entry "' . $entry->title . '"');
 					return false;
 				}
 
@@ -77,7 +79,7 @@ class CreateEntries extends Component
 						$childEntry->sectionId = $structure->id;
 
 						// Set the Type to 1, so it takes on the default entry type
-						$childEntry->typeId = 1;
+						$childEntry->typeId = $structure->getEntryTypes()[0]->id;
 
 						// Enable the entry
 						$childEntry->enabled = true;
@@ -107,7 +109,7 @@ class CreateEntries extends Component
 
 							// If the data exists, lets add it to the field
 							$childEntry->setFieldValues([
-								'documentBodyField' => $defaultContent,
+								'websiteDocumentationText' => $defaultContent,
 							]);
 						}
 
@@ -116,10 +118,7 @@ class CreateEntries extends Component
 
 						// If the save fails, lets throw an error
 						if (!$success) {
-							Craft::error(
-								'Couldn’t save the entry "' . $childEntry . '"',
-								__METHOD__
-							);
+							throw new Exception('Couldn’t save the entry: "' . $childEntry->title . '"');
 							return false;
 						}
 					}
