@@ -3,8 +3,8 @@ namespace towardstudio\websitedocumentation\controllers;
 
 use towardstudio\websitedocumentation\WebsiteDocumentation;
 use towardstudio\websitedocumentation\services\CreateField;
+use towardstudio\websitedocumentation\services\CreateEntryType;
 use towardstudio\websitedocumentation\services\CreateStructure;
-use towardstudio\websitedocumentation\services\UpdateEntryType;
 use towardstudio\websitedocumentation\services\CreateEntries;
 
 use Craft;
@@ -38,8 +38,8 @@ class SettingsController extends Controller
 	 */
 	public function actionPluginSettings(
 		string $siteHandle = null,
-		$settings = null
-	): Response {
+		$settings = null): Response
+    {
 		if ($settings === null) {
 			$settings = WebsiteDocumentation::$settings;
 		}
@@ -53,7 +53,7 @@ class SettingsController extends Controller
 
 		if ($settings["structure"]) {
 			// Check if Structure Exists
-			$sectionRequired = Craft::$app->sections->getSectionByHandle(
+			$sectionRequired = Craft::$app->entries->getSectionByHandle(
 				StringHelper::toCamelCase($settings["structure"])
 			);
 
@@ -174,7 +174,7 @@ class SettingsController extends Controller
 		}
 
 		// Check that the section doesn't already exist
-		$sectionRequired = Craft::$app->sections->getSectionByHandle(
+		$sectionRequired = Craft::$app->entries->getSectionByHandle(
 			StringHelper::toCamelCase($settings["structure"])
 		);
 
@@ -218,6 +218,22 @@ class SettingsController extends Controller
 			return $guideUrl;
 		}
 
+        // Create new Entry Type
+		try {
+			CreateEntryType::create();
+		} catch (Exception $e) {
+			Craft::info($e, "WebsiteDocError");
+			Craft::$app
+				->getSession()
+				->setNotice(
+					Craft::t(
+						"app",
+						"There has been a problem creating your entry type. Please check the logs to see why."
+					)
+				);
+			return $guideUrl;
+		}
+
 		// Create new Structure
 		try {
 			CreateStructure::create($settings["structure"]);
@@ -234,25 +250,9 @@ class SettingsController extends Controller
 			return $guideUrl;
 		}
 
-		$newStructure = Craft::$app->sections->getSectionByHandle(
+		$newStructure = Craft::$app->entries->getSectionByHandle(
 			StringHelper::toCamelCase($settings["structure"])
 		);
-
-		// Update the Entry type with the new Field
-		try {
-			UpdateEntryType::update($newStructure);
-		} catch (Exception $e) {
-			Craft::info($e, "WebsiteDocError");
-			Craft::$app
-				->getSession()
-				->setNotice(
-					Craft::t(
-						"app",
-						"There has been a problem adding the field to the entry type. Please check the logs to see why."
-					)
-				);
-			return $guideUrl;
-		}
 
 		Craft::$app
 			->getSession()
@@ -270,7 +270,7 @@ class SettingsController extends Controller
 	{
 		$settings = WebsiteDocumentation::$settings;
 		$structureHandle = StringHelper::toCamelCase($settings["structure"]);
-		$newStructure = Craft::$app->sections->getSectionByHandle(
+		$newStructure = Craft::$app->entries->getSectionByHandle(
 			$structureHandle
 		);
 

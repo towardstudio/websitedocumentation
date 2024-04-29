@@ -83,7 +83,7 @@ class DocumentationWidget extends Widget
 					"styleguide" => [
 						"label" => "Style Guide",
 						"url" => $site->baseUrl . $url . "/style-guide",
-						"icon"	=> file_get_contents($iconsDirectory . "/photo.svg"),
+						"icon"	=> file_get_contents($iconsDirectory . "/palette.svg"),
 						"display" => $settings->sites[$handle]['displayStyleGuide'] != '1' ? false : true,
 					],
 					"guide" => [

@@ -33,9 +33,12 @@
 	<div data-container>
 		{% if entries is not empty %}
 			{% for entry in entries %}
+
+                {% set field = entry.websiteDocumentationText is defined ? entry.websiteDocumentationText : entry.documentBodyField %}
+
 				{% include global.url ~ '/cms-guide/_organisms/_content' with {
 					section: entry.title,
-					content: entry.documentBodyField,
+					content: field,
 				} %}
 			{% endfor %}
 		{% else %}
