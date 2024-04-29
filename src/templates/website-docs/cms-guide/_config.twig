@@ -20,7 +20,7 @@ referenced using the same name structure, E.G. `config.sections`. #}
 	{% set config = {
 		websitedocumention: {
 			isEnabled: isPluginEnabled,
-			section: craft.app.sections.getSectionByHandle(
+			section: craft.app.entries.getSectionByHandle(
 				sectionName | camel
 			) | default,
 			settingsUrl: '/' ~ craft.app.config.general.cpTrigger
