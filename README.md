@@ -1,4 +1,4 @@
-# Website Documentation plugin for Craft CMS 4.x
+# Website Documentation plugin for Craft CMS 5.x
 
 Creates two links within admin for Style Guide and CMS Guide
 
