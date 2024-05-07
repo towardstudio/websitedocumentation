@@ -1,6 +1,7 @@
 <div class="cs-screen cs-screen-home">
 	{% for key, item in settings %}
-		<ul class="icons">
+        {% set className = (settings | length) > 1 ? 'icons' : null %}
+		<ul class="{{ className }}">
 			{% if (settings | length) > 1 %}
 				<h2 style="width:100%; margin-left:1.1rem">
 					{{ item.title }}
@@ -18,15 +19,4 @@
 			{% endfor %}
 		</ul>
 	{% endfor %}
-
-	{# {% for block in settings %}
-		{% if block.display %}
-    		<div class="cs-opt">
-				<a href="{{ block.url }}" target="_blank">
-        			<div class="cs-opt-icon">{{ svg(block.icon, sanitize=false) }}</div>
-        			<h2>View {{ block.label }}</h2>
-				</a>
-    		</div>
-		{% endif %}
-	{% endfor %} #}
 </div>
