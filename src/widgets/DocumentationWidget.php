@@ -77,8 +77,12 @@ class DocumentationWidget extends Widget
 			$handle = $site->handle;
 			$url = WebsiteDocumentation::getDocUrl($config,$handle);
 
+            $styleGuide = boolval($settings->sites[$handle]['displayStyleGuide']);
+            $cmsGuide = boolval($settings->sites[$handle]['displayCmsGuide']);
+
 			$item = [
 				"title" => $site->name,
+                "display" => $styleGuide || $cmsGuide,
 				"guides" => [
 					"styleguide" => [
 						"label" => "Style Guide",
