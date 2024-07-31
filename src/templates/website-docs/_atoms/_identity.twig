@@ -33,10 +33,10 @@
 {% if global is not empty %}
 	<div {{ attr(elementAttributes) }}>
 		<div>
-			{% if global.logo is not empty %}
+			{% if global.settings.logo is not empty %}
 				<div id="sidebar-logo">
 					<a href="/" title="{{ siteName }}">
-						<img src="{{ craft.assets().id(global.logo).one.url }}"
+						<img src="{{ craft.assets().id(global.settings.logo).one.url }}"
 							title="{{ 'Brand Logo' | t }}" />
 					</a>
 				</div>
