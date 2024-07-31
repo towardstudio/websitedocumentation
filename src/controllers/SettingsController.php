@@ -78,9 +78,8 @@ class SettingsController extends Controller
 		$logo = null;
 
 		if (!empty($settings->sites[$siteHandle]["logo"])) {
-			foreach ($settings->sites[$siteHandle]["logo"] as $item) {
-				$logo = Craft::$app->elements->getElementById($item);
-			}
+            $logoId = $settings->sites[$siteHandle]["logo"];
+            $logo = Craft::$app->elements->getElementById($logoId);
 		}
 
 		$variables["logo"] = $logo;
