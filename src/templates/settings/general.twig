@@ -25,19 +25,22 @@
 	{{ csrfInput() }}
 	{{ hiddenInput('siteHandle', currentSite) }}
 	<div id="branding">
-		{{ forms.elementSelectField({
-    		label: "Logo",
-    		id: "logo",
-    		name: "logo",
-    		viewMode: "list",
-    		elementType: 'craft\\elements\\Asset',
-    		selectionLabel: "Add Images",
-    		required: false,
-    		errors: settings.getErrors('logo'),
-    		limit: 1,
-    		elements: [logo],
-    		criteria: { kind: 'image'}
-		}) }}
+        {{ forms.elementSelectField({
+            id: 'logo',
+            name: 'logo',
+            label: 'Logo',
+            instructions: 'Add client logo, to display in the sidebar for the guides.'|t('website-documentation'),
+            value: logo ? [logo] : null,
+            errors: null,
+            elements: logo ? [logo] : null,
+            elementType: 'craft\\elements\\Asset',
+            single: true,
+            viewMode: 'large',
+            criteria: {
+                kind: 'image',
+                filename: '*.svg',
+            },
+        }) }}
 
 		{{ forms.colorField({
     		label: "Brand Background Color",

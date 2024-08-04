@@ -1,4 +1,4 @@
-{% extends '_layouts/cp' %}
+{% extends "_layouts/cp" %}
 
 {% set selectedSubnavItem = 'settings' %}
 
@@ -24,6 +24,18 @@
     { label: "Documentation"|t("websitedocumentation"), url: url("websitedocumentation") },
     { label: "Settings"|t("websitedocumentation"), url: url("websitedocumentation/settings") },
 ] %}
+
+{% if craft.app.getIsMultiSite() and requestedSite %}
+    {% set crumbs = crumbs | unshift({
+        id: 'site-crumb',
+        icon: 'world',
+        label: requestedSite.name | t('site'),
+        menu: {
+            items: siteMenuItems(null, requestedSite),
+            label: 'Select site' | t('site')
+        },
+    }) %}
+{% endif %}
 
 {% block actionButton %}
     <div class="buttons">
