@@ -15,10 +15,6 @@
   },
 } %}
 
-{% block contextMenu %}
-    {% include "websitedocumentation/settings/_includes/sites-menu.twig" %}
-{% endblock %}
-
 {% block content %}
 	<input type="hidden" name="action" value="websitedocumentation/settings/save-general-settings">
 	{{ redirectInput('websitedocumentation/settings') }}
