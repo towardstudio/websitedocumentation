@@ -45,7 +45,9 @@ class SettingsController extends Controller
 		}
 
 		if ($siteHandle === null) {
-			$siteHandle = Craft::$app->sites->primarySite->handle;
+            $request = Craft::$app->getRequest();
+            $siteParam = $request->getQueryParam('site');
+			$siteHandle = $siteParam ?? Craft::$app->sites->primarySite->handle;
 		}
 
 		$siteId = $this->getSiteIdFromHandle($siteHandle);

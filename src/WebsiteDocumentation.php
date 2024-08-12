@@ -165,7 +165,7 @@ class WebsiteDocumentation extends Plugin
 		// Check for Multi-Site
 		$request = Craft::$app->getRequest();
         $siteHandle = '';
-        if ($request->getSegment(1) === 'seomatic') {
+        if ($request->getSegment(1) === 'websitedocumentation') {
             $segments = $request->getSegments();
             $lastSegment = end($segments);
             $site = Craft::$app->getSites()->getSiteByHandle($lastSegment);
